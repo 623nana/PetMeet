@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,16 +12,20 @@
   <meta name="author" content="">
   <title>PET&MET :: MEET YOUR PET!</title>
   <!-- Bootstrap core CSS-->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css">
+  <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
   <!-- Custom fonts for this template-->
-  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/font-awesome/css/font-awesome.min.css">
+  <!--  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
   <!-- Page level plugin CSS-->
-  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/datatables/dataTables.bootstrap4.css">
+  <!-- <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet"> -->
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/sb-admin.css">
+  <!--<link href="css/sb-admin.css" rel="stylesheet">-->
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 </head>
@@ -34,31 +40,31 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="DOGS">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="<c:url value="/shop/viewCategory.do?categoryId=DOGS"/>">
             <i class="fa fa-home"></i>
             <span class="nav-link-text">DOGS</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="CATS">
-          <a class="nav-link" href="charts.html">
+          <a class="nav-link" href="<c:url value="/shop/viewCategory.do?categoryId=CATS"/>">
             <i class="fa fa-home"></i>
             <span class="nav-link-text">CATS</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="FISH">
-          <a class="nav-link" href="tables.html">
+          <a class="nav-link" href="<c:url value="/shop/viewCategory.do?categoryId=FISH"/>">
             <i class="fa fa-home"></i>
             <span class="nav-link-text">FISH</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="tables.html">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="REPTILES">
+          <a class="nav-link" href="<c:url value="/shop/viewCategory.do?categoryId=REPTILES"/>">
             <i class="fa fa-home"></i>
             <span class="nav-link-text">REPTILES</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="tables.html">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="BIRDS">
+          <a class="nav-link" href="<c:url value="/shop/viewCategory.do?categoryId=BIRDS"/>">
             <i class="fa fa-home"></i>
             <span class="nav-link-text">BIRDS</span>
           </a>
