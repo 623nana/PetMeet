@@ -1,61 +1,74 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<h3>
-  <font color="darkgreen">Account Information</font>
-</h3>
 
-<table class="n13">
-  <tr>
-    <td>First name:</td>
-    <td><form:input path="account.firstName" />
-      <form:errors path="account.firstName" cssClass="error" /></td>
-  </tr>
-  <tr>
-    <td>Last name:</td>
-    <td><form:input path="account.lastName" /> 
-      <form:errors path="account.lastName" cssClass="error" /></td>
-  </tr>
-  <tr>
-    <td>Email:</td>
-    <td><form:input path="account.email" />
-      <form:errors path="account.email" cssClass="error" /></td>
-  </tr>
-  <tr>
-    <td>Phone:</td>
-    <td><form:input path="account.phone" /> 
-      <form:errors path="account.phone" cssClass="error" /></td>
-  </tr>
-  <tr>
-    <td>Address 1:</td>
-    <td><form:input path="account.address1" />
-      <form:errors path="account.address1" cssClass="error" /></td>
-  </tr>
-  <tr>
-    <td>Address 2:</td>
-    <td><form:input path="account.address2" />
-      <form:errors path="account.address2" cssClass="error" /></td>
-  </tr>
-  <tr>
-    <td>City:</td>
-    <td><form:input path="account.city" /> 
-      <form:errors path="account.city" cssClass="error" /></td>
-  </tr>
-  <tr>
-    <td>State:</td>
-    <td><form:input path="account.state" /> 
-      <form:errors path="account.state" cssClass="error" /></td>
-  </tr>
-  <tr>
-    <td>Zip:</td>
-    <td><form:input path="account.zip" /> 
-      <form:errors path="account.zip" cssClass="error" /></td>
-  </tr>
-  <tr>
-    <td>Country:</td>
-    <td><form:input path="account.country" />
-      <form:errors path="account.country" cssClass="error" /></td>
-  </tr>
-</table>
+<div class="form-group">
+            <div class="form-row">
+        <div class="col-md-6">
+  		<form:label path="account.firstName" >First name</form:label>
+		<form:input path="account.firstName" cssClass="form-control" />
+      <form:errors path="account.firstName" cssClass="error" />
+</div>
+<div class="col-md-6">
+  		<form:label path="account.lastName">Last name</form:label>
+		<form:input path="account.lastName" cssClass="form-control" />
+      <form:errors path="account.lastName" cssClass="error" />
+</div>
+</div>
+</div>
 
+ <div class="form-group">
+ 	<form:label path="account.email">Email address</form:label>
+    <form:input path="account.email" cssClass="form-control" />
+      <form:errors path="account.email" cssClass="error" />
+  </div>
+  	<div class="form-group row">
+  	<form:label path="account.phone" cssClass="col-sm-3 col-form-label">PHONE</form:label>
+  	<div class="col-sm-6">
+  	<form:input path="account.phone" cssClass="form-control" /> 
+  	<form:errors path="account.phone" cssClass="error" />
+  	</div>
+  </div>
+  <div class="form-group row">
+  	<form:label path="account.address1" cssClass="col-sm-3 col-form-label">Address1</form:label>
+  	<div class="col-sm-6">
+  	<form:input path="account.address1" cssClass="form-control" />
+      <form:errors path="account.address1" cssClass="error" />
+      </div>
+      </div>
+ <div class="form-group row">
+  	<form:label path="account.address2" cssClass="col-sm-3 col-form-label">Address2</form:label>
+  	<div class="col-sm-6">
+  	<form:input path="account.address2" cssClass="form-control" />
+      <form:errors path="account.address2" cssClass="error" />
+      </div>
+      </div>
+  <div class="form-group row">
+  	<form:label path="account.city" cssClass="col-sm-3 col-form-label">CITY</form:label>
+  	<div class="col-sm-6">
+  	<form:input path="account.city" cssClass="form-control" />
+      <form:errors path="account.city" cssClass="error" />
+      </div>
+      </div>
+  <div class="form-group row">
+  	<form:label path="account.state" cssClass="col-sm-3 col-form-label">STATE</form:label>
+  	<div class="col-sm-6">
+  	<form:input path="account.state" cssClass="form-control" />
+      <form:errors path="account.state" cssClass="error" />
+      </div>
+      </div>
+    <div class="form-group row">
+  	<form:label path="account.zip" cssClass="col-sm-3 col-form-label">ZIP</form:label>
+  	<div class="col-sm-6">
+  	<form:input path="account.zip" cssClass="form-control" />
+      <form:errors path="account.zip" cssClass="error" />
+      </div>
+      </div>
+    <div class="form-group row">
+  	<form:label path="account.country" cssClass="col-sm-3 col-form-label">COUNTRY</form:label>
+  	<div class="col-sm-6">
+  	<form:input path="account.country" cssClass="form-control" />
+      <form:errors path="account.country" cssClass="error" />
+      </div>
+      </div>
 <h3>
   <font color="darkgreen">Profile Information</font>
 </h3>

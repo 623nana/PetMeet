@@ -28,6 +28,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
+<style>
+	.linkcolor{
+	color:#0ba360;
+	}
+</style>
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -99,6 +104,7 @@
         </li>
       </ul>
       <ul class="navbar-nav sidenav-toggler">
+      
         <li class="nav-item">
           <a class="nav-link text-center" id="sidenavToggler">
             <i class="fa fa-fw fa-angle-left"></i>
@@ -108,7 +114,7 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-fw fa-envelope"></i>
+            <i class="fa fa-fw fa-envelope" style="font-size:20px"></i>
             <span class="d-lg-none">Messages
               <span class="badge badge-pill badge-primary">12 New</span>
             </span>
@@ -142,7 +148,7 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-fw fa-bell"></i>
+            <i class="fa fa-shopping-cart" style="font-size:23px"></i>
             <span class="d-lg-none">Alerts
               <span class="badge badge-pill badge-warning">6 New</span>
             </span>
@@ -201,7 +207,15 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+            <c:if test="${empty userSession.account}" >
+            	<a class="linkcolor" href="<c:url value="/shop/signonForm.do"/>">
+            		<i class="fa fa-fw fa-sign-in"></i>Login</a>
+            		</c:if>
+              <c:if test="${!empty userSession.account}" >
+              	<a class="linkcolor" href="<c:url value="/shop/signoff.do"/>">
+              		<i class="fa fa-fw fa-sign-out"></i>Logout</a>
+              </c:if>
+            </a>
         </li>
       </ul>
     </div>
