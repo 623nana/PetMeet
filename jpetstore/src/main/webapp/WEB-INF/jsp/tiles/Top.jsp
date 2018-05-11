@@ -1,37 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <title>PET&MET :: MEET YOUR PET!</title>
-  <!-- Bootstrap core CSS-->
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css">
-  <!-- Custom fonts for this template-->
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/font-awesome/css/font-awesome.min.css">
-  <!-- Page level plugin CSS-->
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/datatables/dataTables.bootstrap4.css">
-  <!-- Custom styles for this template-->
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/sb-admin.css">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<title>Insert title here</title>
-<style>
-	.linkcolor{
-	color:#0ba360;
-	}
-</style>
-</head>
-
-<body class="fixed-nav sticky-footer bg-dark" id="page-top">
  <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="<c:url value="/shop/index.do"/>">PET&MET</a>
@@ -184,8 +152,3 @@
       </ul>
     </div>
   </nav>
-</body>
-</html>
-
-
- 
