@@ -17,7 +17,7 @@
 		<mybatis.version>3.4.5</mybatis.version>
 		<mybatis-spring.version>1.3.1</mybatis-spring.version>
 		<dbcp.version>2.2.0</dbcp.version>
-		<!-- <tiles.version>3.0.8</tiles.version> -->
+		<tiles.version>3.0.8</tiles.version>
 		<servlet-api.version>3.1.0</servlet-api.version>
 		<jsp.version>2.3.1</jsp.version>
 		<jstl.version>1.2</jstl.version>
@@ -32,11 +32,11 @@
 	
 	<dependencies>
 		<!-- Apache Tiles -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.apache.tiles</groupId>
 			<artifactId>tiles-jsp</artifactId>
 			<version>${tiles.version}</version>
-		</dependency> -->
+		</dependency>
 	
 		<!-- Clean URLs with JSPs -->
 		<dependency>

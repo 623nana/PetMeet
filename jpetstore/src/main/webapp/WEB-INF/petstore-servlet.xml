@@ -19,15 +19,31 @@
 
 	<mvc:annotation-driven/>		<!-- create RequestMappingHandlerMapping -->
 	
+	<!-- ========================= TILES VIEW DEFINITIONS ========================= -->
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/jsp/tiles/template/tilesdef.xml</value>
+            </list>
+        </property>
+    </bean>	
+
+	<!-- ========================= TILES VIEW RESOLVER ========================= -->
+    <bean id="tilesViewResolver"
+		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+        <property name="order" value="1"/>
+    </bean>
+	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
 		<property name="prefix" value="/WEB-INF/jsp/"/>
 		<property name="suffix" value=".jsp"/>
+		<property name="order" value="2" />
 	</bean>
 	
-	<mvc:view-controller path="/shop/index.do" view-name="index"/>
-	<mvc:view-controller path="/shop/signonForm.do" view-name="SignonForm"/> 
+	<mvc:view-controller path="/shop/index.do" view-name="tiles/index"/>
+	<mvc:view-controller path="/shop/signonForm.do" view-name="tiles/SignonForm"/> 
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
