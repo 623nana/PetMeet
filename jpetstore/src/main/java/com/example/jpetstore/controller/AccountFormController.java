@@ -27,9 +27,10 @@ import com.example.jpetstore.service.PetStoreFacade;
 @RequestMapping({"/shop/newAccount.do","/shop/editAccount.do"})
 public class AccountFormController { 
 
-	@Value("EditAccountForm")
+	//@Value("EditAccountForm")
+	@Value("tiles/EditAccountForm")
 	private String formViewName;
-	@Value("index")
+	@Value("tiles/index")
 	private String successViewName;
 	private static final String[] LANGUAGES = {"english", "japanese"};
 	
