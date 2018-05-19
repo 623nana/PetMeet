@@ -44,6 +44,11 @@
 	
 	<mvc:view-controller path="/shop/index.do" view-name="tiles/index"/>
 	<mvc:view-controller path="/shop/signonForm.do" view-name="tiles/SignonForm"/> 
+	<mvc:view-controller path="/shop/postItem.do" view-name="tiles/PostingFixedItem"/>
+	<mvc:view-controller path="/shop/newAccount.do" view-name="tiles/EditAccountForm"/>
+	<mvc:view-controller path="/shop/editAccount.do" view-name="tiles/EditAccountForm"/>
+	<mvc:view-controller path="/shop/signon.do" view-name="tiles/index"/>
+	
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
