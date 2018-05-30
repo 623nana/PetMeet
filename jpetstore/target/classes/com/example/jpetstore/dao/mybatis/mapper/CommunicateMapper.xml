@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.jpetstore.dao.mybatis.mapper.CommunicateMapper">
+
+  <cache />
+   
+  <select id="getMessageByUserId" resultType="Message">
+    SELECT
+      MESSAGE,
+      RECEIVER,
+      USERID,
+      SENDERID
+    FROM MESSAGE
+    WHERE USERID = #{userId}
+  </select>
+
+  <select id="readMessage" resultType="String">
+    SELECT 
+      MESSAGE
+    FROM MESSAGE
+    WHERE MESSAGE = #{message}
+  </select>
+  
+  <insert id="sendMessage">
+    INSERT INTO MESSAGE (USERID, RECEIVERID, MESSAGE, SENDERID)
+    VALUES(#{userId}, #{receiverId}, #{message}, #{senderId})
+  </insert>
+  
+  <delete id="deleteMessage">
+    DELETE FROM MESSAGE
+    WHERE MESSAGE = #{message}
+  </delete>
+
+</mapper>
