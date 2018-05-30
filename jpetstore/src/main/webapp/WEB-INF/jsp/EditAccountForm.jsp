@@ -16,7 +16,8 @@
 </div>
  -->
  
-  <div class="container">
+<div class="container">
+  <div class="row">
     <div class="card card-register mx-auto mt-3"> 
       <div class="card-header">Register an Account</div>
       <div class="card-body" >
@@ -56,13 +57,20 @@
 
 
   <br />
-    <input type="image" src="../images/button_submit.gif" name="submit"
-      value="Save Account Information" />
 </form:form>
 </div></div>
+</div>
 <p></p>
-  <h3><b><a href='<c:url value="/shop/listOrders.do"/>'>My Orders</a></b></h3>
-  
+<div class="row">
+<div class="col-sm-5"></div>
+<div class="form-row">
+<div class="col-md-5">
+<a href='<c:url value="/shop/listOrders.do"/>' class="btn btn-primary btn-block">My Orders</a></div>
+<div class="col-md-6">
+<a href="#" class="btn btn-primary btn-block">경매 참여 내역　</a></div>
+ </div> 
+ </div>
+ <p />
 </div>
   <!-- Bootstrap core JavaScript-->
   <script src="<c:url value="/vendor/jquery/jquery.min.js"/>"></script>

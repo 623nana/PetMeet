@@ -121,6 +121,10 @@ public class PetStoreImpl implements PetStoreFacade {
 		return itemDao.isItemInStock(itemId);
 	}
 
+	public void insertFixedItem(Item item) {
+		itemDao.insertFixedItem(item);
+	}
+	
 	public void insertOrder(Order order) {
 		itemDao.updateQuantity(order);	    
 		orderDao.insertOrder(order);

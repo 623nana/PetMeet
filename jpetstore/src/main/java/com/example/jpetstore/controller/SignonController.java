@@ -50,7 +50,7 @@ public class SignonController {
 			if (forwardAction != null) 
 				return new ModelAndView("redirect:" + forwardAction);
 			else 
-				return new ModelAndView("index");
+				return new ModelAndView("tiles/index"); // tiles를 이용한 레이아웃
 		}
 	}
 }

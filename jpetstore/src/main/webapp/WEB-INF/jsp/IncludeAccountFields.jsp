@@ -72,16 +72,16 @@
 <h3>
   <font color="darkgreen">Profile Information</font>
 </h3>
-
+	
 <table class="n13" >
   <tr>
     <td>Language Preference:</td>
-    <td><form:select path="account.languagePreference" items="${languages}" />
+    <td><form:select cssClass="form-control" path="account.languagePreference" items="${languages}" />
       <form:errors path="account.languagePreference" cssClass="error" /></td>
   </tr>
   <tr>
     <td>Favourite Category:</td>
-    <td><form:select path="account.favouriteCategoryId" items="${categories}" /> 
+    <td><form:select cssClass="form-control" path="account.favouriteCategoryId" items="${categories}" /> 
       <form:errors path="account.favouriteCategoryId" cssClass="error" /></td>
   </tr>
   <tr>

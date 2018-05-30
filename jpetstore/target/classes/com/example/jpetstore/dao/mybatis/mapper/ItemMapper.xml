@@ -61,4 +61,11 @@
     SET QTY = QTY - #{increment}
     WHERE ITEMID = #{itemId}
   </update>
+  
+  <insert id="insertFixedItem" parameterType="com.example.jpetstore.domain.Item">
+  	INSERT INTO ITEM
+  		(ITEMID, PRODUCTID, USERID, PRICE, CATEGORY, SPECIES, CONTENT)
+  	VALUES
+  		(#{itemId}, #{productId}, #{username},  #{price}, #{category}, #{species}, #{content, jdbcType=VARCHAR})
+  </insert>
 </mapper>
