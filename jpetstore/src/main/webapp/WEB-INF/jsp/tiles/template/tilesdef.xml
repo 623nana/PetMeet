@@ -44,6 +44,11 @@
 			value="/WEB-INF/jsp/tiles/PostingFixedItem.jsp" />			
 	</definition>
 	
+	<definition name="tiles/message" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/SendMessage.jsp" />			
+	</definition>
+	
 
 	
 
