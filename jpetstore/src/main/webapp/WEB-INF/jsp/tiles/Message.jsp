@@ -12,7 +12,7 @@
 </head>
 <body>
 <%@include file="WEB-INF/jsp/header.jsp" %>
-<%@include file="SendMessage.jsp" %>
+<%@include file="MessageList.jsp" %>
 <%@include file="WEB-INF/jsp/footer.jsp" %>
 </body>
 </html>

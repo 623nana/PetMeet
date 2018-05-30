@@ -49,7 +49,8 @@
 	<mvc:view-controller path="/shop/editAccount.do" view-name="tiles/EditAccountForm"/>
 	<mvc:view-controller path="/shop/signon.do" view-name="tiles/index"/>
 
-	
+	<mvc:view-controller path="/shop/sendMessage.do" view-name="tiles/SendMessage" />
+	<mvc:view-controller path="/shop/messageList.do" view-name="tiles/MessageList" />
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
