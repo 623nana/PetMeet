@@ -39,11 +39,12 @@
 			value="/WEB-INF/jsp/tiles/EditAccountForm.jsp" />			
 	</definition>
 	
-	 	<definition name="tiles/PostingFixedItem" extends="base_layout">
+	<definition name="tiles/PostingFixedItem" extends="base_layout">
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tiles/PostingFixedItem.jsp" />			
 	</definition>
 	
+
 	
 
 </tiles-definitions>

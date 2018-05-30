@@ -33,14 +33,8 @@
             <label for="exampleInputPassword1">Password</label>
             <input class="form-control" name="password" id="password" type="password" placeholder="Password">
           </div>
-          <div class="form-group">
-            <div class="form-check">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox"> Remember Password</label>
-            </div>
-          </div>
           <input type="submit" class="btn btn-primary btn-block" value="Login" />
-</form>
+		</form>
         <div class="text-center">
           <a class="d-block small mt-3" href='<c:url value="/shop/newAccount.do"/>'>Register an Account</a>
         </div>

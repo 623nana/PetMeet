@@ -44,6 +44,8 @@ public interface PetStoreFacade {
 	Item getItem(String itemId);
 
 	boolean isItemInStock(String itemId);
+	
+	void insertFixedItem(Item item);
 
 
 	void insertOrder(Order order);
