@@ -27,7 +27,7 @@ import com.example.jpetstore.service.PetStoreFacade;
 @RequestMapping("/shop/sendMessage.do")
 public class SendMessageController { 
 
-	@Value("tiles/PostingFixedItem")
+	@Value("tiles/message")
 	private String formViewName;
 	@Value("tiles/index")
 	private String successViewName;
@@ -44,11 +44,11 @@ public class SendMessageController {
 //		return new PostingForm();
 //	}
 	
-	@ModelAttribute("postingForm")
-	public PostingForm formBackingObject(HttpServletRequest request) 
+	@ModelAttribute("SendMessage")
+	public WrtingMessageForm formBackingObject(HttpServletRequest request) 
 			throws Exception {
 		System.out.println("formBacking");
-		return new PostingForm();
+		return new Message();
 		
 	}
 	
@@ -60,18 +60,19 @@ public class SendMessageController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String onSubmit(
 			HttpServletRequest request, HttpSession session,
-			@ModelAttribute("postingForm") PostingForm postingForm,
+			@ModelAttribute("writingMessageForm") WritingMessageForm writingMessageForm,
 			BindingResult result) throws Exception {
 		
 		if(result.hasErrors()) return formViewName;
 		System.out.println("submit≈¨∏Ø");
 		try {
-			if(postingForm.isNewPosting()) {
+			if(writingMessageForm.isNewPosting()) {
 				System.out.println("insert");
-				postingForm.getItem().setItemId("»Ï»Ï");
-				postingForm.getItem().setProductId("product");
-				postingForm.getItem().setUsername("test");
-				petStore.insertFixedItem(postingForm.getItem());
+				writingMessageForm.getItem().setMessage("∏ﬁºº¡ˆ");
+				writingMessageForm.getItem().setUserId("user");
+				writingMessageForm.getItem().setReceiverId("receiver");
+				writingMessageForm.getItem().setSenderId("sender");
+				petStore.insertFixedItem(writingMessageForm.getItem());
 			}
 				
 		}
