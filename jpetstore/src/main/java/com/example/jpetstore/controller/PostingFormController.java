@@ -77,7 +77,7 @@ public class PostingFormController {
 				UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
 
 		        String saveName = file.getOriginalFilename();
-		        //본인 파일 경로로 바꿔주
+		        //본인 파일 경로로 바꿔주기
 		        String savePath = "C:\\Users\\HyeonJeong\\git\\PetMeet\\jpetstore\\src\\main\\webapp\\images";
 		        File target = new File(savePath, saveName);
 		        
