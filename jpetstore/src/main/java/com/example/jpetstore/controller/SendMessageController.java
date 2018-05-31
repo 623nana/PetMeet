@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.util.WebUtils;
 import com.example.jpetstore.domain.Category;
 import com.example.jpetstore.domain.Product;
@@ -24,6 +25,7 @@ import com.example.jpetstore.service.PetStoreFacade;
  * @modified by Changsup Park
  */
 @Controller
+@SessionAttributes("userSession")
 @RequestMapping("/shop/sendMessage.do")
 public class SendMessageController { 
 
@@ -45,10 +47,11 @@ public class SendMessageController {
 //	}
 	
 	@ModelAttribute("sendMessage")
-	public PostingForm formBackingObject(HttpServletRequest request) 
+	public SendMessage formBackingObject(HttpServletRequest request)
 			throws Exception {
 		System.out.println("formBacking2");
 		return new SendMessage();
+
 		
 	}
 	
@@ -60,20 +63,31 @@ public class SendMessageController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String onSubmit(
 			HttpServletRequest request, HttpSession session,
+
 			@ModelAttribute("sendMessage") SendMessage sendMessage,
+			
+			@ModelAttribute("writingMessageForm") SendMessage writingMessageForm,
 			BindingResult result) throws Exception {
 		
 		if(result.hasErrors()) return formViewName;
 		System.out.println("submit클릭");
+		
+		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
+		
 		try {
-//			if(sendMessage.isNewPosting()) {
+			//if(sendMessage.isNewMessage()) {
+
 				System.out.println("insert");
-				sendMessage.getItem().setMessage("흠흠");
-				sendMessage.getItem().setUserId("흠흠");
-				sendMessage.getItem().setReceiverId("product");
-				sendMessage.getItem().setSenderId("product");
-				petStore.sendMessage(sendMessage.getItem());
-//			}
+
+				sendMessage.getMessage().setMessage(sendMessage.getMessage().getMessage());
+				sendMessage.getMessage().setUserId(userSession.getAccount().getUsername());
+				sendMessage.getMessage().setReceiverId(sendMessage.getMessage().getReceiverId());
+				sendMessage.getMessage().setSenderId(userSession.getAccount().getUsername());
+				petStore.sendMessage(sendMessage.getMessage());
+			//}
+				// 아이디 맞는지 검증해주는 코드 있어야할듯
+				
+				
 		}
 		catch (DataIntegrityViolationException ex) {
 			System.out.println("오류");

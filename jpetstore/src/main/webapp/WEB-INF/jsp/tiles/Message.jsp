@@ -24,8 +24,8 @@
 </script>
 </head>
 <body>
-<%@include file="WEB-INF/jsp/header.jsp" %>
+<%@include file="/WEB-INF/jsp/header.jsp" %>
 <%@include file="MessageList.jsp" id="src"%>
-<%@include file="WEB-INF/jsp/footer.jsp" %>
+<%@include file="/WEB-INF/jsp/footer.jsp" %>
 </body>
 </html>

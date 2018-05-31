@@ -4,8 +4,34 @@
 <mapper namespace="com.example.jpetstore.dao.mybatis.mapper.CommunicateMapper">
 
   <cache />
-   
-  <select id="getMessageByUserId" resultType="Message">
+  
+  <select id="getCommentByItemId" resultType="Comment" parameterType="String">
+  	SELECT
+  	 ITEMCOMMNET,
+  	 COMMENTER,
+  	 COMMENTID,
+  	 COMMENTNUM
+  	FROM ITEMCOMMENT
+  	WHERE ITEMID = #{itemId}
+  </select>
+  
+  <insert id="insertComment" parameterType="com.example.jpetstore.domain.Comment">
+  	INSERT INTO ITEMCOMMENT (ITEMCOMMENT, COMMENTER, COMMENTID, COMMENTNUM)
+  	 VALUES (#{comment}, #{commenter}, #{commentId}, #{commentNum})
+  </insert>
+  
+  <update id="updateComment">
+  	UPDATE ITEMCOMMENT
+  	SET ITEMCOMMENT = #{comment}
+  	WHERE ITEMID = #{itemId} AND COMMENTID = #{commentId} AND COMMENTNUM = #{commentNum}
+  </update>
+  
+  <delete id="deleteComment">
+  	DELETE FROM ITEMCOMMENT
+  	WHERE ITEMID = #{itemId} AND COMMENTID = #{commentId} AND COMMENTNUM = #{commentNum}
+  </delete>
+  
+  <select id="getMessageByUserId" resultType="Message" parameterType="String">
     SELECT
       MESSAGE,
       RECEIVER,
@@ -15,19 +41,19 @@
     WHERE USERID = #{userId}
   </select>
 
-  <select id="readMessage" resultType="String">
+  <select id="readMessage" resultType="String" parameterType="com.example.jpetstore.domain.Message">
     SELECT 
       MESSAGE
     FROM MESSAGE
     WHERE MESSAGE = #{message} AND RECEIVERID = #{userId}
   </select>
   
-  <insert id="sendMessage">
+  <insert id="sendMessage" parameterType="com.example.jpetstore.domain.Message">
     INSERT INTO MESSAGE (USERID, RECEIVERID, MESSAGE, SENDERID)
     VALUES(#{userId}, #{receiverId}, #{message}, #{senderId})
   </insert>
   
-  <delete id="deleteMessage">
+  <delete id="deleteMessage" parameterType="com.example.jpetstore.domain.Message">
     DELETE FROM MESSAGE
     WHERE MESSAGE = #{message}
   </delete>

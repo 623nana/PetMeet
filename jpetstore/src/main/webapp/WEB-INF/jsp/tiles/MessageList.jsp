@@ -24,10 +24,6 @@
         </div>
       	<br /><br />
       	
-      	<input type="button" value="1" onClick="fun_img('MessageList.jsp')"/>
-		<input type="button" value="2" onClick="fun_img('MessageList2.jsp')"/>
-      	
-      	
       	<table>
       		<tr>
       			<td>보낸 사람</td>
