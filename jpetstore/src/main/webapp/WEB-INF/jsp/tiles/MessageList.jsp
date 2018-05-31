@@ -11,7 +11,8 @@
   		<br /><br /><br />
       <div class="panel-heading"><B>쪽지함</B></div>
       <br />
-      <input type="button" class="btn btn-primary btn-block" name="send" value="쪽지 보내기" onclick="<c:url value="/shop/viewCart.do"/>" />
+      
+      <input type="button" class="btn btn-primary btn-block" name="send" value="쪽지 보내기" onclick="location.href='<c:url value="/shop/sendMessage.do"/>'" />
       <div class="panel-body">
       	<form>
       	<br />
@@ -22,6 +23,9 @@
 		      </select>
         </div>
       	<br /><br />
+      	
+      	<input type="button" value="1" onClick="fun_img('MessageList.jsp')"/>
+		<input type="button" value="2" onClick="fun_img('MessageList2.jsp')"/>
       	
       	
       	<table>

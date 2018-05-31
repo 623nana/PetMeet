@@ -64,6 +64,8 @@ public class PetStoreImpl implements PetStoreFacade {
 	private ItemDao itemDao;
 	@Autowired
 	private OrderDao orderDao;
+	@Autowird
+	private CommunicateDao communicateDao;
 
 	//-------------------------------------------------------------------------
 	// Operation methods, implementing the PetStoreFacade interface
@@ -136,5 +138,9 @@ public class PetStoreImpl implements PetStoreFacade {
 
 	public List<Order> getOrdersByUsername(String username) {
 		return orderDao.getOrdersByUsername(username);
+	}
+	
+	public void sendMessage(Message msg) {
+		return communicateDao.sendMessage(msg);
 	}
 }

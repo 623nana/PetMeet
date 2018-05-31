@@ -10,7 +10,7 @@
   		<br /><br /><br />
       <div class="panel-heading"><B>쪽지 보내기</B></div>
       <div class="panel-body">
-      	<form>
+      	
       	<div class="form-group row">
       		<label for="receiver" class="col-sm-2 col-form-label">받는 사람:</label>
       		<div class="col-sm-6">
@@ -26,7 +26,7 @@
     </div>
 
       	</div>
-      	</form>
+      	
       </div>
     </div>
   </div>

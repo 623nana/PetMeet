@@ -27,7 +27,7 @@ import com.example.jpetstore.service.PetStoreFacade;
 @RequestMapping("/shop/sendMessage.do")
 public class SendMessageController { 
 
-	@Value("tiles/PostingFixedItem")
+	@Value("tiles/sendMessage") //PostingFixedItem
 	private String formViewName;
 	@Value("tiles/index")
 	private String successViewName;
@@ -44,11 +44,11 @@ public class SendMessageController {
 //		return new PostingForm();
 //	}
 	
-	@ModelAttribute("postingForm")
+	@ModelAttribute("sendMessage")
 	public PostingForm formBackingObject(HttpServletRequest request) 
 			throws Exception {
-		System.out.println("formBacking");
-		return new PostingForm();
+		System.out.println("formBacking2");
+		return new SendMessage();
 		
 	}
 	
@@ -60,25 +60,25 @@ public class SendMessageController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String onSubmit(
 			HttpServletRequest request, HttpSession session,
-			@ModelAttribute("postingForm") PostingForm postingForm,
+			@ModelAttribute("sendMessage") SendMessage sendMessage,
 			BindingResult result) throws Exception {
 		
 		if(result.hasErrors()) return formViewName;
 		System.out.println("submit≈¨∏Ø");
 		try {
-			if(postingForm.isNewPosting()) {
+//			if(sendMessage.isNewPosting()) {
 				System.out.println("insert");
-				postingForm.getItem().setItemId("»Ï»Ï");
-				postingForm.getItem().setProductId("product");
-				postingForm.getItem().setUsername("test");
-				petStore.insertFixedItem(postingForm.getItem());
-			}
-				
+				sendMessage.getItem().setMessage("»Ï»Ï");
+				sendMessage.getItem().setUserId("»Ï»Ï");
+				sendMessage.getItem().setReceiverId("product");
+				sendMessage.getItem().setSenderId("product");
+				petStore.sendMessage(sendMessage.getItem());
+//			}
 		}
 		catch (DataIntegrityViolationException ex) {
 			System.out.println("ø¿∑˘");
 			return formViewName;
-			}
+		}
 		
 		 return successViewName;
 		}
@@ -88,4 +88,3 @@ public class SendMessageController {
 	}
 		
 	
-

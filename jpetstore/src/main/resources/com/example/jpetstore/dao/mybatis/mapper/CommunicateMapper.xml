@@ -19,7 +19,7 @@
     SELECT 
       MESSAGE
     FROM MESSAGE
-    WHERE MESSAGE = #{message}
+    WHERE MESSAGE = #{message} AND RECEIVERID = #{userId}
   </select>
   
   <insert id="sendMessage">

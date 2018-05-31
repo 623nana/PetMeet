@@ -9,23 +9,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
-<script type="text/javascript">
-	function selectEvent(selectObj) {
-		if (selectObj == 1)
-			location.href = "MessageList.jsp";
-		if (selectObj == 2)
-			location.href = "MessageList2.jsp";
-	}
-	
-	function fun_img(im) {
-		var src = document.getElementById("src");;
-		src.file = im;
-	}
-</script>
 </head>
 <body>
 <%@include file="WEB-INF/jsp/header.jsp" %>
-<%@include file="MessageList.jsp" id="src"%>
+<%@include file="SendMessage.jsp" %>
 <%@include file="WEB-INF/jsp/footer.jsp" %>
 </body>
 </html>
