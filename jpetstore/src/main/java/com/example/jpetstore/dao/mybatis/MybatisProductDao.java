@@ -46,5 +46,6 @@ public class MybatisProductDao implements ProductDao {
 		public List<String> getKeywordList() {
 			return keywordList;
 		}
-	}	
+	}
+	
 }

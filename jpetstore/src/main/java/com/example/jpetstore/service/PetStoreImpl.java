@@ -108,6 +108,10 @@ public class PetStoreImpl implements PetStoreFacade {
 	public Product getProduct(String productId) {
 		return productDao.getProduct(productId);
 	}
+	
+	public void insertNewProduct(Item item) {
+		itemDao.insertNewProduct(item);
+	}
 
 	public List<Item> getItemListByProduct(String productId) {
 		return itemDao.getItemListByProduct(productId);
@@ -125,6 +129,10 @@ public class PetStoreImpl implements PetStoreFacade {
 		itemDao.insertFixedItem(item);
 	}
 	
+	public String setProductId(String name) {
+		return itemDao.setProductId(name);
+	}
+	
 	public void insertOrder(Order order) {
 		itemDao.updateQuantity(order);	    
 		orderDao.insertOrder(order);
@@ -137,4 +145,5 @@ public class PetStoreImpl implements PetStoreFacade {
 	public List<Order> getOrdersByUsername(String username) {
 		return orderDao.getOrdersByUsername(username);
 	}
+
 }
