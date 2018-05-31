@@ -37,6 +37,8 @@ public interface PetStoreFacade {
 	List<Product> searchProductList(String keywords);
 
 	Product getProduct(String productId);
+	
+	void insertNewProduct(Item item);
 
 
 	List<Item> getItemListByProduct(String productId);
@@ -46,6 +48,8 @@ public interface PetStoreFacade {
 	boolean isItemInStock(String itemId);
 	
 	void insertFixedItem(Item item);
+	
+	String setProductId(String name);
 
 
 	void insertOrder(Order order);

@@ -18,5 +18,9 @@ public interface ItemDao {
   Item getItem(String itemId) throws DataAccessException;
   
   void insertFixedItem(Item item) throws DataAccessException;
+  
+  String setProductId(String name) throws DataAccessException;
+  
+  void insertNewProduct(Item item) throws DataAccessException;
 
 }
