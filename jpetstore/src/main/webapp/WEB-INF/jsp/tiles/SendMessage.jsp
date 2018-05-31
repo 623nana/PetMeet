@@ -4,9 +4,10 @@
 <br />
 <div class="container">
 <div class="row">
-  <div class="col-sm-2"></div>
+  <div class="col-sm-3"></div>
   <div class="col-sm-7">
   	<div class="panel panel-success">
+  		<br /><br /><br />
       <div class="panel-heading"><B>쪽지 보내기</B></div>
       <div class="panel-body">
       	<form>
