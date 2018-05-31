@@ -45,7 +45,7 @@
     SELECT 
       MESSAGE
     FROM MESSAGE
-    WHERE MESSAGE = #{message}
+    WHERE MESSAGE = #{message} AND RECEIVERID = #{userId}
   </select>
   
   <insert id="sendMessage" parameterType="com.example.jpetstore.domain.Message">

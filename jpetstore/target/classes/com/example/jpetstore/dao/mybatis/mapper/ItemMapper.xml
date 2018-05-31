@@ -62,29 +62,10 @@
     WHERE ITEMID = #{itemId}
   </update>
   
-  <select id="setProductId" parameterType="String" resultType="String">
-  	SELECT PRODUCTID
-  	FROM PRODUCT
-  	WHERE NAME = #{species, jdbcType=VARCHAR}
-  </select>
-  
-  <insert id="insertNewProduct" parameterType="com.example.jpetstore.domain.Item">
-  	<selectKey keyProperty="productId" resultType="String" order="BEFORE">
-  		select 'product' || TO_CHAR(product_seq.nextval) AS productId from DUAL
-  	</selectKey>
-  	INSERT INTO PRODUCT
-  		(PRODUCTID, CATEGORY, NAME)
-  	VALUES
-  		(#{productId}, #{categoryId}, #{name, jdbcType=VARCHAR})
-  </insert>
-  
   <insert id="insertFixedItem" parameterType="com.example.jpetstore.domain.Item">
-  	<selectKey keyProperty="itemId" resultType="String" order="BEFORE">
-  		select 'animal' || TO_CHAR(test_seq.nextval) AS itemId from DUAL
-  	</selectKey>
   	INSERT INTO ITEM
-  		(ITEMID, PRODUCTID, USERID, PRICE, CATEGORY, SPECIES, CONTENT, GENDER)
+  		(ITEMID, PRODUCTID, USERID, PRICE, CATEGORY, SPECIES, CONTENT)
   	VALUES
-  		(#{itemId}, #{productId}, #{username},  #{price}, #{categoryId}, #{name}, #{content, jdbcType=VARCHAR}, #{gender})
+  		(#{itemId}, #{productId}, #{username},  #{price}, #{category}, #{species}, #{content, jdbcType=VARCHAR})
   </insert>
 </mapper>

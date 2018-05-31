@@ -11,8 +11,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@include file="WEB-INF/jsp/header.jsp" %>
+<%@include file="/WEB-INF/jsp/header.jsp" %>
 <%@include file="SendMessage.jsp" %>
-<%@include file="WEB-INF/jsp/footer.jsp" %>
+<%@include file="/WEB-INF/jsp/footer.jsp" %>
 </body>
 </html>

@@ -34,11 +34,5 @@
     from PRODUCT
     WHERE lower(name) like #{value}
   </select>
-  
-  <insert id="insertNewProduct" parameterType="Item">
-  	INSERT INTO PRODUCT
-  		(PRODUCTID, CATEGORY, NAME)
-  	VALUES
-  		(#{productId}, #{)
-  </insert>
+
 </mapper>

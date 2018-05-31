@@ -1,34 +1,21 @@
 package com.example.jpetstore.controller;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.Iterator;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.jpetstore.domain.Account;
 import com.example.jpetstore.service.PetStoreFacade;
 
 @Controller
-@SessionAttributes("userSession")
 @RequestMapping("/shop/postItem.do")
 public class PostingFormController {
 
@@ -66,43 +53,18 @@ public class PostingFormController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String onSubmit(
 			HttpServletRequest request, HttpSession session,
-			@RequestParam("file") MultipartFile file,
 			@ModelAttribute("postingForm") PostingForm postingForm,
 			BindingResult result) throws Exception {
 		
 		if(result.hasErrors()) return formViewName;
+		System.out.println("submit클릭");
 		try {
 			if(postingForm.isNewPosting()) {
 				System.out.println("insert");
-				UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
-
-		        String saveName = file.getOriginalFilename();
-		        //본인 파일 경로로 바꿔주기
-		        String savePath = "C:\\Users\\HyeonJeong\\git\\PetMeet\\jpetstore\\src\\main\\webapp\\images";
-		        File target = new File(savePath, saveName);
-		        
-		        FileCopyUtils.copy(file.getBytes(), target);
-
-				Account account = petStore.getAccount(userSession.getAccount().getUsername());
-				
-				String id = petStore.setProductId(postingForm.getItem().getName());
-				
-				
-				System.out.println(id);
-				if(id == null) { //사용자가 입력한 종의 Product ID가 존재하지 않는 경우
-					System.out.println("없음");
-					petStore.insertNewProduct(postingForm.getItem());	
-					String newId = petStore.setProductId(postingForm.getItem().getName());
-					postingForm.getItem().setProductId(newId);
-					postingForm.getItem().setUsername(account.getUsername());
-					petStore.insertFixedItem(postingForm.getItem());
-					
-				} else {
-					postingForm.getItem().setProductId(id);
-					postingForm.getItem().setUsername(account.getUsername());
-					petStore.insertFixedItem(postingForm.getItem());
-				}
-				
+				postingForm.getItem().setItemId("흠흠");
+				postingForm.getItem().setProductId("product");
+				postingForm.getItem().setUsername("test");
+				petStore.insertFixedItem(postingForm.getItem());
 			}
 				
 		}

@@ -13,12 +13,13 @@ import com.example.jpetstore.domain.Account;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.LineItem;
 import com.example.jpetstore.domain.Order;
-import com.example.jpetstore.domain.Product;
 
 @Repository
 public class MybatisItemDao implements ItemDao {
 	@Autowired
 	private ItemMapper itemMapper;
+	
+	private Account account;
 	
 	public void updateQuantity(Order order) throws DataAccessException {
 		for (int i = 0; i < order.getLineItems().size(); i++) {
@@ -46,14 +47,8 @@ public class MybatisItemDao implements ItemDao {
 	}
 	
 	public void insertFixedItem(Item item) throws DataAccessException {
+		System.out.println("myBatis");
+		System.out.println(item.getUsername());
 		itemMapper.insertFixedItem(item);
-	}
-	
-	public String setProductId(String name) throws DataAccessException {
-		return itemMapper.setProductId(name);
-	}
-	
-	public void insertNewProduct(Item item) throws DataAccessException {
-		itemMapper.insertNewProduct(item);
 	}
 }

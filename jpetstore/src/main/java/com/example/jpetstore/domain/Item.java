@@ -11,11 +11,11 @@ public class Item implements Serializable {
   private String username;
   private String status;
   private int shipway;
-  private String categoryId = "dog";
+  private String category = "dog";
   private String gender = "female";
   private String image;
   private Product product;
-  private String name;
+  private String species;
   private double price;
   private String content;
 
@@ -31,11 +31,11 @@ public double getPrice() {
 public void setPrice(double price) {
 	this.price = price;
 }
-public String getName() {
-	return name;
+public String getSpecies() {
+	return species;
 }
-public void setName(String name) {
-	this.name = name;
+public void setSpecies(String species) {
+	this.species = species;
 }
 	/* JavaBeans Properties */
 	public String getItemId() { return itemId; }
@@ -60,11 +60,11 @@ public void setName(String name) {
 	public void setShipway(int shipway) {
 		this.shipway = shipway;
 	}
-	public String getCategoryId() {
-		return categoryId;
+	public String getCategory() {
+		return category;
 	}
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	public String getGender() {
 		return gender;
