@@ -54,8 +54,16 @@
 			value="/WEB-INF/jsp/tiles/Message.jsp" />			
 	</definition>
 	
+	<definition name="tiles/receiveMessageList" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/ReceiveMessageList.jsp" />			
+	</definition>
 	
-
+	<definition name="tiles/sendMessageList" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/SendMessageList.jsp" />			
+	</definition>
+	
 	
 
 </tiles-definitions>

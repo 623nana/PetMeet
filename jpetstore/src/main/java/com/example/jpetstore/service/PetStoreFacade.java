@@ -65,5 +65,12 @@ public interface PetStoreFacade {
 	
 	
 	 void sendMessage(Message msg) throws DataAccessException;
+	 
+	   List<Message> getMessageList(String userId)  throws DataAccessException;
+	   
+	   List<Message> getMessageByUserId(String userId)  throws DataAccessException;
+	   
+	   List<Message> getSendMessageByUserId(String userId)  throws DataAccessException;
+	   
 
 }

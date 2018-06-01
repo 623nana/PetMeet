@@ -9,7 +9,14 @@ public class Message implements Serializable {
 	private String userId;
 	private String receiverId;
 	private String senderId;
+	private String messageId;
   
+	public String getMessageId() {
+		return messageId;
+	}
+	public void setMessageId(String messageId) {
+		this.messageId = messageId;
+	}
 	public String getMessage() {
 		return message;
 	}

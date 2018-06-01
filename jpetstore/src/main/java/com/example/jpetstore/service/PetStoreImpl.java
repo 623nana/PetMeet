@@ -2,6 +2,7 @@ package com.example.jpetstore.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.jpetstore.dao.AccountDao;
@@ -153,6 +154,24 @@ public class PetStoreImpl implements PetStoreFacade {
 	public void sendMessage(Message msg) {
 		communicateDao.sendMessage(msg);
 		return;
+	}
+
+	@Override
+	public List<Message> getMessageList(String userId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return communicateDao.getMessageList(userId);
+	}
+
+	@Override
+	public List<Message> getMessageByUserId(String userId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return communicateDao.getMessageByUserId(userId);
+	}
+
+	@Override
+	public List<Message> getSendMessageByUserId(String userId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return communicateDao.getSendMessageByUserId(userId);
 	}
 
 }

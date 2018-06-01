@@ -31,14 +31,40 @@
   	WHERE ITEMID = #{itemId} AND COMMENTID = #{commentId} AND COMMENTNUM = #{commentNum}
   </delete>
   
+    
+  <select id="getMessageList" resultType="Message" parameterType="String">
+    SELECT
+      MESSAGE,
+      RECEIVERID,
+      USERID,
+      SENDERID,
+      MESSAGEID
+    FROM MESSAGE
+    WHERE USERID = #{userId} AND RECEIVERID = #{userId}
+  </select>
+  
+  
+    <select id="getSendMessageByUserId" resultType="Message" parameterType="String">
+    SELECT
+      MESSAGE,
+      RECEIVERID,
+      USERID,
+      SENDERID,
+      MESSAGEID
+    FROM MESSAGE
+    WHERE SENDERID = #{userId} AND USERID = #{userId}
+  </select>
+  
+  
   <select id="getMessageByUserId" resultType="Message" parameterType="String">
     SELECT
       MESSAGE,
-      RECEIVER,
+      RECEIVERID,
       USERID,
       SENDERID
+      MESSAGEID
     FROM MESSAGE
-    WHERE USERID = #{userId}
+    WHERE USERID = #{userId} AND RECEIVERID = #{userId}
   </select>
 
   <select id="readMessage" resultType="String" parameterType="com.example.jpetstore.domain.Message">
@@ -49,8 +75,11 @@
   </select>
   
   <insert id="sendMessage" parameterType="com.example.jpetstore.domain.Message">
-    INSERT INTO MESSAGE (USERID, RECEIVERID, MESSAGE, SENDERID)
-    VALUES(#{userId}, #{receiverId}, #{message}, #{senderId})
+  	<selectKey keyProperty="messageId" resultType="String" order="BEFORE">
+  		select 'message' || TO_CHAR(msg_seq.nextval) AS messageId from DUAL
+  	</selectKey>
+    INSERT INTO MESSAGE (USERID, RECEIVERID, MESSAGE, SENDERID, MESSAGEID)
+    VALUES(#{userId}, #{receiverId}, #{message}, #{senderId}, #{messageId})
   </insert>
   
   <delete id="deleteMessage" parameterType="com.example.jpetstore.domain.Message">
