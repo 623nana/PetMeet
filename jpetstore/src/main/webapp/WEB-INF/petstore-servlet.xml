@@ -57,9 +57,11 @@
 	<mvc:view-controller path="/shop/signon.do" view-name="tiles/index"/>
 
 	<mvc:view-controller path="/shop/sendMessage.do" view-name="tiles/SendMessage" />
+	<mvc:view-controller path="/shop/readMessage.do" view-name="tiles/ReadMessage" />
 	<mvc:view-controller path="/shop/messageList.do" view-name="tiles/MessageList" />
 	<mvc:view-controller path="/shop/receiveMessageList.do" view-name="tiles/ReceiveMessageList" />
-	<mvc:view-controller path="/shop/receiveMessageList.do" view-name="tiles/SendMessageList" />
+	<mvc:view-controller path="/shop/sendMessageList.do" view-name="tiles/SendMessageList" />
+	
 		
 	<mvc:interceptors>
 		<mvc:interceptor>
