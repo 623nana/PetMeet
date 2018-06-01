@@ -31,10 +31,10 @@
       		<c:forEach var="message" items="${SendMessageList}" >
       		<tr>
       			<td>
-      				<c:out value="${message.senderId}" />
+      				<c:out value="${message.receiverId}" />
       			</td>
       			<td>
-      				<a href='<c:url value="/shop/viewMessageDetail.do">
+      				<a href='<c:url value="/shop/readMessage.do">
       				<c:param name="message" value="${message.message}" /></c:url>'><c:out value="${message.message}" /></a>      			
       			</td>
       		</tr>
