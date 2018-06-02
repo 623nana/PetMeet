@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.jpetstore.domain.Item;
+import com.example.jpetstore.domain.Product;
 
 /**
  * @author Eduardo Macarron
@@ -38,5 +39,10 @@ public interface ItemMapper {
   boolean isItemInStock(String itemId);
   
   void insertFixedItem(Item item);
+  
+  String setProductId(String name);
+  
+  void insertNewProduct(Item item);
+
 
 }

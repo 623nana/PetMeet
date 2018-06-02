@@ -13,38 +13,16 @@
       <br />
       
       <input type="button" class="btn btn-primary btn-block" name="send" value="쪽지 보내기" onclick="location.href='<c:url value="/shop/sendMessage.do"/>'" />
+      
+      <input type="button" class="btn btn-primary btn-block" name="send" value="받은 쪽지함" onclick="location.href='<c:url value="/shop/receiveMessageList.do"/>'" />
+      
+      <input type="button" class="btn btn-primary btn-block" name="send" value="보낸 쪽지함" onclick="location.href='<c:url value="/shop/sendMessageList.do"/>'" />
+      
       <div class="panel-body">
-      	<form>
-      	<br />
-      	<div class="col-md-6">
-		      <select class="form-control" id="message" name="message" onChange="javascript:selectEvent(this.value);">
-		        <option value="1">받은쪽지함</option>
-		        <option value="2">보낸쪽지함</option>
-		      </select>
-        </div>
-      	<br /><br />
       	
-      	<table>
-      		<tr>
-      			<td>보낸 사람</td>
-      			<td>내용</td>
-      		</tr>
-      		<c:forEach var="message" items="${message}" varStatus="status" >
-      		<tr>
-      			<td>
-      				${message.senderId}
-      				${message.message}
-      			</td>
-      		</tr>
-      		</c:forEach>
-      	
-      	</table>
       </div>
     </div>
 
       	</div>
-      	</form>
       </div>
     </div>
-  </div>
-</div> 

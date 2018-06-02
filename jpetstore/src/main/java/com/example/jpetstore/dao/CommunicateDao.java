@@ -26,4 +26,7 @@ public interface CommunicateDao {
 	   
 	   List<Message> getMessageList(String userId)  throws DataAccessException;
 	   
+	   List<Message> getMessageByUserId(String userId)  throws DataAccessException;
+	   
+	   List<Message> getSendMessageByUserId(String userId)  throws DataAccessException;
 	}

@@ -31,5 +31,7 @@ public interface CommunicateMapper {
 	   String readMessage(Message msg) throws DataAccessException;
 	   
 	   void deleteMessage(Message msg) throws DataAccessException;
+	   
+	   List<Message> getSendMessageByUserId(String userId)  throws DataAccessException;
 	
 }

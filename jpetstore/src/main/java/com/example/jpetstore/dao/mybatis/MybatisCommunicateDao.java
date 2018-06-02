@@ -73,6 +73,18 @@ public class MybatisCommunicateDao implements CommunicateDao {
 	@Override
 	public List<Message> getMessageList(String userId) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return null;
+		return communicateMapper.getMessageList(userId);
+	}
+
+	@Override
+	public List<Message> getMessageByUserId(String userId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return communicateMapper.getMessageByUserId(userId);
+	}
+
+	@Override
+	public List<Message> getSendMessageByUserId(String userId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return communicateMapper.getSendMessageByUserId(userId);
 	}
 }

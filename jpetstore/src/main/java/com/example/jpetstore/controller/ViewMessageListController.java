@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 import com.example.jpetstore.domain.Category;
 import com.example.jpetstore.domain.Item;
+import com.example.jpetstore.domain.Message;
 import com.example.jpetstore.domain.Order;
 import com.example.jpetstore.domain.Product;
 import com.example.jpetstore.service.AccountFormValidator;
@@ -29,39 +31,48 @@ import com.example.jpetstore.service.PetStoreFacade;
  * @modified by Changsup Park
  */
 @Controller
+//@SessionAttribute("message"})
 @RequestMapping("/shop/messageList.do")
+@SessionAttributes("userSession")
 public class ViewMessageListController { 
+	
+	private PetStoreFacade petStore;
 
-//	private PetStoreFacade petStore;
-//
-//	@Autowired
-//	public void setPetStore(PetStoreFacade petStore) {
-//		this.petStore = petStore;
-//	}
-
-//	@RequestMapping("/shop/viewItem.do")
+	@Autowired
+	public void setPetStore(PetStoreFacade petStore) {
+		this.petStore = petStore;
+	}
+	
+	//@RequestParam("userId") String userId,
+//	@RequestMapping("/shop/messageList.do")
 //	public String handleRequest(
-//			@RequestParam("itemId") String itemId,
-//			ModelMap model) throws Exception {
-//		Item item = this.petStore.getItem(itemId);
-//		model.put("item", item);
-//		model.put("product", item.getProduct());
-//		return "Item";
-//	}
-//	
-//	@RequestMapping("/shop/viewOrder.do")
-//	public ModelAndView handleRequest(
-//			@ModelAttribute("userSession") UserSession userSession,
-//			@RequestParam("orderId") int orderId
+//			ModelMap model
 //			) throws Exception {
-//		Order order = this.petStore.getOrder(orderId);
-//		if (userSession.getAccount().getUsername().equals(order.getUsername())) {
-//			return new ModelAndView("ViewOrder", "order", order);
-//		}
-//		else {
-//			return new ModelAndView("Error", "message", "You may only view your own orders.");
-//		}
+//		System.out.println("¿Ö¾È´ó");
+////		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
+//		
+//		List<Message> message = this.petStore.getMessageList("123456"); //
+//		PagedListHolder<Message> messageList = new PagedListHolder<Message>(this.petStore.getMessageByUserId("123456"));
+//		messageList.setPageSize(4);
+//		model.put("message", message);
+//		model.put("messageList", messageList);
+//		return "Message";
 //	}
+//
+//	@RequestMapping("/shop/viewCategory2.do")
+//	public String handleRequest2(
+//			@RequestParam("page") String page,
+//			@ModelAttribute("category") Category category,
+//			@ModelAttribute("productList") PagedListHolder<Product> productList,
+//			BindingResult result) throws Exception {
+//		if (category == null || productList == null) {
+//			throw new IllegalStateException("Cannot find pre-loaded category and product list");
+//		}
+//		if ("next".equals(page)) { productList.nextPage(); }
+//		else if ("previous".equals(page)) { productList.previousPage(); }
+//		return "Category";
+//	}
+
 		
 }
 		
