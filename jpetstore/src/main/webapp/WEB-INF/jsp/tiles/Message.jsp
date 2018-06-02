@@ -16,11 +16,16 @@
 		if (selectObj == 2)
 			location.href = "MessageList2.jsp";
 	}
+	
+	function fun_img(im) {
+		var src = document.getElementById("src");;
+		src.file = im;
+	}
 </script>
 </head>
 <body>
-<%@include file="WEB-INF/jsp/header.jsp" %>
-<%@include file="MessageList.jsp" %>
-<%@include file="WEB-INF/jsp/footer.jsp" %>
+<%@include file="/WEB-INF/jsp/header.jsp" %>
+<%@include file="MessageList.jsp" id="src"%>
+<%@include file="/WEB-INF/jsp/footer.jsp" %>
 </body>
 </html>

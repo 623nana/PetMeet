@@ -6,12 +6,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.jpetstore.dao.AccountDao;
 import com.example.jpetstore.dao.CategoryDao;
+import com.example.jpetstore.dao.CommunicateDao;
 import com.example.jpetstore.dao.ItemDao;
 import com.example.jpetstore.dao.OrderDao;
 import com.example.jpetstore.dao.ProductDao;
 import com.example.jpetstore.domain.Account;
 import com.example.jpetstore.domain.Category;
 import com.example.jpetstore.domain.Item;
+import com.example.jpetstore.domain.Message;
 import com.example.jpetstore.domain.Order;
 import com.example.jpetstore.domain.Product;
 
@@ -64,6 +66,8 @@ public class PetStoreImpl implements PetStoreFacade {
 	private ItemDao itemDao;
 	@Autowired
 	private OrderDao orderDao;
+	@Autowired
+	private CommunicateDao communicateDao;
 
 	//-------------------------------------------------------------------------
 	// Operation methods, implementing the PetStoreFacade interface
@@ -108,6 +112,10 @@ public class PetStoreImpl implements PetStoreFacade {
 	public Product getProduct(String productId) {
 		return productDao.getProduct(productId);
 	}
+	
+	public void insertNewProduct(Item item) {
+		itemDao.insertNewProduct(item);
+	}
 
 	public List<Item> getItemListByProduct(String productId) {
 		return itemDao.getItemListByProduct(productId);
@@ -125,6 +133,10 @@ public class PetStoreImpl implements PetStoreFacade {
 		itemDao.insertFixedItem(item);
 	}
 	
+	public String setProductId(String name) {
+		return itemDao.setProductId(name);
+	}
+	
 	public void insertOrder(Order order) {
 		itemDao.updateQuantity(order);	    
 		orderDao.insertOrder(order);
@@ -137,4 +149,10 @@ public class PetStoreImpl implements PetStoreFacade {
 	public List<Order> getOrdersByUsername(String username) {
 		return orderDao.getOrdersByUsername(username);
 	}
+	
+	public void sendMessage(Message msg) {
+		communicateDao.sendMessage(msg);
+		return;
+	}
+
 }

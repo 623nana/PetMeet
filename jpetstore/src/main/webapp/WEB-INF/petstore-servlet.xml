@@ -42,6 +42,13 @@
 		<property name="order" value="2" />
 	</bean>
 	
+	<bean id="multipartResolver"
+  		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+  		<property name="maxUploadSize">
+   			<value>10000000</value>
+  		</property>
+ 	</bean>
+	
 	<mvc:view-controller path="/shop/index.do" view-name="tiles/index"/>
 	<mvc:view-controller path="/shop/signonForm.do" view-name="tiles/SignonForm"/> 
 	<mvc:view-controller path="/shop/postItem.do" view-name="tiles/PostingFixedItem"/>
@@ -52,12 +59,16 @@
 	<mvc:view-controller path="/shop/sendMessage.do" view-name="tiles/SendMessage" />
 	<mvc:view-controller path="/shop/messageList.do" view-name="tiles/MessageList" />
 	
+	<mvc:view-controller path="/shop/registerComment.do" view-name="tiles/RegisterComment" />
+	<mvc:view-controller path="/shop/commentList.do" view-name="tiles/CommentList" />
+	
 	<mvc:interceptors>
 		<mvc:interceptor>
     	    <mvc:mapping path="/shop/editAccount.do"/>
         	<mvc:mapping path="/shop/listOrders.do"/>
         	<mvc:mapping path="/shop/viewOrder.do"/>
         	<mvc:mapping path="/shop/newOrder.do"/>
+        	<mvc:mapping path="/shop/postItem.do"/>
         	<bean class="com.example.jpetstore.controller.SignonInterceptor" />
     	</mvc:interceptor>
 	</mvc:interceptors>

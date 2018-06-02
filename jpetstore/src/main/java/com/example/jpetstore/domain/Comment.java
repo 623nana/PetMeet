@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class Comment implements Serializable {
    
    private String comment;
-   private String commentername;
+   private String commenterName;
    private int commentId;
    private int commentNum;
    
@@ -16,11 +16,11 @@ public class Comment implements Serializable {
    public void setComment(String comment) {
       this.comment = comment;
    }
-   public String getCommentername() {
-      return commentername;
+   public String getCommenterName() {
+      return commenterName;
    }
-   public void setCommentername(String commentername) {
-      this.commentername = commentername;
+   public void setCommenterName(String commenterName) {
+      this.commenterName = commenterName;
    }
    public int getCommentId() {
       return commentId;

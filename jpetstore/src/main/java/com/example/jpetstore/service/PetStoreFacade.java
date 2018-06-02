@@ -2,11 +2,16 @@ package com.example.jpetstore.service;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
+
 import com.example.jpetstore.domain.Account;
 import com.example.jpetstore.domain.Category;
+import com.example.jpetstore.domain.Comment;
+//import com.example.jpetstore.domain.Comment;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.Order;
 import com.example.jpetstore.domain.Product;
+import com.example.jpetstore.domain.Message;
 
 /**
  * JPetStore's central business interface.
@@ -37,6 +42,8 @@ public interface PetStoreFacade {
 	List<Product> searchProductList(String keywords);
 
 	Product getProduct(String productId);
+	
+	void insertNewProduct(Item item);
 
 
 	List<Item> getItemListByProduct(String productId);
@@ -46,6 +53,8 @@ public interface PetStoreFacade {
 	boolean isItemInStock(String itemId);
 	
 	void insertFixedItem(Item item);
+	
+	String setProductId(String name);
 
 
 	void insertOrder(Order order);
@@ -53,5 +62,9 @@ public interface PetStoreFacade {
 	Order getOrder(int orderId);
 
 	List<Order> getOrdersByUsername(String username);
+	
+	void sendMessage(Message msg) throws DataAccessException;
+	
+	void registerComment(Comment comment) throws DataAccessException;
 
 }

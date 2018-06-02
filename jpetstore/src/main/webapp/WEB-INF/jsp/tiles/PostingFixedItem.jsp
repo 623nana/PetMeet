@@ -55,6 +55,7 @@
       			 <textarea class="form-control" cols="50" rows="10" name="item.content" id="item.content" placeholder="내용을 입력하세요."></textarea>
   		</div>
 		<input type="submit" class="btn btn-primary btn-block" name="submit">
+		<input type="button" class="btn btn-primary btn-block" name="comment" value="댓글 달기" onclick="location.href='<c:url value="/shop/registerComment.do" />'" />
 		</form:form>
 		</div>
 		</div>
@@ -64,4 +65,3 @@
 		<br />
 		<br />
 		<br />
-		

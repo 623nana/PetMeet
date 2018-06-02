@@ -44,12 +44,24 @@
 			value="/WEB-INF/jsp/tiles/PostingFixedItem.jsp" />			
 	</definition>
 	
-	<definition name="tiles/message" extends="base_layout">
+	<definition name="tiles/sendMessage" extends="base_layout">
 		<put-attribute name="body"
-			value="/WEB-INF/jsp/tiles/SendMessage.jsp" />			
+			value="/WEB-INF/jsp/tiles/WriteMessage.jsp" />			
 	</definition>
 	
-
+	<definition name="tiles/messageList" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/Message.jsp" />			
+	</definition>
 	
+	<definition name="tiles/RegisterComment" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/RegisterComment.jsp" />			
+	</definition>
+	
+	<definition name="tiles/CommentList" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/CommentList.jsp" />
+	</definition>
 
 </tiles-definitions>
