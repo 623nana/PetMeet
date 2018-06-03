@@ -61,7 +61,10 @@
 	<mvc:view-controller path="/shop/messageList.do" view-name="tiles/MessageList" />
 	<mvc:view-controller path="/shop/receiveMessageList.do" view-name="tiles/ReceiveMessageList" />
 	<mvc:view-controller path="/shop/sendMessageList.do" view-name="tiles/SendMessageList" />
+	<mvc:view-controller path="/shop/reSendMessage.do" view-name="tiles/ReSendMessage" />	
 	
+	<mvc:view-controller path="/shop/readMessagetwo.do" view-name="tiles/ReadMessagetwo" />		
+	<mvc:view-controller path="/shop/reSendMessagetwo.do" view-name="tiles/ReSendMessagetwo" />
 		
 	<mvc:interceptors>
 		<mvc:interceptor>
@@ -70,6 +73,7 @@
         	<mvc:mapping path="/shop/viewOrder.do"/>
         	<mvc:mapping path="/shop/newOrder.do"/>
         	<mvc:mapping path="/shop/postItem.do"/>
+        	<mvc:mapping path="/shop/messageList.do"/>
         	<bean class="com.example.jpetstore.controller.SignonInterceptor" />
     	</mvc:interceptor>
 	</mvc:interceptors>

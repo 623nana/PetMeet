@@ -174,4 +174,23 @@ public class PetStoreImpl implements PetStoreFacade {
 		return communicateDao.getSendMessageByUserId(userId);
 	}
 
+	@Override
+	public Message readMessage(String messageId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return communicateDao.readMessage(messageId);
+	}
+
+	@Override
+	public void deleteMessage(String messageId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		communicateDao.deleteMessage(messageId);
+	}
+
+	@Override
+	public void reSendMessage(String receiverId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		communicateDao.reSendMessage(receiverId);
+		
+	}
+
 }

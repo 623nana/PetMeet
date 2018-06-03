@@ -64,6 +64,26 @@
 			value="/WEB-INF/jsp/tiles/SendMessageList.jsp" />			
 	</definition>
 	
+	<definition name="tiles/readMessage" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/ReadMessage.jsp" />			
+	</definition>	
+	
+	<definition name="tiles/reSendMessage" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/ReSendMessage.jsp" />			
+	</definition>
+
+	<definition name="tiles/readMessagetwo" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/ReadMessagetwo.jsp" />			
+	</definition>	
+	
+	
+	<definition name="tiles/reSendMessagetwo" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/ReSendMessagetwo.jsp" />			
+	</definition>
 	
 
 </tiles-definitions>

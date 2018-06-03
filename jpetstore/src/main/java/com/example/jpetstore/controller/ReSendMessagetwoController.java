@@ -27,13 +27,14 @@ import com.example.jpetstore.service.PetStoreFacade;
  */
 @Controller
 @SessionAttributes("userSession")
-@RequestMapping("/shop/sendMessage.do")
-public class SendMessageController { 
+@RequestMapping("/shop/reSendMessagetwo.do")
+public class ReSendMessagetwoController { 
 
-	@Value("tiles/sendMessage") //PostingFixedItem
+	@Value("tiles/reSendMessagetwo") //PostingFixedItem
 	private String formViewName;
 	@Value("tiles/index")
 	private String successViewName;
+
 	
 	@Autowired
 	private PetStoreFacade petStore;
@@ -47,10 +48,10 @@ public class SendMessageController {
 //		return new PostingForm();
 //	}
 	
-	@ModelAttribute("sendMessage")
+	@ModelAttribute("reSendMessagetwo")
 	public SendMessage formBackingObject(HttpServletRequest request)
 			throws Exception {
-		System.out.println("formBacking2");
+		System.out.println("formBacking 너되냐");
 		return new SendMessage();
 
 		
@@ -65,8 +66,9 @@ public class SendMessageController {
 	public String onSubmit(
 			HttpServletRequest request, HttpSession session,
 
-			@ModelAttribute("sendMessage") SendMessage sendMessage,
+			@ModelAttribute("reSendMessagetwo") SendMessage reSendMessage,
 			@ModelAttribute("writingMessageForm") SendMessage writingMessageForm,
+			@RequestParam("senderId") String senderId,
 			BindingResult result) throws Exception {
 		
 		if(result.hasErrors()) return formViewName;
@@ -77,25 +79,24 @@ public class SendMessageController {
 		try {
 			//if(sendMessage.isNewMessage()) {
 
-				System.out.println("insert");
+				System.out.println("re insert");
 
-				sendMessage.getMessage().setMessage(sendMessage.getMessage().getMessage());
-				sendMessage.getMessage().setUserId(userSession.getAccount().getUsername());
-				sendMessage.getMessage().setReceiverId(sendMessage.getMessage().getReceiverId());
-				sendMessage.getMessage().setSenderId(userSession.getAccount().getUsername());
-				petStore.sendMessage(sendMessage.getMessage());
+				reSendMessage.getMessage().setMessage(reSendMessage.getMessage().getMessage());
+				reSendMessage.getMessage().setUserId(userSession.getAccount().getUsername());
+				reSendMessage.getMessage().setReceiverId(senderId);
+				reSendMessage.getMessage().setSenderId(userSession.getAccount().getUsername());
+				petStore.sendMessage(reSendMessage.getMessage());
 			//}
 				// 아이디 맞는지 검증해주는 코드 있어야할듯
 				
-
-				 return successViewName;
+				
 		}
 		catch (DataIntegrityViolationException ex) {
 			System.out.println("오류");
 			return formViewName;
 		}
 		
-		 //return successViewName;
+		 return successViewName;
 		}
 	
 
