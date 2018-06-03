@@ -6,6 +6,7 @@ import org.springframework.dao.DataAccessException;
 
 import com.example.jpetstore.domain.Account;
 import com.example.jpetstore.domain.Category;
+import com.example.jpetstore.domain.Comment;
 //import com.example.jpetstore.domain.Comment;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.Order;
@@ -62,21 +63,23 @@ public interface PetStoreFacade {
 
 	List<Order> getOrdersByUsername(String username);
 	
+	void registerComment(Comment comment) throws DataAccessException;
 	
+	List<Comment> getCommentList(String itemId) throws DataAccessException;
 	
-	 void sendMessage(Message msg) throws DataAccessException;
-	 
-	   List<Message> getMessageList(String userId)  throws DataAccessException;
+	void sendMessage(Message msg) throws DataAccessException;
+	
+	List<Message> getMessageList(String userId)  throws DataAccessException;
 	   
-	   List<Message> getMessageByUserId(String userId)  throws DataAccessException;
+	List<Message> getMessageByUserId(String userId)  throws DataAccessException;
 	   
-	   List<Message> getSendMessageByUserId(String userId)  throws DataAccessException;
+	List<Message> getSendMessageByUserId(String userId)  throws DataAccessException;
 	   
-	   Message readMessage(String messageId) throws DataAccessException;
+	Message readMessage(String messageId) throws DataAccessException;
 	   
-	   void deleteMessage(String messageId) throws DataAccessException;
+	void deleteMessage(String messageId) throws DataAccessException;
 	   
-	   void reSendMessage(String receiverId) throws DataAccessException;
+	void reSendMessage(String receiverId) throws DataAccessException;
 	   
 
 }
