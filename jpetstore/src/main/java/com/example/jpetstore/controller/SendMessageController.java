@@ -51,9 +51,7 @@ public class SendMessageController {
 	public SendMessage formBackingObject(HttpServletRequest request)
 			throws Exception {
 		System.out.println("formBacking2");
-		return new SendMessage();
-
-		
+		return new SendMessage();		
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
