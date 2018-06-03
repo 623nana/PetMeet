@@ -20,13 +20,15 @@ public interface CommunicateDao {
 
 	   void sendMessage(Message msg) throws DataAccessException;
 	   
-	   String readMessage(Message msg) throws DataAccessException;
+	   Message readMessage(String messageId) throws DataAccessException;
 	   
-	   void deleteMessage(Message msg) throws DataAccessException;
+	   void deleteMessage(String messageId) throws DataAccessException;
 	   
 	   List<Message> getMessageList(String userId)  throws DataAccessException;
 	   
 	   List<Message> getMessageByUserId(String userId)  throws DataAccessException;
 	   
 	   List<Message> getSendMessageByUserId(String userId)  throws DataAccessException;
+	   
+	   void reSendMessage(String receiverId) throws DataAccessException;
 	}

@@ -27,13 +27,14 @@ import com.example.jpetstore.service.PetStoreFacade;
  */
 @Controller
 @SessionAttributes("userSession")
-@RequestMapping("/shop/sendMessage.do")
-public class SendMessageController { 
+@RequestMapping("/shop/reSendMessage.do")
+public class ReSendMessageController { 
 
-	@Value("tiles/sendMessage") //PostingFixedItem
+	@Value("tiles/reSendMessage") //PostingFixedItem
 	private String formViewName;
 	@Value("tiles/index")
 	private String successViewName;
+
 	
 	@Autowired
 	private PetStoreFacade petStore;
@@ -43,56 +44,60 @@ public class SendMessageController {
 	
 //	@ModelAttribute("postingForm")
 //	public PostingForm createPostingForm() {
-//		System.out.println("ï¿½ì†¢ï¿½ë¸ï¿½ë¦ºï§ï¿½?");
+//		System.out.println("¿Ö¾ÈµÇÁö?");
 //		return new PostingForm();
 //	}
 	
-	@ModelAttribute("sendMessage")
+	@ModelAttribute("reSendMessage")
 	public SendMessage formBackingObject(HttpServletRequest request)
 			throws Exception {
-		System.out.println("formBacking2");
-		return new SendMessage();		
+		System.out.println("formBacking ³ÊµÇ³Ä");
+		return new SendMessage();
+
+		
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String showForm() {
+	public String showForm(@RequestParam("receiverId") String receiverId) {
+		System.out.println("½ÇÇè" + receiverId);
 		return formViewName;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public String onSubmit(
 			HttpServletRequest request, HttpSession session,
-			@ModelAttribute("sendMessage") SendMessage sendMessage,
+
+			@ModelAttribute("reSendMessage") SendMessage reSendMessage,
 			@ModelAttribute("writingMessageForm") SendMessage writingMessageForm,
+			@RequestParam("receiverId") String receiverId,
 			BindingResult result) throws Exception {
 		
 		if(result.hasErrors()) return formViewName;
-//		System.out.println("submitï¿½ê²¢ç”±ï¿½");
+		System.out.println("submitÅ¬¸¯");
 		
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
 		
 		try {
 			//if(sendMessage.isNewMessage()) {
 
-				System.out.println("insert");
+				System.out.println("re insert");
 
-				sendMessage.getMessage().setMessage(sendMessage.getMessage().getMessage());
-				sendMessage.getMessage().setUserId(userSession.getAccount().getUsername());
-				sendMessage.getMessage().setReceiverId(sendMessage.getMessage().getReceiverId());
-				sendMessage.getMessage().setSenderId(userSession.getAccount().getUsername());
-				petStore.sendMessage(sendMessage.getMessage());
+				reSendMessage.getMessage().setMessage(reSendMessage.getMessage().getMessage());
+				reSendMessage.getMessage().setUserId(userSession.getAccount().getUsername());
+				reSendMessage.getMessage().setReceiverId(receiverId);
+				reSendMessage.getMessage().setSenderId(userSession.getAccount().getUsername());
+				petStore.sendMessage(reSendMessage.getMessage());
 			//}
-				// ï¿½ë¸˜ï¿½ì” ï¿½ëµ’ ï§ìšŒë’—ï§ï¿½ å¯ƒï¿½ï§ì•ºë¹äºŒì‡°ë’— è‚„ë¶¾ë±¶ ï¿½ì—³ï¿½ë¼±ï¿½ë¹ï¿½ë¸·ï¿½ë²
+				// ¾ÆÀÌµğ ¸Â´ÂÁö °ËÁõÇØÁÖ´Â ÄÚµå ÀÖ¾î¾ßÇÒµí
 				
-
-				 return successViewName;
+				
 		}
 		catch (DataIntegrityViolationException ex) {
-//			System.out.println("ï¿½ì‚¤ç‘œï¿½");
+			System.out.println("¿À·ù");
 			return formViewName;
 		}
 		
-		 //return successViewName;
+		 return successViewName;
 		}
 	
 

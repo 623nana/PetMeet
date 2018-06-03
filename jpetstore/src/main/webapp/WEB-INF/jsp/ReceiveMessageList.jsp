@@ -34,15 +34,14 @@
       				<c:out value="${message.senderId}" />
       			</td>
       			<td>
-      				<a href='<c:url value="/shop/viewMessageDetail.do">
-      				<c:param name="message" value="${message.message}" /></c:url>'><c:out value="${message.message}" /></a>      			
+      				<a href='<c:url value="/shop/readMessage.do">
+      				<c:param name="messageId" value="${message.messageId}" /></c:url>'><c:out value="${message.message}" /></a>      			
       			</td>
       		</tr>
       		</c:forEach>
       	
       	</table>
       	<br /><br />
-      	      <input type="button" class="btn btn-primary btn-block" name="send" value="쪽지 보내기" onclick="location.href='<c:url value="/shop/sendMessage.do"/>'" />
       
       		  <input type="button" class="btn btn-primary btn-block" name="send" value="보낸 쪽지함" onclick="location.href='<c:url value="/shop/sendMessageList.do"/>'" />	
       </div>
@@ -51,8 +50,6 @@
       	</div>
       </div>
     </div>
-  </div>
-</div> 
 
 <%@include file="/WEB-INF/jsp/footer.jsp" %>
 </body>

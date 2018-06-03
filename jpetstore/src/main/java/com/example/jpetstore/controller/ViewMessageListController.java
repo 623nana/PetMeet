@@ -43,6 +43,7 @@ public class ViewMessageListController {
 		this.petStore = petStore;
 	}
 	
+	
 	//@RequestParam("userId") String userId,
 //	@RequestMapping("/shop/messageList.do")
 //	public String handleRequest(

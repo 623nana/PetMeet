@@ -59,15 +59,9 @@ public class MybatisCommunicateDao implements CommunicateDao {
 	}
 
 	@Override
-	public String readMessage(Message msg) throws DataAccessException {
+	public void deleteMessage(String messageId) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteMessage(Message msg) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
+		communicateMapper.deleteMessage(messageId);
 	}
 
 	@Override
@@ -86,5 +80,17 @@ public class MybatisCommunicateDao implements CommunicateDao {
 	public List<Message> getSendMessageByUserId(String userId) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return communicateMapper.getSendMessageByUserId(userId);
+	}
+
+	@Override
+	public Message readMessage(String messageId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return communicateMapper.readMessage(messageId);
+	}
+
+	@Override
+	public void reSendMessage(String receiverId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		communicateMapper.reSendMessage(receiverId);
 	}
 }

@@ -8,7 +8,7 @@
   <div class="col-sm-3"></div>
   <div class="col-sm-7">
   	<div class="panel panel-success">
-      <div class="panel-heading"><B>쪽지 보내기</B></div>
+      <div class="panel-heading"><B>쪽지 보내기</B></div>         <!-- 여기는 처음 쪽지 보낼 때 사용됨 -->
       <div class="panel-body">
       	<form:form commandName="sendMessage" method="post" enctype="multipart/form-data">
       	<div class="form-group row">

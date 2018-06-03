@@ -13,6 +13,7 @@ import com.example.jpetstore.dao.OrderDao;
 import com.example.jpetstore.dao.ProductDao;
 import com.example.jpetstore.domain.Account;
 import com.example.jpetstore.domain.Category;
+import com.example.jpetstore.domain.Comment;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.Message;
 import com.example.jpetstore.domain.Order;
@@ -172,6 +173,37 @@ public class PetStoreImpl implements PetStoreFacade {
 	public List<Message> getSendMessageByUserId(String userId) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return communicateDao.getSendMessageByUserId(userId);
-	} 
+	}
+
+	@Override
+	public Message readMessage(String messageId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return communicateDao.readMessage(messageId);
+	}
+
+	@Override
+	public void deleteMessage(String messageId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		communicateDao.deleteMessage(messageId);
+	}
+
+	@Override
+	public void reSendMessage(String receiverId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		communicateDao.reSendMessage(receiverId);
+		
+	}
+
+	@Override
+	public void registerComment(Comment comment) throws DataAccessException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Comment> getCommentList(String itemId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

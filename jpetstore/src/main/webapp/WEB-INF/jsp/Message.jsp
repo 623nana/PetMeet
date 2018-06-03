@@ -9,10 +9,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
+<script type="text/javascript">
+	
+	function fun_img(im) {
+		var src = document.getElementById("src");;
+		src.file = im;
+	}
+</script>
 </head>
 <body>
 <%@include file="/WEB-INF/jsp/header.jsp" %>
-<%@include file="SendMessage.jsp" %>
+<%@include file="MessageList.jsp" id="src"%>
 <%@include file="/WEB-INF/jsp/footer.jsp" %>
 </body>
 </html>
