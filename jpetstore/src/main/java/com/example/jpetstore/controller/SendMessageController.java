@@ -43,7 +43,7 @@ public class SendMessageController {
 	
 //	@ModelAttribute("postingForm")
 //	public PostingForm createPostingForm() {
-//		System.out.println("¿Ö¾ÈµÇÁö?");
+//		System.out.println("ì™œì•ˆë˜ì§€?");
 //		return new PostingForm();
 //	}
 	
@@ -64,13 +64,12 @@ public class SendMessageController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String onSubmit(
 			HttpServletRequest request, HttpSession session,
-
 			@ModelAttribute("sendMessage") SendMessage sendMessage,
 			@ModelAttribute("writingMessageForm") SendMessage writingMessageForm,
 			BindingResult result) throws Exception {
 		
 		if(result.hasErrors()) return formViewName;
-		System.out.println("submitÅ¬¸¯");
+		System.out.println("submití´ë¦­");
 		
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
 		
@@ -85,13 +84,13 @@ public class SendMessageController {
 				sendMessage.getMessage().setSenderId(userSession.getAccount().getUsername());
 				petStore.sendMessage(sendMessage.getMessage());
 			//}
-				// ¾ÆÀÌµğ ¸Â´ÂÁö °ËÁõÇØÁÖ´Â ÄÚµå ÀÖ¾î¾ßÇÒµí
+				// ì•„ì´ë”” ë§ëŠ”ì§€ ê²€ì¦í•´ì£¼ëŠ” ì½”ë“œ ìˆì–´ì•¼í• ë“¯
 				
 
 				 return successViewName;
 		}
 		catch (DataIntegrityViolationException ex) {
-			System.out.println("¿À·ù");
+			System.out.println("ì˜¤ë¥˜");
 			return formViewName;
 		}
 		
