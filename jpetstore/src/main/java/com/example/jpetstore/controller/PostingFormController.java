@@ -3,8 +3,11 @@ package com.example.jpetstore.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Date;
 import java.util.Iterator;
+import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -32,7 +35,6 @@ import com.example.jpetstore.service.PetStoreFacade;
 @RequestMapping("/shop/postItem.do")
 public class PostingFormController {
 
-	
 	@Value("tiles/PostingFixedItem")
 	private String formViewName;
 	@Value("tiles/index")
@@ -43,12 +45,6 @@ public class PostingFormController {
 	public void setPetStore(PetStoreFacade petStore) {
 		this.petStore = petStore;
 	}
-	
-//	@ModelAttribute("postingForm")
-//	public PostingForm createPostingForm() {
-//		System.out.println("왜안되지?");
-//		return new PostingForm();
-//	}
 	
 	@ModelAttribute("postingForm")
 	public PostingForm formBackingObject(HttpServletRequest request) 
@@ -75,10 +71,15 @@ public class PostingFormController {
 			if(postingForm.isNewPosting()) {
 				System.out.println("insert");
 				UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
-
-		        String saveName = file.getOriginalFilename();
+				
+				//파일명 중복 오류를 없애기 위한
+				UUID uuid = UUID.randomUUID();
+				
+		        String saveName = uuid.toString()+"_" + file.getOriginalFilename();
+		        
 		        //본인 파일 경로로 바꿔주기
 		        String savePath = "C:\\Users\\HyeonJeong\\git\\PetMeet\\jpetstore\\src\\main\\webapp\\images";
+		        
 		        File target = new File(savePath, saveName);
 		        
 		        FileCopyUtils.copy(file.getBytes(), target);
@@ -87,6 +88,7 @@ public class PostingFormController {
 				
 				String id = petStore.setProductId(postingForm.getItem().getName());
 				
+				postingForm.getItem().setImage(saveName);
 				
 				System.out.println(id);
 				if(id == null) { //사용자가 입력한 종의 Product ID가 존재하지 않는 경우
@@ -113,6 +115,7 @@ public class PostingFormController {
 		
 		 return successViewName;
 		}
+	
 	
 
 		

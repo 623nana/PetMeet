@@ -1,6 +1,7 @@
 package com.example.jpetstore.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public class Product implements Serializable {

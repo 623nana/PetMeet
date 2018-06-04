@@ -19,8 +19,8 @@
           <div class="form-group">
             <label for="category">Category</label>
             <select class="form-control" id="item.categoryId" name="item.categoryId">
-        		<option value="DOG">DOG</option>
-        		<option value="CAT">CAT</option>
+        		<option value="DOGS">DOG</option>
+        		<option value="CATS">CAT</option>
         		<option value="FISH">FISH</option>
         		<option value="REPTILES">REPTILES</option>
         		<option value="BIRDS">BIRDS</option>

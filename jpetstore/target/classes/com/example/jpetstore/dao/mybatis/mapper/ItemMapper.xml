@@ -27,7 +27,21 @@
   </select>
 
   <select id="getItem" resultType="Item">
-    SELECT
+	SELECT
+		ITEMID,
+		PRODUCTID,
+		USERID AS username,
+		SHIPWAY,
+		PRICE,
+		CATEGORY AS categoryId,
+		SPECIES AS name,
+		GENDER,
+		CONTENT,
+		IMAGE
+	FROM ITEM
+	WHERE ITEMID = #{ITEMID}   
+   
+    <!--  SELECT
       I.ITEMID,
       I.PRODUCTID,
       LISTPRICE,
@@ -47,7 +61,7 @@
     FROM ITEM I, INVENTORY V, PRODUCT P
     WHERE P.PRODUCTID = I.PRODUCTID
       AND I.ITEMID = V.ITEMID
-      AND I.ITEMID = #{value}
+      AND I.ITEMID = #{value}-->
   </select>
 
   <select id="getInventoryQuantity" resultType="int">
@@ -70,7 +84,7 @@
   
   <insert id="insertNewProduct" parameterType="com.example.jpetstore.domain.Item">
   	<selectKey keyProperty="productId" resultType="String" order="BEFORE">
-  		select 'product' || TO_CHAR(product_seq.nextval) AS productId from DUAL
+  		select 'PRODUCT-' || TO_CHAR(product_seq.nextval) AS productId from DUAL
   	</selectKey>
   	INSERT INTO PRODUCT
   		(PRODUCTID, CATEGORY, NAME)
@@ -80,11 +94,23 @@
   
   <insert id="insertFixedItem" parameterType="com.example.jpetstore.domain.Item">
   	<selectKey keyProperty="itemId" resultType="String" order="BEFORE">
-  		select 'animal' || TO_CHAR(test_seq.nextval) AS itemId from DUAL
+  		select 'ITEM-' || TO_CHAR(item_seq.nextval) AS itemId from DUAL
   	</selectKey>
   	INSERT INTO ITEM
-  		(ITEMID, PRODUCTID, USERID, PRICE, CATEGORY, SPECIES, CONTENT, GENDER)
+  		(ITEMID, PRODUCTID, USERID, SHIPWAY, PRICE, CATEGORY, SPECIES, CONTENT, GENDER, IMAGE)
   	VALUES
-  		(#{itemId}, #{productId}, #{username},  #{price}, #{categoryId}, #{name}, #{content, jdbcType=VARCHAR}, #{gender})
+  		(#{itemId}, #{productId}, #{username}, #{shipway},  #{price}, #{categoryId}, #{name}, #{content, jdbcType=VARCHAR}, #{gender}, #{image})
   </insert>
+  
+  <select id="getItemListByCategory" resultType="Item">
+  	SELECT
+  		ITEMID,
+  		SPECIES as name,
+  		USERID as username,
+  		PRICE,
+  		CATEGORY as categoryId,
+  		IMAGE
+  	FROM ITEM
+  	WHERE CATEGORY = #{categoryId}
+  </select>
 </mapper>

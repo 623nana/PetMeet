@@ -16,7 +16,7 @@ public class Item implements Serializable {
   private String image;
   private Product product;
   private String name;
-  private double price;
+  private int price;
   private String content;
 
   public String getContent() {
@@ -25,10 +25,10 @@ public class Item implements Serializable {
 public void setContent(String content) {
 	this.content = content;
 }
-public double getPrice() {
+public int getPrice() {
 	return price;
 }
-public void setPrice(double price) {
+public void setPrice(int price) {
 	this.price = price;
 }
 public String getName() {
