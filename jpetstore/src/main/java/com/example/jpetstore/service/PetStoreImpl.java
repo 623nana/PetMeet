@@ -119,6 +119,10 @@ public class PetStoreImpl implements PetStoreFacade {
 		itemDao.insertNewProduct(item);
 	}
 
+	public List<Item> getItemListByCategory(String categoryId){
+		return itemDao.getItemListByCategory(categoryId);
+	}
+	
 	public List<Item> getItemListByProduct(String productId) {
 		return itemDao.getItemListByProduct(productId);
 	}

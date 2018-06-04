@@ -45,6 +45,7 @@ public interface PetStoreFacade {
 	
 	void insertNewProduct(Item item);
 
+	List<Item> getItemListByCategory(String categoryId);
 
 	List<Item> getItemListByProduct(String productId);
 

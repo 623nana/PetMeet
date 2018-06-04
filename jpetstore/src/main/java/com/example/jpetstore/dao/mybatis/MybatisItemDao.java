@@ -41,6 +41,11 @@ public class MybatisItemDao implements ItemDao {
 		return itemMapper.getItemListByProduct(productId);
 	}
 
+	public List<Item> getItemListByCategory(String categoryId) 
+			throws DataAccessException {
+		return itemMapper.getItemListByCategory(categoryId);
+		
+	}
 	public Item getItem(String itemId) throws DataAccessException {
 		return itemMapper.getItem(itemId);
 	}
@@ -56,4 +61,6 @@ public class MybatisItemDao implements ItemDao {
 	public void insertNewProduct(Item item) throws DataAccessException {
 		itemMapper.insertNewProduct(item);
 	}
+	
+
 }

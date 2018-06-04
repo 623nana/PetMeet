@@ -34,6 +34,8 @@ public interface ItemMapper {
 
   List<Item> getItemListByProduct(String productId);
 
+  List<Item> getItemListByCategory(String categoryId);
+  
   Item getItem(String itemId);
   
   boolean isItemInStock(String itemId);

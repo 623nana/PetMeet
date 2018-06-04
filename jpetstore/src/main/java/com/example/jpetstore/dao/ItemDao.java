@@ -15,6 +15,8 @@ public interface ItemDao {
 
   List<Item> getItemListByProduct(String productId) throws DataAccessException;
 
+  List<Item> getItemListByCategory(String categoryId) throws DataAccessException;
+  
   Item getItem(String itemId) throws DataAccessException;
   
   void insertFixedItem(Item item) throws DataAccessException;
