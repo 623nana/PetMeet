@@ -41,18 +41,11 @@ public class ViewCategoryController {
 			) throws Exception {
 		Category category = this.petStore.getCategory(categoryId);
 		PagedListHolder<Item> itemList = new PagedListHolder<Item>(this.petStore.getItemListByCategory(categoryId));
-		
 		itemList.setPageSize(4);
-		
 		model.put("category", category);
 		model.put("itemList", itemList);
 		return successViewName;
 		
-//		PagedListHolder<Product> productList = new PagedListHolder<Product>(this.petStore.getProductListByCategory(categoryId));
-//		productList.setPageSize(4);
-//		model.put("category", category);
-//		model.put("productList", productList);
-//		return "Category";
 	}
 
 	@RequestMapping("/shop/viewCategory2.do")

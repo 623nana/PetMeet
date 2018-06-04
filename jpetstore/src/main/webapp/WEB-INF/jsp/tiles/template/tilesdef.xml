@@ -23,11 +23,6 @@
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tiles/{1}.jsp" />
 	</definition> 
- 
- 	<!-- <definition name="tiles/Category" extends="base_layout">
-		<put-attribute name="body"
-			value="/WEB-INF/jsp/tiles/Category.jsp" />
-	</definition> -->
 
 	<definition name="tiles/SignonForm" extends="base_layout">
 		<put-attribute name="body"

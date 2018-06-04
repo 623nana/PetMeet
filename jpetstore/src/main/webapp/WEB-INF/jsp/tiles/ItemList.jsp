@@ -4,16 +4,13 @@
     pageEncoding="UTF-8"%>
 
 <div class="row">
-  <div class="col-sm-3">.col-sm-4</div>
+  <div class="col-sm-3"></div>
   <div class="col-sm-8">
 <br />
 <br />
 <br />
 <br />
 <br />
-<br />
-<!-- <div align="center">
-  <h2><c:out value="${category.name}" /></h2> -->
 
 <div class="row">
 <c:forEach var="item" items="${itemList.pageList}">
@@ -37,7 +34,6 @@
 <br />
 <br />
 </div>
-
 <center>
         <c:if test="${!itemList.firstPage}">
        <a href='<c:url value="/shop/viewCategory2.do">

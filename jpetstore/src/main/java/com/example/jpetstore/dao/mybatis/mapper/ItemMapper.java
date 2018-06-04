@@ -32,9 +32,9 @@ public interface ItemMapper {
 
   int getInventoryQuantity(String itemId);
 
-  List<Item> getItemListByProduct(String productId);
-
   List<Item> getItemListByCategory(String categoryId);
+  
+  List<Item> getItemListByProduct(String productId);
   
   Item getItem(String itemId);
   

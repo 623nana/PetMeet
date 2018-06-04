@@ -113,4 +113,5 @@
   	FROM ITEM
   	WHERE CATEGORY = #{categoryId}
   </select>
+  
 </mapper>

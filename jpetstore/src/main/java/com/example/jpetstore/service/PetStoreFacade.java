@@ -35,7 +35,6 @@ public interface PetStoreFacade {
 
 	Category getCategory(String categoryId);
 	
-
 	List<Product> getProductListByCategory(String categoryId);
 
 	List<Product> searchProductList(String keywords);

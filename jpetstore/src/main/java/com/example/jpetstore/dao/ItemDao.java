@@ -13,9 +13,9 @@ public interface ItemDao {
 
   boolean isItemInStock(String itemId) throws DataAccessException;
 
-  List<Item> getItemListByProduct(String productId) throws DataAccessException;
-
   List<Item> getItemListByCategory(String categoryId) throws DataAccessException;
+  
+  List<Item> getItemListByProduct(String productId) throws DataAccessException;
   
   Item getItem(String itemId) throws DataAccessException;
   

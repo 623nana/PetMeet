@@ -11,8 +11,8 @@ public class Item implements Serializable {
   private String username;
   private String status;
   private int shipway;
-  private String categoryId = "dog";
-  private String gender = "female";
+  private String categoryId;
+  private String gender;
   private String image;
   private Product product;
   private String name;

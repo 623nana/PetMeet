@@ -90,9 +90,7 @@ public class PostingFormController {
 				
 				postingForm.getItem().setImage(saveName);
 				
-				System.out.println(id);
 				if(id == null) { //사용자가 입력한 종의 Product ID가 존재하지 않는 경우
-					System.out.println("없음");
 					petStore.insertNewProduct(postingForm.getItem());	
 					String newId = petStore.setProductId(postingForm.getItem().getName());
 					postingForm.getItem().setProductId(newId);
@@ -109,7 +107,6 @@ public class PostingFormController {
 				
 		}
 		catch (DataIntegrityViolationException ex) {
-			System.out.println("오류");
 			return formViewName;
 			}
 		

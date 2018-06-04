@@ -2,16 +2,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- <table id="main-menu">
-  <tr>
-    <td>
-      <a href='<c:url value="/shop/viewProduct.do">
-        <c:param name="productId" value="${product.productId}"/></c:url>'>
-        <b><font color="black" size="2">
-          &lt;&lt; <c:out value="${product.name}" /></font></b></a>
-    </td>
-  </tr>
-</table>-->
 
 <p>
 <div class="row">
