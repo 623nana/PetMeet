@@ -1,6 +1,7 @@
 package com.example.jpetstore.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,9 @@ import com.example.jpetstore.service.PetStoreFacade;
 @Controller
 public class ViewItemController { 
 
+	@Value("tiles/ViewItem")
+	private String successViewName;
+	
 	private PetStoreFacade petStore;
 
 	@Autowired
@@ -30,8 +34,8 @@ public class ViewItemController {
 			ModelMap model) throws Exception {
 		Item item = this.petStore.getItem(itemId);
 		model.put("item", item);
-		model.put("product", item.getProduct());
-		return "Item";
+		//model.put("product", item.getProduct());
+		return successViewName;
 	}
 
 }
