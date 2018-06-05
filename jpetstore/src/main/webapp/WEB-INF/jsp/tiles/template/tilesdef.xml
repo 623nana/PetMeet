@@ -54,21 +54,6 @@
 			value="/WEB-INF/jsp/tiles/Message.jsp" />			
 	</definition>
 	
-	<definition name="tiles/RegisterComment" extends="base_layout">
-		<put-attribute name="body"
-			value="/WEB-INF/jsp/tiles/RegisterComment.jsp" />			
-	</definition>
-	
-	<definition name="tiles/CommentList" extends="base_layout">
-		<put-attribute name="body"
-			value="/WEB-INF/jsp/tiles/CommentList.jsp" />
-	</definition>
-	
-	<definition name="tiles/messageList" extends="base_layout">
-		<put-attribute name="body"
-			value="/WEB-INF/jsp/tiles/Message.jsp" />			
-	</definition>
-	
 	<definition name="tiles/receiveMessageList" extends="base_layout">
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tiles/ReceiveMessageList.jsp" />			
