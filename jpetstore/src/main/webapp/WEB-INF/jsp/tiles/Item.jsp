@@ -61,6 +61,11 @@
 <p><i class="fa fa-newspaper-o" style="font-size:24px;color:#0ba360"></i><b> CONTENTS : </b></p>
 <hr>
 <div class="panel panel-default"><div class="panel-body"><c:out value="${item.content }" /></div></div>
+
+<%@include file="CommentList.jsp" %>
+	<c:if test="${!empty userSession.account  }">
+	<%@include file="CommentForm.jsp" %>
+	</c:if>
 </div>
 </div>
 </div>
