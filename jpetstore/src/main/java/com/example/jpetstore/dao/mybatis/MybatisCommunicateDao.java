@@ -26,10 +26,13 @@ public class MybatisCommunicateDao implements CommunicateDao {
 	protected CommunicateMapper communicateMapper;
 
 
-	@Override
-	public void insertComment(Comment itemComment) throws DataAccessException {
-		// TODO Auto-generated method stub
+	public void insertComment(Comment comment) throws DataAccessException {
+		communicateMapper.insertComment(comment);
 		
+	}
+	
+	public void insertReComment(Comment comment) throws DataAccessException{
+		communicateMapper.insertReComment(comment);
 	}
 
 	@Override
@@ -47,7 +50,7 @@ public class MybatisCommunicateDao implements CommunicateDao {
 	@Override
 	public List<Comment> getCommentByItemId(String itemId) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return null;
+		return communicateMapper.getCommentByItemId(itemId);
 	}
 
 	@Override

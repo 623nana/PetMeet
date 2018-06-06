@@ -198,16 +198,16 @@ public class PetStoreImpl implements PetStoreFacade {
 		
 	}
 
-	@Override
-	public void registerComment(Comment comment) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
+	public void insertComment(Comment comment) {
+		communicateDao.insertComment(comment);
 	}
-
-	@Override
-	public List<Comment> getCommentList(String itemId) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public void insertReComment(Comment comment) {
+		communicateDao.insertReComment(comment);
+	}
+	
+	public List<Comment> getCommentByItemId(String itemId) {
+		return communicateDao.getCommentByItemId(itemId);
 	}
 
 }

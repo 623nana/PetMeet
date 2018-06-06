@@ -7,17 +7,31 @@
   
   <select id="getCommentByItemId" resultType="Comment" parameterType="String">
   	SELECT
-  	 ITEMCOMMNET,
-  	 COMMENTER,
-  	 COMMENTID,
-  	 COMMENTNUM
+  		ITEMCOMMENT,
+  		COMMENTER AS commenterName,
+  		COMMENTID, 
+  		COMMENTNUM, 
+  		ITEMID
   	FROM ITEMCOMMENT
-  	WHERE ITEMID = #{itemId}
+  	WHERE ITEMID = #{value} ORDER BY COMMENTID ASC, COMMENTNUM ASC
   </select>
   
   <insert id="insertComment" parameterType="com.example.jpetstore.domain.Comment">
-  	INSERT INTO ITEMCOMMENT (ITEMCOMMENT, COMMENTER, COMMENTID, COMMENTNUM)
-  	 VALUES (#{comment}, #{commenter}, #{commentId}, #{commentNum})
+    <selectKey keyProperty="commentId" resultType="int" order="BEFORE">
+  		select comm_seq.nextval AS commentId from DUAL
+  	</selectKey>
+  	INSERT INTO ITEMCOMMENT(ITEMCOMMENT, COMMENTER, COMMENTID, COMMENTNUM, ITEMID)
+  		VALUES
+  			(#{itemComment}, #{commenterName}, #{commentId}, 1, #{itemId})
+  </insert>
+  
+    <insert id="insertReComment" parameterType="com.example.jpetstore.domain.Comment">
+    <selectKey keyProperty="commentNum" resultType="int" order="BEFORE">
+  		select reComm_seq.nextval AS commentNum from DUAL
+  	</selectKey>
+  	INSERT INTO ITEMCOMMENT(ITEMCOMMENT, COMMENTER, COMMENTID, COMMENTNUM, ITEMID)
+  		VALUES
+  			(#{itemComment}, #{commenterName}, #{commentId}, #{commentNum}, #{itemId})
   </insert>
   
   <update id="updateComment" parameterType="com.example.jpetstore.domain.Comment">
