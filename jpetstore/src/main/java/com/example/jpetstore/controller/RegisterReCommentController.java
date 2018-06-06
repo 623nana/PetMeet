@@ -1,10 +1,13 @@
 package com.example.jpetstore.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -21,41 +24,45 @@ import com.example.jpetstore.domain.Comment;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.service.PetStoreFacade;
 
-/**
- * @author Juergen Hoeller
- * @since 30.11.2003
- * @modified-by Changsup Park
- */
 @Controller
-public class ViewItemController { 
+@RequestMapping("/shop/registerComment.do")
+public class RegisterReCommentController {
 
 	@Value("tiles/ViewItem")
 	private String successViewName;
-
+	
+	@Value("tiles/RegisterReComment")
+	private String formViewName;
+	
+	
 	@Autowired
 	private PetStoreFacade petStore;
+	
 	public void setPetStore(PetStoreFacade petStore) {
 		this.petStore = petStore;
 	}
-//	
-//	@ModelAttribute("insertComment")
-//	public InsertComment formBackingObject(HttpServletRequest request)
-//			throws Exception {
-//		System.out.println("들어옴");
-//		return new InsertComment();
-//	}
-//	
-//	@RequestMapping(method = RequestMethod.GET)
-//	public String showForm() {
-//		return successViewName;
-//	}
-	@RequestMapping(value="/shop/viewItem.do", method = RequestMethod.POST)
+	
+	@ModelAttribute("reCommentForm")
+	public ReCommentForm formBackingObject(HttpServletRequest request) 
+			throws Exception {
+
+		return new ReCommentForm();
+	}
+	@RequestMapping(method = RequestMethod.GET)
+	public String showForm() {
+		return formViewName;
+	}
+	
+	
+	@RequestMapping(method = RequestMethod.POST)
 	public String onSubmit(HttpServletRequest request, HttpSession session,
-			@ModelAttribute("commentForm") CommentForm commentForm,
 			@ModelAttribute("reCommentForm") ReCommentForm reCommentForm,
+			@ModelAttribute("commentForm") CommentForm commentForm,
+			@RequestParam("commentId") String commentId,
+			@RequestParam("itemId") String itemId,
 			BindingResult result, ModelMap model) throws Exception {
 		//if (result.hasErrors()) return formViewName;
-		System.out.println("viewItem submit 클릭");
+		System.out.println("submit 클릭");
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
 		Account account = petStore.getAccount(userSession.getAccount().getUsername());
 		
@@ -74,7 +81,26 @@ public class ViewItemController {
 				model.put("comment", comment);
 				model.addAttribute("commentId", commentForm.getComment().getCommentId());
 			
-			}	
+			}	else {
+				int commId = Integer.parseInt(commentId);
+			
+				System.out.println("리댓글뀨우");
+				reCommentForm.getComment().setCommenterName(account.getUsername());
+			
+				reCommentForm.getComment().setCommentId(commId);
+				reCommentForm.getComment().setItemId(itemId);
+				petStore.insertReComment(reCommentForm.getComment());
+				
+				Item item = this.petStore.getItem(itemId);
+				List<Comment> comment = this.petStore.getCommentByItemId(reCommentForm.getComment().getItemId());
+				
+				model.put("item", item);
+				model.put("comment", comment);
+				model.addAttribute("commentForm", new CommentForm());
+
+			}
+			
+				
 				
 		}
 		catch (DataIntegrityViolationException ex) {
@@ -83,22 +109,4 @@ public class ViewItemController {
 		}
 		return successViewName;
 	}
-	
-	@RequestMapping(value="/shop/viewItem.do", method = RequestMethod.GET)
-	public String handleRequest(
-			@RequestParam("itemId") String itemId,
-			ModelMap model) throws Exception {
-		System.out.println("아이템보기");
-		Item item = this.petStore.getItem(itemId);
-		List<Comment> comment = this.petStore.getCommentByItemId(itemId);
-		CommentForm commentForm = new CommentForm();
-		//ReCommentForm reCommentForm = new ReCommentForm();
-		model.put("item", item);
-		model.put("comment", comment);
-		model.put("commentForm", commentForm);
-		//model.put("reCommentForm", reCommentForm);
-		//model.put("product", item.getProduct());
-		return successViewName;
-	}
-
 }

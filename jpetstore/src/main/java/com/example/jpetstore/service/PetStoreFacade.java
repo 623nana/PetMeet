@@ -64,9 +64,11 @@ public interface PetStoreFacade {
 
 	List<Order> getOrdersByUsername(String username);
 	
-	void registerComment(Comment comment) throws DataAccessException;
+	void insertComment(Comment comment) throws DataAccessException;
 	
-	List<Comment> getCommentList(String itemId) throws DataAccessException;
+	void insertReComment(Comment comment) throws DataAccessException;
+	
+	List<Comment> getCommentByItemId(String itemId) throws DataAccessException;
 	
 	void sendMessage(Message msg) throws DataAccessException;
 	
