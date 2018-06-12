@@ -30,7 +30,7 @@ import com.example.jpetstore.service.PetStoreFacade;
 @RequestMapping("/shop/sendMessage.do")
 public class SendMessageController { 
 
-	@Value("tiles/sendMessage") //PostingFixedItem
+	@Value("tiles/SendMessage") //PostingFixedItem
 	private String formViewName;
 	@Value("tiles/index")
 	private String successViewName;

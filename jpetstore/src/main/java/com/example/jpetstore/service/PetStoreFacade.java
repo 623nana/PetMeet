@@ -99,7 +99,6 @@ public interface PetStoreFacade {
 	
 	AuctionItem getAuctionItem(String itemId) throws DataAccessException;
 
-
 	void buyTicket(Ticket ticket);
 
 	void useTicket(String userId);
@@ -127,4 +126,7 @@ public interface PetStoreFacade {
 	void deleteCartItemByItem(Item item);
 	
 	void updateCartOneQty(@Param("itemId")String itemId, @Param("username")String username);
+	
+	void insertDirectOrder(Order directOrder);
+
 }
