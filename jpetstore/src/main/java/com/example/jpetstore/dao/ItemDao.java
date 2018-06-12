@@ -39,4 +39,7 @@ public interface ItemDao {
   
   void insertBid(BiddingInfo biddingInfo) throws DataAccessException;
 
+  void insertInventory(Item item) throws DataAccessException;
+
+
 }

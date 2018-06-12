@@ -20,8 +20,10 @@
             	</c:when>
             	<c:otherwise>
             		<form:input cssClass="form-control" path="item.name" placeholder="동물의 종을 입력하세요." />
+                <form:errors path="item.name" cssClass="error" />
             	</c:otherwise>
             </c:choose>
+
           </div>
           <div class="form-group">
             <label for="category">Category</label>
@@ -39,7 +41,7 @@
         		<option value="REPTILES">REPTILES</option>
         		<option value="BIRDS">BIRDS</option>
         		<option value="OTHER">OTHER</option>
-      		</select>
+      		</select>      		
           </div>
           <div class="form-group">
           	<div class="form-row">
@@ -51,8 +53,10 @@
             	</c:when>
             	<c:otherwise>
             		<form:input cssClass="form-control" path="item.price" placeholder="가격을 입력하세요." />
+                <B><form:errors path="item.price" cssClass="error" /></B>
             	</c:otherwise>
             </c:choose>
+
           		</div>
           		<div class="col-md-6">
           			<label for="shipWay">Ship Way</label>
@@ -71,6 +75,7 @@
           </div>
 		<div class="form group">
 			<input type="file" id="file" name="file" />
+			<B><form:errors path="item.image" cssClass="error" /></B>
 		</div>
 	<div class="form-group row">
     		<label for="content" class="col-sm-5 col-form-label">Content</label>

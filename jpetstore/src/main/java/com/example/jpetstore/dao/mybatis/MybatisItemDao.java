@@ -63,6 +63,12 @@ public class MybatisItemDao implements ItemDao {
 	public void insertNewProduct(Item item) throws DataAccessException {
 		itemMapper.insertNewProduct(item);
 	}
+
+	@Override
+	public void insertInventory(Item item) throws DataAccessException {
+		// TODO Auto-generated method stub
+		itemMapper.insertInventory(item);
+	}
 	
 	public void updateFixedItem(Item item) throws DataAccessException{
 		itemMapper.updateFixedItem(item);

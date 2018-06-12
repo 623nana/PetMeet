@@ -11,7 +11,7 @@
   </select>
       
   <select id="getOracleSequence" resultType="Sequence">
-    select '$name$' as name, $name$.nextval as nextid from dual
+    select '${name}' as name, ${name}.nextval as nextid from dual
   </select>
    
   <update id="updateSequence">

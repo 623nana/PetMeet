@@ -149,6 +149,10 @@
   		(#{itemId}, #{productId}, #{username}, #{shipway},  #{price}, #{categoryId}, #{name}, #{content, jdbcType=VARCHAR}, #{gender}, #{image}, 'FIXED')
   </insert>
   
+  <insert id="insertInventory">
+  	INSERT INTO INVENTORY(ITEMID, QTY) VALUES(#{itemId}, 1)  
+  </insert>
+  
   <select id="getItemListByCategory" resultType="Item">
   	SELECT
   		ITEMID,

@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.ibatis.annotations.Param;
@@ -20,6 +21,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,7 +33,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.jpetstore.domain.Account;
+import com.example.jpetstore.service.AccountFormValidator;
 import com.example.jpetstore.service.PetStoreFacade;
+import com.example.jpetstore.service.PostingFormValidator;
 
 @Controller
 @SessionAttributes("userSession")
@@ -41,6 +46,8 @@ public class PostingFormController {
 	private String formViewName;
 	@Value("tiles/index")
 	private String successViewName;
+	@Value("tiles/PostingError")
+	private String errorViewName;
 	
 	@Autowired
 	private PetStoreFacade petStore;
@@ -60,36 +67,58 @@ public class PostingFormController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String showForm() {
-		return formViewName;
+	public String showForm(HttpServletRequest request) {
+		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
+		Account account = petStore.getAccount(userSession.getAccount().getUsername());
+		
+		int myticket = petStore.getMyTicketByUsername(account.getUsername());
+		if(myticket == 0) {
+			return errorViewName;
+		}
+		else {
+			return formViewName;
+		}
+	}
+	
+	@Autowired
+	private PostingFormValidator validator;
+	public void setValidator(PostingFormValidator validator) {
+		this.validator = validator;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public String onSubmit(
 			HttpServletRequest request, HttpSession session,
 			@RequestParam("file") MultipartFile file,
-			@ModelAttribute("postingForm") PostingForm postingForm,
+			@Valid @ModelAttribute("postingForm") PostingForm postingForm,
 			BindingResult result) throws Exception {
 		
+		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
+		
+		validator.validate(postingForm, result);
 		if(result.hasErrors()) return formViewName;
+		
 		try {
 			if(postingForm.isNewPosting()) {
 				System.out.println("insert");
-				UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
 				
-				//ÆÄÀÏ¸í Áßº¹ ¿À·ù¸¦ ¾ø¾Ö±â À§ÇÑ
+				//íŒŒì¼ëª… ì¤‘ë³µ ì˜¤ë¥˜ë¥¼ ì—†ì• ê¸° ìœ„í•œ
 				UUID uuid = UUID.randomUUID();
 				
 		        String saveName = uuid.toString()+"_" + file.getOriginalFilename();
 
-		        //º»ÀÎ ÆÄÀÏ °æ·Î·Î ¹Ù²ãÁÖ±â
+		        //ë³¸ì¸ íŒŒì¼ ê²½ë¡œë¡œ ë°”ê¿”ì£¼ê¸°
 		        String savePath = "C:\\Users\\HyeonJeong\\git\\PetMeet\\jpetstore\\src\\main\\webapp\\images\\";
+
+		        System.out.println(savePath + saveName);
 		        
 		        FileOutputStream target = new FileOutputStream(savePath + saveName);
 		        
 		        FileCopyUtils.copy(file.getBytes(), target);
 		        
+
 		        target.flush();
+
 		        target.close();
 		        
 				Account account = petStore.getAccount(userSession.getAccount().getUsername());
@@ -100,21 +129,21 @@ public class PostingFormController {
 				
 				System.out.println(id);
 				
-				if(id == null) { //»ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ Á¾ÀÇ Product ID°¡ Á¸ÀçÇÏÁö ¾Ê´Â °æ¿ì
-					System.out.println("¾øÀ½");
+				if(id == null) { //ì‚¬ìš©ìê°€ ì…ë ¥í•œ ì¢…ì˜ Product IDê°€ ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ê²½ìš°
+					System.out.println("ì—†ìŒ");
 					petStore.insertNewProduct(postingForm.getItem());	
 					String newId = petStore.setProductId(postingForm.getItem().getName());
 					postingForm.getItem().setProductId(newId);
 					postingForm.getItem().setUsername(account.getUsername());
 					petStore.insertFixedItem(postingForm.getItem());
-					//petStore.insertInventory(postingForm.getItem());
+          petStore.insertInventory(postingForm.getItem());
 					
 				} else {
-					System.out.println("³Ö¾úÀ½");
+					System.out.println("ë„£ì—ˆìŒ");
 					postingForm.getItem().setProductId(id);
 					postingForm.getItem().setUsername(account.getUsername());
 					petStore.insertFixedItem(postingForm.getItem());
-					//petStore.insertInventory(postingForm.getItem());
+					petStore.insertInventory(postingForm.getItem());
 				}
 				
 			} else {
@@ -126,14 +155,18 @@ public class PostingFormController {
 				
 		}
 		catch (DataIntegrityViolationException ex) {
-			System.out.println("¿À·ù");
+			System.out.println("ì˜¤ë¥˜");
+			result.rejectValue("item.image", "IMAGE_ERROR");
 			return formViewName;
-			}
-
+		}
+		 petStore.useTicket(userSession.getAccount().getUsername());
 		 return successViewName;
 		}
 	
-	
+//	@InitBinder
+//	protected void initBinder(WebDataBinder binder) {
+//		binder.setValidator(new PostingFormValidator());
+//	}
 
 		
 	}

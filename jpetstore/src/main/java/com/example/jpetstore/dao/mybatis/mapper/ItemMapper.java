@@ -62,4 +62,7 @@ public interface ItemMapper {
 
   void insertBid(BiddingInfo biddingInfo);
 
+  void insertInventory(Item item);
+
+
 }

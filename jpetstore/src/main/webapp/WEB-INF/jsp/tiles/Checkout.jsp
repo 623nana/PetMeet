@@ -5,7 +5,7 @@
 <div class="col-sm-2"></div>
 <div class="col-sm-10">
 <br /><br /><br />
-	<h2>Shopping Cart</h2>
+	<h2>Checkout Summary</h2>
 	<form action='<c:url value="/shop/updateCartQuantities.do"/>' method="post">
         <table id="cart" class="table table-hover">
           <thead>
@@ -48,17 +48,13 @@
                   value="${cartItem.item.price}" pattern="$#,##0.00" /></td>
               <td style="text-align:right"><fmt:formatNumber
                   value="${cartItem.totalPrice}" pattern="$#,##0.00" /></td>
-              <td><a class="btn btn-primary btn-block" href='<c:url value="/shop/removeItemFromCart.do">
-                    <c:param name="workingItemId" value="${cartItem.item.itemId}"/></c:url>'>
-                    remove</a>
-              </td>
+             
             </tr>
           </c:forEach>
           <tr>
             <td colspan="8" align="right">
               <b>Sub Total: <fmt:formatNumber value="${cart.subTotal}" pattern="$#,##0.00" /></b><br><br> 
-              <div class="col-sm-2"><input type="submit" class="btn btn-primary btn-block" name="update" value="update" />
-            </div>
+             
             </td>
             <td>&nbsp;</td>
           </tr>
@@ -74,15 +70,11 @@
           </c:if>
         </div>
       </form>
-      <c:if test="${cart.numberOfItems > 0}">
-        <br />
-        <div style="text-align:center">
-          <a href='<c:url value="/shop/checkout.do"/>'>
-            <img border="0" src="../images/button_checkout.gif" alt="" /></a>
-        </div>
-      </c:if>
-     <!-- 
-      
+      <div style="text-align:center">
+      <a href='<c:url value="/shop/newOrder.do"/>'>
+        <img border="0" src="../images/button_continue.gif" alt="" /></a>
+     </div>
+      <!-- 
     <td style="text-align:right;width:20%;">
       <c:if test="${!empty userSession.account.username}">
         <c:if test="${userSession.account.listOption}">
