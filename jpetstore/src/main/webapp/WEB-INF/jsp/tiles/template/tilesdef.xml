@@ -66,7 +66,8 @@
 	
 	<definition name="tiles/RegisterComment" extends="base_layout">
 		<put-attribute name="body"
-			value="/WEB-INF/jsp/tiles/RegisterComment.jsp" />			
+			value="/WEB-INF/jsp/tiles/RegisterComment.jsp" />		
+	</definition>	
 
 		<definition name="tiles/ViewAuctionItem" extends="base_layout">
 		<put-attribute name="body"

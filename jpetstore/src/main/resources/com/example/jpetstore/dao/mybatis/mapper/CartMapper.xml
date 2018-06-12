@@ -8,7 +8,7 @@
 		
 	<insert id="insertCartItem">
 		INSERT INTO CART (ITEMID, USERID, QTY)
-		VALUES (#{item.itemId}, #{item.username}, #{qty})	
+		VALUES (#{item.itemId}, #{username}, #{qty})	
 	</insert>
   
    <delete id="deleteCartItemByUsername">

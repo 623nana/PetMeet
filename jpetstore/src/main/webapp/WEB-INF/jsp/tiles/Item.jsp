@@ -48,8 +48,8 @@
 		        		<option value="1">직거래</option>
 		        		<option value="2">택배거래</option></select>
  </c:if>
-<P><a href='<c:url value="/shop/viewItem.do">
-            <c:param name="itemId" value="${item.itemId}"/></c:url>' class="btn btn-primary" role="button">바로구매</a>
+<P><a href='<c:url value="/shop/newDirectOrder.do">
+            <c:param name="itemId" value="${item.itemId}"/><c:param name="userId" value="${item.username}"/></c:url>' class="btn btn-primary" role="button">바로구매</a>
    <a href='<c:url value="/shop/addItemToCart.do">
             <c:param name="workingItemId" value="${item.itemId}"/></c:url>' class="btn btn-primary" role="button"><i class="fa fa-cart-arrow-down"></i>&nbsp;장바구니</a>
    <c:if test="${item.username.equals(userSession.account.username)}">

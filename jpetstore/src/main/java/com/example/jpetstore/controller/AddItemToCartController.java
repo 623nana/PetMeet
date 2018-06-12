@@ -72,7 +72,7 @@ public class AddItemToCartController {
 			else {
 				boolean isInStock = this.petStore.isItemInStock(workingItemId);
 				Item item = this.petStore.getItem(workingItemId);
-				petStore.insertCartItem(item, 1);
+				petStore.insertCartItem(item, userSession.getAccount().getUsername(), 1);
 				dbcart.addItem(item, isInStock);
 			}			
 			return new ModelAndView("tiles/Cart", "cart", dbcart);

@@ -43,7 +43,7 @@ public class MybatisCartDao implements CartDao {
 	}
 
 	@Override
-	public Integer getQtyByItem(Item item) throws DataAccessException {
+	public int getQtyByItem(Item item) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return cartMapper.getQtyByItem(item);
 	}

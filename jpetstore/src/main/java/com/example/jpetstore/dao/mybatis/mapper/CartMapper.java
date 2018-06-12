@@ -27,7 +27,7 @@ import com.example.jpetstore.domain.Item;
 
 public interface CartMapper {
 
-	void insertCartItem(@Param("item")Item item, @Param("qty")int qty);
+	void insertCartItem(@Param("item")Item item, @Param("username")String username, @Param("qty")int qty);
 	
 	void deleteCartItemByUsername(String username);
 	

@@ -111,7 +111,7 @@ public class DirectOrderController {
 			SessionStatus status) {
 
 		petStore.insertDirectOrder(directOrderForm.getDirectOrder());
-		ModelAndView mav = new ModelAndView("ViewDirectOrder");
+		ModelAndView mav = new ModelAndView("tiles/ViewDirectOrder");
 		mav.addObject("order", directOrderForm.getDirectOrder());
 		mav.addObject("message", "Thank you, your order has been submitted.");
 		status.setComplete();  // remove sessionCart and orderForm from session

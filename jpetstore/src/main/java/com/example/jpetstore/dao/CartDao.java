@@ -11,7 +11,7 @@ import com.example.jpetstore.domain.Item;
 
 public interface CartDao {
 
-	void insertCartItem(@Param("item")Item item, @Param("qty")int qty) throws DataAccessException;
+	void insertCartItem(@Param("item")Item item, @Param("username")String username, @Param("qty")int qty) throws DataAccessException;
 	
 	void deleteCartItemByUsername(String username) throws DataAccessException;
 	
