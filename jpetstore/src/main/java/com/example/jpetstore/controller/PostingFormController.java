@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -55,10 +56,14 @@ public class PostingFormController {
 	}
 	
 	@ModelAttribute("postingForm")
-	public PostingForm formBackingObject(HttpServletRequest request) 
+	public PostingForm formBackingObject(HttpServletRequest request,
+			@Param("itemId") String itemId)
 			throws Exception {
-		return new PostingForm();
-		
+		if(itemId != null)
+			return new PostingForm(
+					petStore.getItem(itemId));
+		else
+			return new PostingForm();
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
@@ -97,30 +102,23 @@ public class PostingFormController {
 			if(postingForm.isNewPosting()) {
 				System.out.println("insert");
 				
-				//ÆÄÀÏ¸í Áßº¹ ¿À·ù¸¦ ¾ø¾Ö±â À§ÇÑ
+				//íŒŒì¼ëª… ì¤‘ë³µ ì˜¤ë¥˜ë¥¼ ì—†ì• ê¸° ìœ„í•œ
 				UUID uuid = UUID.randomUUID();
 				
 		        String saveName = uuid.toString()+"_" + file.getOriginalFilename();
-		        //ServletContext context = request.getSession().getServletContext();
 
-		        //º»ÀÎ ÆÄÀÏ °æ·Î·Î ¹Ù²ãÁÖ±â
-		        String savePath = //context.getRealPath("/images/");
-		        		"C:\\Users\\ÇöÁø\\git\\PetMeet\\jpetstore\\src\\main\\webapp\\images\\";
-		        
-//		        BufferedOutputStream stream = new BufferedOutputStream(
-//		        		new FileOutputStream(new File(savePath + saveName)));
-		        
+		        //ë³¸ì¸ íŒŒì¼ ê²½ë¡œë¡œ ë°”ê¿”ì£¼ê¸°
+		        String savePath = "C:\\Users\\HyeonJeong\\git\\PetMeet\\jpetstore\\src\\main\\webapp\\images\\";
+
 		        System.out.println(savePath + saveName);
-		        
-//		        stream.write(file.getBytes());
-//		        stream.flush();
-//		        stream.close();
 		        
 		        FileOutputStream target = new FileOutputStream(savePath + saveName);
 		        
 		        FileCopyUtils.copy(file.getBytes(), target);
 		        
-//		        target.flush();
+
+		        target.flush();
+
 		        target.close();
 		        
 				Account account = petStore.getAccount(userSession.getAccount().getUsername());
@@ -130,28 +128,34 @@ public class PostingFormController {
 				postingForm.getItem().setImage(saveName);
 				
 				System.out.println(id);
-				if(id == null) { //»ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ Á¾ÀÇ Product ID°¡ Á¸ÀçÇÏÁö ¾Ê´Â °æ¿ì
-					System.out.println("¾øÀ½");
+				
+				if(id == null) { //ì‚¬ìš©ìê°€ ì…ë ¥í•œ ì¢…ì˜ Product IDê°€ ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ê²½ìš°
+					System.out.println("ì—†ìŒ");
 					petStore.insertNewProduct(postingForm.getItem());	
 					String newId = petStore.setProductId(postingForm.getItem().getName());
 					postingForm.getItem().setProductId(newId);
 					postingForm.getItem().setUsername(account.getUsername());
 					petStore.insertFixedItem(postingForm.getItem());
-					petStore.insertInventory(postingForm.getItem());
+          petStore.insertInventory(postingForm.getItem());
 					
 				} else {
-					System.out.println("³Ö¾úÀ½");
+					System.out.println("ë„£ì—ˆìŒ");
 					postingForm.getItem().setProductId(id);
 					postingForm.getItem().setUsername(account.getUsername());
 					petStore.insertFixedItem(postingForm.getItem());
 					petStore.insertInventory(postingForm.getItem());
 				}
 				
+			} else {
+				String itemId = postingForm.getItem().getItemId();
+				System.out.println(itemId);
+				
+				petStore.updateFixedItem(postingForm.getItem());
 			}
 				
 		}
 		catch (DataIntegrityViolationException ex) {
-			System.out.println("¿À·ù");
+			System.out.println("ì˜¤ë¥˜");
 			result.rejectValue("item.image", "IMAGE_ERROR");
 			return formViewName;
 		}

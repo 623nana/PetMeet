@@ -39,3 +39,4 @@ public interface CommunicateMapper {
 	   void reSendMessage(String receiverId) throws DataAccessException;
 	
 }
+

@@ -2,9 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-   
-   
-   
     
 <br />
 <br />
@@ -21,7 +18,14 @@
 		<td>
 
 			<textarea class="form-control" rows="10" name="comment.itemComment" id="comment.itemComment" placeholder="내용을 입력하세요."></textarea>
-			<form:hidden path="comment.itemId" value="${item.itemId }" />
+			 <c:choose>
+        <c:when test="${item.classify.equals('FIXED') }">
+            		<form:hidden path="comment.itemId" value="${item.itemId }" />
+            	</c:when>
+            	<c:otherwise>
+            		<form:hidden path="comment.itemId" value="${auctionItem.item.itemId }" />
+            	</c:otherwise>
+            	</c:choose>
 			<form:hidden path="comment.newComment" value="first" />
 		</td>
 	</tr>

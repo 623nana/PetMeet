@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.example.jpetstore.dao.ItemDao;
 import com.example.jpetstore.dao.mybatis.mapper.ItemMapper;
 import com.example.jpetstore.domain.Account;
+import com.example.jpetstore.domain.AuctionItem;
+import com.example.jpetstore.domain.BiddingInfo;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.LineItem;
 import com.example.jpetstore.domain.Order;
@@ -68,5 +70,28 @@ public class MybatisItemDao implements ItemDao {
 		itemMapper.insertInventory(item);
 	}
 	
+	public void updateFixedItem(Item item) throws DataAccessException{
+		itemMapper.updateFixedItem(item);
+	}
+	
+	public void insertAuctionItem(Item item) throws DataAccessException{
+		itemMapper.insertAuctionItem(item);
+	}
+	
+	public void insertAuctionInfo(AuctionItem auctionItem) throws DataAccessException{
+		itemMapper.insertAuctionInfo(auctionItem);
+	}
+	
+	public AuctionItem getAuctionItem(String itemId) throws DataAccessException {
+		return itemMapper.getAuctionItem(itemId);
+	}
+	
+	public void updateAuctionItem(Item item) throws DataAccessException{
+		itemMapper.updateAuctionItem(item);
+	}
+	
+	public void insertBid(BiddingInfo biddingInfo) throws DataAccessException{
+		itemMapper.insertBid(biddingInfo);
+	}
 
 }
