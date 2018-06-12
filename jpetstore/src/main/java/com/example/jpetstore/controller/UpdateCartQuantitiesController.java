@@ -39,7 +39,7 @@ public class UpdateCartQuantitiesController {
 			List<String> itemId = petStore.getCartItemByUsername(username);
 			for(String id: itemId) {
 				Item item = petStore.getItem(id);
-				int qty = petStore.getQtyByItem(item);
+				int qty = petStore.getQtyByItem(item, username);
 				boolean isInStock = this.petStore.isItemInStock(id);
 				cart.addItem(item, isInStock);
 				cart.setQuantityByItemId(item.getItemId(), qty);
@@ -63,13 +63,12 @@ public class UpdateCartQuantitiesController {
 				System.out.println(itemId);
 				try {
 					int quantity = Integer.parseInt(request.getParameter(itemId));
-					System.out.println(quantity);
 					Item item = petStore.getItem(itemId);
 					dbcart.setQuantityByItemId(itemId, quantity);
-					petStore.updateCartQty(item, quantity);
+					petStore.updateCartQty(item, quantity, userSession.getAccount().getUsername());
 					if (quantity < 1) {
 						cartItems.remove();						
-						petStore.deleteCartItemByItem(item);
+						petStore.deleteCartItemByItem(item, userSession.getAccount().getUsername());
 					}
 				}
 				catch (NumberFormatException ex) {

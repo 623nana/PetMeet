@@ -19,9 +19,9 @@ public class MybatisCartDao implements CartDao {
 	private CartMapper cartMapper;
 	
 	@Override
-	public void insertCartItem(Item item, String username, int qty) throws DataAccessException {
+	public void insertCartItem(@Param("item")Item item, @Param("qty")int qty, @Param("username")String username) throws DataAccessException {
 		// TODO Auto-generated method stub
-		cartMapper.insertCartItem(item, username, qty);
+		cartMapper.insertCartItem(item, qty, username);
 	}
 
 	@Override
@@ -37,27 +37,33 @@ public class MybatisCartDao implements CartDao {
 	}
 
 	@Override
-	public void updateCartQty(@Param("item")Item item, @Param("qty")int qty) throws DataAccessException {
+	public void updateCartQty(@Param("item")Item item, @Param("qty")int qty, @Param("username")String username) throws DataAccessException {
 		// TODO Auto-generated method stub
-		cartMapper.updateCartQty(item, qty);
+		cartMapper.updateCartQty(item, qty, username);
 	}
 
 	@Override
-	public int getQtyByItem(Item item) throws DataAccessException {
+	public int getQtyByItem(@Param("item")Item item, @Param("username")String username) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return cartMapper.getQtyByItem(item);
+		return cartMapper.getQtyByItem(item, username);
 	}
 
 	@Override
-	public void deleteCartItemByItem(Item item) throws DataAccessException {
+	public void deleteCartItemByItem(@Param("item")Item item, @Param("username")String username) throws DataAccessException {
 		// TODO Auto-generated method stub
-		cartMapper.deleteCartItemByItem(item);
+		cartMapper.deleteCartItemByItem(item, username);
 	}
 
 	@Override
 	public void updateCartOneQty(String itemId, String username) throws DataAccessException {
 		// TODO Auto-generated method stub
 		cartMapper.updateCartOneQty(itemId, username);
+	}
+
+	@Override
+	public String getCartItem(String itemId, String username) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return cartMapper.getCartItem(itemId, username);
 	}
 	
 

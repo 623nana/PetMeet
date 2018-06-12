@@ -109,16 +109,12 @@ public class PostingFormController {
 
 		        //본인 파일 경로로 바꿔주기
 		        String savePath = "C:\\Users\\HyeonJeong\\git\\PetMeet\\jpetstore\\src\\main\\webapp\\images\\";
-
-		        System.out.println(savePath + saveName);
 		        
 		        FileOutputStream target = new FileOutputStream(savePath + saveName);
 		        
 		        FileCopyUtils.copy(file.getBytes(), target);
 		        
-
 		        target.flush();
-
 		        target.close();
 		        
 				Account account = petStore.getAccount(userSession.getAccount().getUsername());
@@ -129,17 +125,17 @@ public class PostingFormController {
 				
 				System.out.println(id);
 				
-				if(id == null) { //사용자가 입력한 종의 Product ID가 존재하지 않는 경우
-					System.out.println("없음");
+				if(id == null) { //�궗�슜�옄媛� �엯�젰�븳 醫낆쓽 Product ID媛� 議댁옱�븯吏� �븡�뒗 寃쎌슦
+					System.out.println("�뾾�쓬");
 					petStore.insertNewProduct(postingForm.getItem());	
 					String newId = petStore.setProductId(postingForm.getItem().getName());
 					postingForm.getItem().setProductId(newId);
 					postingForm.getItem().setUsername(account.getUsername());
 					petStore.insertFixedItem(postingForm.getItem());
-          petStore.insertInventory(postingForm.getItem());
+					petStore.insertInventory(postingForm.getItem());
 					
 				} else {
-					System.out.println("넣었음");
+					System.out.println("�꽔�뿀�쓬");
 					postingForm.getItem().setProductId(id);
 					postingForm.getItem().setUsername(account.getUsername());
 					petStore.insertFixedItem(postingForm.getItem());
@@ -155,7 +151,7 @@ public class PostingFormController {
 				
 		}
 		catch (DataIntegrityViolationException ex) {
-			System.out.println("오류");
+			System.out.println("�삤瑜�");
 			result.rejectValue("item.image", "IMAGE_ERROR");
 			return formViewName;
 		}

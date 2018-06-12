@@ -33,6 +33,8 @@ public class PostingAuctionController {
 	private String formViewName;
 	@Value("tiles/index")
 	private String successViewName;
+	@Value("tiles/PostingError")
+	private String errorViewName;
 	
 	@Autowired
 	private PetStoreFacade petStore;
@@ -52,8 +54,16 @@ public class PostingAuctionController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String showForm() {
-		return formViewName;
+	public String showForm(HttpServletRequest request) {
+		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
+		Account account = petStore.getAccount(userSession.getAccount().getUsername());
+		int myticket = petStore.getMyTicketByUsername(account.getUsername());
+		if(myticket == 0) {
+			return errorViewName;
+		}
+		else {
+			return formViewName;
+		}
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
@@ -63,11 +73,11 @@ public class PostingAuctionController {
 			@ModelAttribute("postingAuction") PostingAuction postingAuction,
 			BindingResult result) throws Exception {
 		
+		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
 		if(result.hasErrors()) return formViewName;
 		try {
 			if(postingAuction.isNewPosting()) {
 				System.out.println("insert");
-				UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
 				
 				//파일명 중복 오류를 없애기 위한
 				UUID uuid = UUID.randomUUID();
@@ -122,9 +132,11 @@ public class PostingAuctionController {
 		}
 		catch (DataIntegrityViolationException ex) {
 			System.out.println("오류");
+			result.rejectValue("item.image", "IMAGE_ERROR");
 			return formViewName;
 			}
 
+		 petStore.useTicket(userSession.getAccount().getUsername());
 		 return successViewName;
 		}
 	

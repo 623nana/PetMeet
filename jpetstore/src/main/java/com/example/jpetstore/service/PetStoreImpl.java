@@ -287,11 +287,10 @@ public class PetStoreImpl implements PetStoreFacade {
 	}
 
 	@Override
-	public void insertCartItem(@Param("item")Item item, @Param("username")String username, @Param("qty")int qty) {
+	public void insertCartItem(@Param("item")Item item, @Param("qty")int qty, @Param("username")String username) {
 		// TODO Auto-generated method stub
-		cartDao.insertCartItem(item, username, qty);
+		cartDao.insertCartItem(item, qty, username);
 	}
-
 	@Override
 	public void deleteCartItemByUsername(String username) {
 		// TODO Auto-generated method stub
@@ -305,30 +304,34 @@ public class PetStoreImpl implements PetStoreFacade {
 	}
 
 	@Override
-	public void updateCartQty(@Param("item")Item item, @Param("qty")int qty) {
+	public void updateCartQty(@Param("item")Item item, @Param("qty")int qty, @Param("username")String username) {
 		// TODO Auto-generated method stub
-		cartDao.updateCartQty(item, qty);
+		cartDao.updateCartQty(item, qty, username);
 	}
 
 	@Override
-	public Integer getQtyByItem(Item item) {
+	public int getQtyByItem(@Param("item")Item item, @Param("username")String username) {
 		// TODO Auto-generated method stub
-		return cartDao.getQtyByItem(item);
+		return cartDao.getQtyByItem(item, username);
 	}
 
 	@Override
-	public void deleteCartItemByItem(Item item) {
+	public void deleteCartItemByItem(@Param("item")Item item, @Param("username")String username) {
 		// TODO Auto-generated method stub
-		cartDao.deleteCartItemByItem(item);
+		cartDao.deleteCartItemByItem(item, username);
 	}
-
 	@Override
 	public void updateCartOneQty(@Param("itemId")String itemId, @Param("username")String username) {
 		// TODO Auto-generated method stub
 		cartDao.updateCartOneQty(itemId, username);
 	}
 
-
+	@Override
+	public String getCartItem(String itemId, String username) {
+		// TODO Auto-generated method stub
+		return cartDao.getCartItem(itemId, username);
+	}
+	
 	@Override
 	public void insertDirectOrder(Order directOrder) {
 		// TODO Auto-generated method stub

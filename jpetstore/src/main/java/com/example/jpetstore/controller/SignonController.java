@@ -57,15 +57,28 @@ public class SignonController {
 		}
 		else {			
 			Cart cart = (Cart)session.getAttribute("sessionCart");
-			if(cart != null && cart.getNumberOfItems() != 0) {				
+			if(cart != null && cart.getNumberOfItems() != 0) {	
 				PagedListHolder<CartItem> c = cart.getCartItemList();
-				List<CartItem> cartitem = c.getPageList();				
+				List<CartItem> cartitem = c.getPageList();	
 				for(CartItem item: cartitem) {
-					petStore.insertCartItem(item.getItem(), account.getUsername(), item.getQuantity());
+					if(petStore.getCartItem(item.getItem().getItemId(), account.getUsername()) == null) {
+						petStore.insertCartItem(item.getItem(), item.getQuantity(), account.getUsername());
+					}
+					else {
+						cart.incrementQuantityByItemId(item.getItem().getItemId());
+						petStore.updateCartOneQty(item.getItem().getItemId(), account.getUsername());
+					}
+//					if(cart.containsItemId(item.getItem().getItemId())) {
+//						cart.incrementQuantityByItemId(item.getItem().getItemId());
+//						petStore.updateCartOneQty(item.getItem().getItemId(), account.getUsername());
+//					}
+//					else {
+//						petStore.insertCartItem(item.getItem(), item.getQuantity(), account.getUsername());
+//					}
 				}
 				dbcart = cart;
 				session.removeAttribute("sessionCart");
-			}
+			}					
 			
 			UserSession userSession = new UserSession(account);
 			PagedListHolder<Product> myList = new PagedListHolder<Product>(this.petStore.getProductListByCategory(account.getFavouriteCategoryId()));
