@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="form-group">
             <div class="form-row">
@@ -69,6 +70,13 @@
       <form:errors path="account.country" cssClass="error" />
       </div>
       </div>
+      
+      <div class="form-group row">
+  	<form:label path="account.myticket" cssClass="col-sm-3 col-form-label">MY TICKET</form:label>
+  	<div class="col-sm-6">
+  	<form:input path="account.myticket" cssClass="form-control" readonly="true"/>
+      </div>
+      </div>
 <h3>
   <font color="darkgreen">Profile Information</font>
 </h3>
@@ -80,7 +88,7 @@
       <form:errors path="account.languagePreference" cssClass="error" /></td>
   </tr>
   <tr>
-    <td>Favourite Category:</td>
+    <td>Favorite Category:</td>
     <td><form:select cssClass="form-control" path="account.favouriteCategoryId" items="${categories}" /> 
       <form:errors path="account.favouriteCategoryId" cssClass="error" /></td>
   </tr>

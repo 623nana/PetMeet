@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.jpetstore.dao.mybatis.mapper.TicketMapper">
+
+  <cache />  
+	 
+	<update id="buyTicket">
+		UPDATE ACCOUNT
+		SET MYTICKET = MYTICKET + #{buyTicketNum}
+		WHERE USERID = #{username}
+	</update>
+  
+	<update id="useTicket">
+		UPDATE ACCOUNT
+		SET MYTICKET = MYTICKET - 1
+		WHERE USERID = #{userId}
+	</update>
+	
+	<select id="getTicketByUsername" resultType="Ticket">
+		SELECT USERNAME, BUYTICKETNUM, BUYTICKETCOST
+		FROM TICKET
+ 		WHERE USERNAME = #{username}
+	</select>
+	
+	<insert id="insertBuyTicket">
+		INSERT INTO TICKET (USERNAME, BUYTICKETNUM, BUYTICKETCOST)
+		VALUES (#{username}, #{buyTicketNum}, #{buyTicketCost})	
+	</insert>
+  
+   <delete id="deleteBuyTicketByUsername">
+   		DELETE
+   		FROM TICKET
+   		WHERE USERNAME = #{username}
+   </delete>
+   
+   <select id="getMyTicketByUsername" resultType="int">
+   		SELECT MYTICKET
+   		FROM ACCOUNT
+   		WHERE USERID = #{username}   		
+   </select>
+  
+</mapper>
