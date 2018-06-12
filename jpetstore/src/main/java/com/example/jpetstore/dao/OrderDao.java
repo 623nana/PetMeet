@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
+import com.example.jpetstore.dao.mybatis.MyException;
 import com.example.jpetstore.domain.Order;
 
 public interface OrderDao {
@@ -12,6 +13,6 @@ public interface OrderDao {
 
   Order getOrder(int orderId) throws DataAccessException;
 
-  void insertOrder(Order order) throws DataAccessException;
+  void insertOrder(Order order) throws DataAccessException, MyException;
 
 }

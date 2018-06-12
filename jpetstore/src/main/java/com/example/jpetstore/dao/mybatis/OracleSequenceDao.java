@@ -1,8 +1,11 @@
 package com.example.jpetstore.dao.mybatis;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Repository;
+
 import com.example.jpetstore.domain.Sequence;
 
+@Repository
 public class OracleSequenceDao extends MybatisSequenceDao {
 
   /**

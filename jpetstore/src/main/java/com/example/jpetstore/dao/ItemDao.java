@@ -24,5 +24,7 @@ public interface ItemDao {
   String setProductId(String name) throws DataAccessException;
   
   void insertNewProduct(Item item) throws DataAccessException;
+  
+  void insertInventory(Item item) throws DataAccessException;
 
 }

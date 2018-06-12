@@ -46,5 +46,6 @@ public interface ItemMapper {
   
   void insertNewProduct(Item item);
 
+  void insertInventory(Item item);
 
 }

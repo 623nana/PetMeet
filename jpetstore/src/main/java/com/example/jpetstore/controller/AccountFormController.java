@@ -3,12 +3,16 @@ package com.example.jpetstore.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,7 +31,6 @@ import com.example.jpetstore.service.PetStoreFacade;
 @RequestMapping({"/shop/newAccount.do","/shop/editAccount.do"})
 public class AccountFormController { 
 
-	//@Value("EditAccountForm")
 	@Value("tiles/EditAccountForm")
 	private String formViewName;
 	@Value("tiles/index")
@@ -40,11 +43,11 @@ public class AccountFormController {
 		this.petStore = petStore;
 	}
 
-	@Autowired
-	private AccountFormValidator validator;
-	public void setValidator(AccountFormValidator validator) {
-		this.validator = validator;
-	}
+//	@Autowired
+//	private AccountFormValidator validator;
+//	public void setValidator(AccountFormValidator validator) {
+//		this.validator = validator;
+//	}
 		
 	@ModelAttribute("accountForm")
 	public AccountForm formBackingObject(HttpServletRequest request) 
@@ -78,7 +81,7 @@ public class AccountFormController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String onSubmit(
 			HttpServletRequest request, HttpSession session,
-			@ModelAttribute("accountForm") AccountForm accountForm,
+			@Valid @ModelAttribute("accountForm") AccountForm accountForm,
 			BindingResult result) throws Exception {
 
 		if (request.getParameter("account.listOption") == null) {
@@ -88,7 +91,7 @@ public class AccountFormController {
 			accountForm.getAccount().setBannerOption(false);
 		}
 		
-		validator.validate(accountForm, result);
+		//validator.validate(accountForm, result);
 		
 		if (result.hasErrors()) return formViewName;
 		try {
@@ -100,8 +103,7 @@ public class AccountFormController {
 			}
 		}
 		catch (DataIntegrityViolationException ex) {
-			result.rejectValue("account.username", "USER_ID_ALREADY_EXISTS",
-					"User ID already exists: choose a different ID.");
+			result.rejectValue("account.username", "USER_ID_ALREADY_EXISTS");
 			return formViewName; 
 		}
 		
@@ -113,5 +115,10 @@ public class AccountFormController {
 		userSession.setMyList(myList);
 		session.setAttribute("userSession", userSession);
 		return successViewName;  
+	}
+	
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		binder.setValidator(new AccountFormValidator());
 	}
 }
