@@ -19,9 +19,9 @@ public class MybatisCartDao implements CartDao {
 	private CartMapper cartMapper;
 	
 	@Override
-	public void insertCartItem(Item item, int qty) throws DataAccessException {
+	public void insertCartItem(Item item, String username, int qty) throws DataAccessException {
 		// TODO Auto-generated method stub
-		cartMapper.insertCartItem(item, qty);
+		cartMapper.insertCartItem(item, username, qty);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class MybatisCartDao implements CartDao {
 	}
 
 	@Override
-	public int getQtyByItem(Item item) throws DataAccessException {
+	public Integer getQtyByItem(Item item) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return cartMapper.getQtyByItem(item);
 	}

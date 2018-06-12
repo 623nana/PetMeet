@@ -2,6 +2,7 @@ package com.example.jpetstore.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
 import com.example.jpetstore.domain.Account;
@@ -13,6 +14,7 @@ import com.example.jpetstore.domain.Comment;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.Order;
 import com.example.jpetstore.domain.Product;
+import com.example.jpetstore.domain.Ticket;
 import com.example.jpetstore.domain.Message;
 
 /**
@@ -96,6 +98,35 @@ public interface PetStoreFacade {
 	void reSendMessage(String receiverId) throws DataAccessException;
 	
 	AuctionItem getAuctionItem(String itemId) throws DataAccessException;
+
+	void buyTicket(Ticket ticket);
+
+	void useTicket(String userId);
+
+	Ticket getTicketByUsername(String username);
+
+	void insertBuyTicket(Ticket ticket);
+	
+	void deleteBuyTicketByUsername(Ticket ticket);
+	
+	int getMyTicketByUsername(String username);
+	
+	void insertInventory(Item item);
+	
+	void insertCartItem(@Param("item")Item item, @Param("username")String username, @Param("qty")int qty);
+	
+	void deleteCartItemByUsername(String username);
+	
+	List<String> getCartItemByUsername(String username);
+	
+	void updateCartQty(@Param("item")Item item, @Param("qty")int qty);
+	
+	Integer getQtyByItem(Item item);
+	
+	void deleteCartItemByItem(Item item);
+	
+	void updateCartOneQty(@Param("itemId")String itemId, @Param("username")String username);
 	
 	void insertDirectOrder(Order directOrder);
+
 }
