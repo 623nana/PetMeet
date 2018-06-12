@@ -113,20 +113,22 @@ public interface PetStoreFacade {
 	
 	void insertInventory(Item item);
 	
-	void insertCartItem(@Param("item")Item item, @Param("username")String username, @Param("qty")int qty);
+	void insertCartItem(@Param("item")Item item, @Param("qty")int qty, @Param("username")String username);
 	
 	void deleteCartItemByUsername(String username);
 	
 	List<String> getCartItemByUsername(String username);
 	
-	void updateCartQty(@Param("item")Item item, @Param("qty")int qty);
+	void updateCartQty(@Param("item")Item item, @Param("qty")int qty, @Param("username")String username);
 	
-	Integer getQtyByItem(Item item);
+	int getQtyByItem(@Param("item")Item item, @Param("username")String username);
 	
-	void deleteCartItemByItem(Item item);
+	void deleteCartItemByItem(@Param("item")Item item, @Param("username")String username);
 	
 	void updateCartOneQty(@Param("itemId")String itemId, @Param("username")String username);
 	
 	void insertDirectOrder(Order directOrder);
+	
+	String getCartItem(@Param("itemId")String itemId, @Param("username")String username);
 
 }

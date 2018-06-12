@@ -44,10 +44,11 @@ public class ViewCartController {
 		if(userSession != null) {
 			String username = userSession.getAccount().getUsername();
 			List<String> itemId = petStore.getCartItemByUsername(username);	
-
 			for(String id: itemId) {
 				Item item = petStore.getItem(id);
-				int qty = petStore.getQtyByItem(item);
+				System.out.println("1" + item.getItemId());				
+				int qty = petStore.getQtyByItem(item, username);
+				System.out.println(qty);			
 				boolean isInStock = this.petStore.isItemInStock(id);
 				cart.addItem(item, isInStock);
 				cart.setQuantityByItemId(item.getItemId(), qty);

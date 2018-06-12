@@ -39,7 +39,7 @@ public class RemoveItemFromCartController {
 			List<String> itemId = petStore.getCartItemByUsername(username);
 			for(String id: itemId) {
 				Item item = petStore.getItem(id);
-				int qty = petStore.getQtyByItem(item);
+				int qty = petStore.getQtyByItem(item, username);
 				boolean isInStock = this.petStore.isItemInStock(id);
 				cart.addItem(item, isInStock);
 				cart.setQuantityByItemId(item.getItemId(), qty);
@@ -58,17 +58,15 @@ public class RemoveItemFromCartController {
 		UserSession userSession = 
 				(UserSession) WebUtils.getSessionAttribute(request, "userSession");
 		if(userSession != null) {
-			System.out.println("技记乐");
-			System.out.println(workingItemId);
 			dbcart.removeItemById(workingItemId);
 			Item item = petStore.getItem(workingItemId);
-			petStore.deleteCartItemByItem(item);
+			petStore.deleteCartItemByItem(item, userSession.getAccount().getUsername());
 			return new ModelAndView("tiles/Cart", "cart", dbcart);
 		}
 		else {
-			System.out.println("技记绝");
 			cart.removeItemById(workingItemId);
 			return new ModelAndView("tiles/Cart", "cart", cart);
 		}
 	}
 }
+

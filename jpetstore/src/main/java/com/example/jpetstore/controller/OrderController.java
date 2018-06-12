@@ -61,7 +61,7 @@ public class OrderController {
 			List<String> itemId = petStore.getCartItemByUsername(username);
 			for(String id: itemId) {
 				Item item = petStore.getItem(id);
-				int qty = petStore.getQtyByItem(item);
+				int qty = petStore.getQtyByItem(item, username);
 				boolean isInStock = this.petStore.isItemInStock(id);
 				cart.addItem(item, isInStock);
 				cart.setQuantityByItemId(item.getItemId(), qty);
@@ -100,30 +100,18 @@ public class OrderController {
 			
 			int ticket = Integer.parseInt(request.getParameter("Ticket"));	
 			int ticketCost = 0;
-			System.out.println("입력티켓: " + ticket);
 			buyTicketForm.getAccount().setMyticket(ticket);
 			
-			System.out.println("계정에 저장된 티켓: " + buyTicketForm.getAccount().getMyticket());
 			if(ticket == 1) ticketCost = 1000;
 			else if(ticket == 3) ticketCost = 2500;
 			else if(ticket == 5) ticketCost = 4000;			
 			
-			
-//			System.out.println(account.getUsername());	
-//			System.out.println("티켓" + ticket);	
-//			System.out.println(ticketCost);	
-
 			buyTicketForm.getTicket().setUsername(account.getUsername());
 			buyTicketForm.getTicket().setBuyTicketNum(ticket);
 			buyTicketForm.getTicket().setBuyTicketCost(ticketCost);			
 			
 			petStore.insertBuyTicket(buyTicketForm.getTicket());
 			
-			System.out.println("username: " + buyTicketForm.getTicket().getUsername());
-			System.out.println("ticketcost: " + buyTicketForm.getTicket().getBuyTicketCost());
-			System.out.println("ticketnum: " + buyTicketForm.getTicket().getBuyTicketNum());
-			
-//			Ticket ticket = petStore.getTicketByUsername(account.getUsername());
 			orderForm.getOrder().initOrder(account, buyTicketForm.getTicket());
 			return "tiles/NewTicketOrderForm";
 	}
@@ -188,15 +176,14 @@ public class OrderController {
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
 		// Re-read account from DB at team's request.
 		Account account = petStore.getAccount(userSession.getAccount().getUsername());
-		Ticket ticket = petStore.getTicketByUsername(account.getUsername());
-		
+		Ticket ticket = petStore.getTicketByUsername(account.getUsername());		
 		
 		int cost = ticket.getBuyTicketCost();
 		
 		petStore.buyTicket(ticket);
 		petStore.deleteBuyTicketByUsername(ticket);
 		int myticket = petStore.getMyTicketByUsername(account.getUsername());
-				
+	
 		ModelAndView mav = new ModelAndView("tiles/ViewTicketOrder");
 		mav.addObject("cost", cost);
 		mav.addObject("myticket", myticket);

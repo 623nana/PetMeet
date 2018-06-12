@@ -118,14 +118,7 @@
   <insert id="insertNewProduct" parameterType="com.example.jpetstore.domain.Item">
   	<selectKey keyProperty="productId" resultType="String" order="BEFORE">
   		select 'PRODUCT-' || TO_CHAR(product_seq.nextval) AS productId from DUAL
-  	</selectKey>
-  	
-  	
-  	
-  	
-  	
-  	
-  	
+  	</selectKey>	
   	INSERT INTO PRODUCT
   		(PRODUCTID, CATEGORY, NAME)
   	VALUES
