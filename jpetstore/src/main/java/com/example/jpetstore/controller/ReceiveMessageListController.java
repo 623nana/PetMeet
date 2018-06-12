@@ -46,7 +46,7 @@ public class ReceiveMessageListController {
 			@ModelAttribute("userSession") UserSession userSession
 			) throws Exception {
 			String username = userSession.getAccount().getUsername();
-			return new ModelAndView("ReceiveMessageList", "receiveMessageList", 
+			return new ModelAndView("tiles/ReceiveMessageList", "receiveMessageList", 
 					petStore.getMessageList(username));
 		}
 

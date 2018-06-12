@@ -51,7 +51,7 @@ public class ReadMessageController {
 		) throws Exception {
 		msgId = "";
 		msgId += messageId; 
-		return new ModelAndView("ReadMessage", "readMessage", 
+		return new ModelAndView("tiles/ReadMessage", "readMessage", 
 				petStore.readMessage(messageId));
 	}
 	
@@ -62,7 +62,7 @@ public class ReadMessageController {
 		) throws Exception {
 		msgId = "";
 		msgId += messageId; 
-		return new ModelAndView("ReadMessagetwo", "readMessagetwo", 
+		return new ModelAndView("tiles/ReadMessagetwo", "readMessagetwo", 
 				petStore.readMessage(messageId));
 	}
 	

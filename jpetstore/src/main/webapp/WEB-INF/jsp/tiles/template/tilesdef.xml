@@ -54,17 +54,12 @@
 			value="/WEB-INF/jsp/tiles/Item.jsp" />			
 	</definition>
 	
-	<definition name="tiles/sendMessage" extends="base_layout">
+	<definition name="tiles/SendMessage" extends="base_layout">
 		<put-attribute name="body"
-			value="/WEB-INF/jsp/tiles/WriteMessage.jsp" />			
+			value="/WEB-INF/jsp/tiles/SendMessage.jsp" />			
 	</definition>
 	
-	<definition name="tiles/messageList" extends="base_layout">
-		<put-attribute name="body"
-			value="/WEB-INF/jsp/tiles/Message.jsp" />			
-	</definition>
-	
-		<definition name="tiles/RegisterComment" extends="base_layout">
+	<definition name="tiles/RegisterComment" extends="base_layout">
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tiles/RegisterComment.jsp" />			
 	</definition>
@@ -84,40 +79,64 @@
 			value="/WEB-INF/jsp/tiles/CommentList.jsp" />
 	</definition>
 	
-	<definition name="tiles/messageList" extends="base_layout">
+	<definition name="tiles/MessageList" extends="base_layout">
 		<put-attribute name="body"
-			value="/WEB-INF/jsp/tiles/Message.jsp" />			
+			value="/WEB-INF/jsp/tiles/MessageList.jsp" />			
 	</definition>
 	
-	<definition name="tiles/receiveMessageList" extends="base_layout">
+	<definition name="tiles/ReceiveMessageList" extends="base_layout">
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tiles/ReceiveMessageList.jsp" />			
 	</definition>
 	
-	<definition name="tiles/sendMessageList" extends="base_layout">
+	<definition name="tiles/SendMessageList" extends="base_layout">
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tiles/SendMessageList.jsp" />			
 	</definition>
 	
-	<definition name="tiles/readMessage" extends="base_layout">
+	<definition name="tiles/ReadMessage" extends="base_layout">
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tiles/ReadMessage.jsp" />			
 	</definition>	
 	
-	<definition name="tiles/reSendMessage" extends="base_layout">
+	<definition name="tiles/ReSendMessage" extends="base_layout">
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tiles/ReSendMessage.jsp" />			
 	</definition>
 
-	<definition name="tiles/readMessagetwo" extends="base_layout">
+	<definition name="tiles/ReadMessagetwo" extends="base_layout">
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tiles/ReadMessagetwo.jsp" />			
 	</definition>	
 	
-	
-	<definition name="tiles/reSendMessagetwo" extends="base_layout">
+	<definition name="tiles/ReSendMessagetwo" extends="base_layout">
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tiles/ReSendMessagetwo.jsp" />			
+	</definition>
+	
+	<definition name="tiles/NewDirectOrder" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/NewDirectOrderForm.jsp" />			
+	</definition>
+	
+	<definition name="tiles/NewDirectOrderSubmitted" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/NewDirectOrderForm.jsp" />			
+	</definition>
+	
+	<definition name="tiles/ConfirmDirectOrder" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/ConfirmDirectOrder.jsp" />			
+	</definition>
+	
+	<definition name="tiles/ViewDirectOrder" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/ViewDirectOrder.jsp" />			
+	</definition>
+	
+	<definition name="tiles/DirectOrderNoShip" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/NewDirectOrderNoShip.jsp" />			
 	</definition>
 
 </tiles-definitions>

@@ -38,6 +38,7 @@ public class Order implements Serializable {
   private String locale;
   private String status;
   private List<LineItem> lineItems = new ArrayList<LineItem>();
+  private Item item = new Item();
 
   /* JavaBeans Properties */
 
@@ -161,6 +162,39 @@ public class Order implements Serializable {
       addLineItem(cartItem);
     }
   }
+  
+  public void initOrder(Account account, Item item) {
+	    username = account.getUsername();
+	    orderDate = new Date();
+
+	    shipToFirstName = account.getFirstName();
+	    shipToLastName = account.getLastName();
+	    shipAddress1 = account.getAddress1();
+	    shipAddress2 = account.getAddress2();
+	    shipCity = account.getCity();
+	    shipState = account.getState();
+	    shipZip = account.getZip();
+	    shipCountry = account.getCountry();
+
+	    billToFirstName = account.getFirstName();
+	    billToLastName = account.getLastName();
+	    billAddress1 = account.getAddress1();
+	    billAddress2 = account.getAddress2();
+	    billCity = account.getCity();
+	    billState = account.getState();
+	    billZip = account.getZip();
+	    billCountry = account.getCountry();
+
+	    totalPrice = item.getPrice();
+	    
+	    creditCard = "999 9999 9999 9999";
+	    expiryDate = "12/03";
+	    cardType = "Visa";
+	    courier = "UPS";
+	    locale = "CA";
+	    status = "P";
+
+	  }
 
   public void addLineItem(CartItem cartItem) {
     LineItem lineItem = new LineItem(lineItems.size() + 1, cartItem);
@@ -170,4 +204,10 @@ public class Order implements Serializable {
   public void addLineItem(LineItem lineItem) {
     lineItems.add(lineItem);
   }
+public Item getItem() {
+	return item;
+}
+public void setItem(Item item) {
+	this.item = item;
+}
 }

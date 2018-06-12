@@ -14,4 +14,5 @@ public interface OrderDao {
 
   void insertOrder(Order order) throws DataAccessException;
 
+  void insertDirectOrder(Order directOrder) throws DataAccessException;
 }
