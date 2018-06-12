@@ -61,7 +61,7 @@ public class SignonController {
 				PagedListHolder<CartItem> c = cart.getCartItemList();
 				List<CartItem> cartitem = c.getPageList();				
 				for(CartItem item: cartitem) {
-					petStore.insertCartItem(item.getItem(), item.getQuantity());
+					petStore.insertCartItem(item.getItem(), account.getUsername(), item.getQuantity());
 				}
 				dbcart = cart;
 				session.removeAttribute("sessionCart");

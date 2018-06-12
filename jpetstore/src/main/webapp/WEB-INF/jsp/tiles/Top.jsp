@@ -52,7 +52,7 @@
               <a href="<c:url value="/shop/postItem.do"/>">정찰 상품 등록</a>
             </li>
             <li>
-              <a href="cards.html">경매 상품 등록</a>
+               <a href="<c:url value="/shop/postAuctionItem.do"/>">경매 상품 등록</a>
             </li>
           </ul>
         </li>

@@ -1,16 +1,21 @@
 package com.example.jpetstore.service;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.jpetstore.dao.AccountDao;
+import com.example.jpetstore.dao.CartDao;
 import com.example.jpetstore.dao.CategoryDao;
 import com.example.jpetstore.dao.CommunicateDao;
 import com.example.jpetstore.dao.ItemDao;
 import com.example.jpetstore.dao.OrderDao;
 import com.example.jpetstore.dao.ProductDao;
+import com.example.jpetstore.dao.TicketDao;
+import com.example.jpetstore.dao.mybatis.MyException;
 import com.example.jpetstore.domain.Account;
 import com.example.jpetstore.domain.AuctionItem;
 import com.example.jpetstore.domain.BiddingInfo;
@@ -20,6 +25,7 @@ import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.Message;
 import com.example.jpetstore.domain.Order;
 import com.example.jpetstore.domain.Product;
+import com.example.jpetstore.domain.Ticket;
 
 /**
  * JPetStore primary business object.
@@ -72,6 +78,10 @@ public class PetStoreImpl implements PetStoreFacade {
 	private OrderDao orderDao;
 	@Autowired
 	private CommunicateDao communicateDao;
+	@Autowired
+	private TicketDao ticketDao;
+	@Autowired
+	private CartDao cartDao;
 
 	//-------------------------------------------------------------------------
 	// Operation methods, implementing the PetStoreFacade interface
@@ -169,8 +179,13 @@ public class PetStoreImpl implements PetStoreFacade {
 	}
 	
 	public void insertOrder(Order order) {
-		itemDao.updateQuantity(order);	    
-		orderDao.insertOrder(order);
+		try {
+			orderDao.insertOrder(order);
+		} catch (MyException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		itemDao.updateQuantity(order);  
 	}
 	
 	public Order getOrder(int orderId) {
@@ -233,6 +248,84 @@ public class PetStoreImpl implements PetStoreFacade {
 	
 	public List<Comment> getCommentByItemId(String itemId) {
 		return communicateDao.getCommentByItemId(itemId);
+	}
+	
+	public void buyTicket(Ticket ticket) {
+		// TODO Auto-generated method stub
+		ticketDao.buyTicket(ticket);
+	}
+
+	public void useTicket(String userId) {
+		// TODO Auto-generated method stub
+		ticketDao.useTicket(userId);
+	}
+
+	public Ticket getTicketByUsername(String username) {
+		// TODO Auto-generated method stub
+		return ticketDao.getTicketByUsername(username);
+	}
+
+	public void insertBuyTicket(Ticket ticket) {
+		// TODO Auto-generated method stub
+		ticketDao.insertBuyTicket(ticket);
+	}
+	
+	public void deleteBuyTicketByUsername(Ticket ticket) {
+		ticketDao.deleteBuyTicketByUsername(ticket);
+	}
+
+	@Override
+	public int getMyTicketByUsername(String username) {
+		// TODO Auto-generated method stub
+		return ticketDao.getMyTicketByUsername(username);
+	}
+
+	@Override
+	public void insertInventory(Item item) {
+		// TODO Auto-generated method stub
+		itemDao.insertInventory(item);
+	}
+
+	@Override
+	public void insertCartItem(@Param("item")Item item, @Param("username")String username, @Param("qty")int qty) {
+		// TODO Auto-generated method stub
+		cartDao.insertCartItem(item, username, qty);
+	}
+
+	@Override
+	public void deleteCartItemByUsername(String username) {
+		// TODO Auto-generated method stub
+		cartDao.deleteCartItemByUsername(username);
+	}
+
+	@Override
+	public List<String> getCartItemByUsername(String username) {
+		// TODO Auto-generated method stub
+		return cartDao.getCartItemByUsername(username);
+	}
+
+	@Override
+	public void updateCartQty(@Param("item")Item item, @Param("qty")int qty) {
+		// TODO Auto-generated method stub
+		cartDao.updateCartQty(item, qty);
+	}
+
+	@Override
+	public Integer getQtyByItem(Item item) {
+		// TODO Auto-generated method stub
+		return cartDao.getQtyByItem(item);
+	}
+
+	@Override
+	public void deleteCartItemByItem(Item item) {
+		// TODO Auto-generated method stub
+		cartDao.deleteCartItemByItem(item);
+	}
+
+	@Override
+	public void updateCartOneQty(@Param("itemId")String itemId, @Param("username")String username) {
+		// TODO Auto-generated method stub
+		cartDao.updateCartOneQty(itemId, username);
 	}
 
 }
