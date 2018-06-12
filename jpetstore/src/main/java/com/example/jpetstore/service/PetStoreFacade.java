@@ -96,5 +96,6 @@ public interface PetStoreFacade {
 	void reSendMessage(String receiverId) throws DataAccessException;
 	
 	AuctionItem getAuctionItem(String itemId) throws DataAccessException;
-
+	
+	void insertDirectOrder(Order directOrder);
 }

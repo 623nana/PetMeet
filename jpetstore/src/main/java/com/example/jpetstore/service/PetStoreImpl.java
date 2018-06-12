@@ -235,4 +235,12 @@ public class PetStoreImpl implements PetStoreFacade {
 		return communicateDao.getCommentByItemId(itemId);
 	}
 
+
+	@Override
+	public void insertDirectOrder(Order directOrder) {
+		// TODO Auto-generated method stub
+		itemDao.updateQuantity(directOrder);	    
+		orderDao.insertDirectOrder(directOrder);
+	}
+
 }

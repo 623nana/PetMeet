@@ -74,6 +74,12 @@
 	<mvc:view-controller path="/shop/commentList.do" view-name="tiles/CommentList" />
 	<mvc:view-controller path="/shop/readMessagetwo.do" view-name="tiles/ReadMessagetwo" />		
 	<mvc:view-controller path="/shop/reSendMessagetwo.do" view-name="tiles/ReSendMessagetwo" />
+	<mvc:view-controller path="/shop/newDirectOrder.do" view-name="tiles/NewDirectOrder" />
+	<mvc:view-controller path="/shop/newDirectOrderSubmitted.do" view-name="tiles/NewDirectOrderSubmitted" />
+	<mvc:view-controller path="/shop/confirmDirectOrder.do" view-name="tiles/ConfirmDirectOrder" />
+	<mvc:view-controller path="/shop/viewDirectOrder.do" view-name="tiles/ViewDirectOrder" />
+	<mvc:view-controller path="/shop/directShippingForm.do" view-name="tiles/DirectShippingForm" />
+	<mvc:view-controller path="/shop/newDirectOrderNoShip.do" view-name="tiles/DirectOrderNoShip" />
 	
 	<mvc:interceptors>
 		<mvc:interceptor>

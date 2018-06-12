@@ -59,6 +59,15 @@
 			value="/WEB-INF/jsp/tiles/Item.jsp" />			
 	</definition>
 	
+	<definition name="tiles/SendMessage" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/SendMessage.jsp" />			
+	</definition>
+	
+	<definition name="tiles/RegisterComment" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/RegisterComment.jsp" />			
+
 		<definition name="tiles/ViewAuctionItem" extends="base_layout">
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tiles/AuctionItem.jsp" />			
@@ -79,9 +88,14 @@
 			value="/WEB-INF/jsp/tiles/SendMessage.jsp" />			
 	</definition>
 	
+	<definition name="tiles/CommentList" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/CommentList.jsp" />
+	</definition>
+	
 	<definition name="tiles/MessageList" extends="base_layout">
 		<put-attribute name="body"
-			value="/WEB-INF/jsp/tiles/Message.jsp" />			
+			value="/WEB-INF/jsp/tiles/MessageList.jsp" />			
 	</definition>
 	
 	<definition name="tiles/ReceiveMessageList" extends="base_layout">
@@ -112,6 +126,31 @@
 	<definition name="tiles/ReSendMessagetwo" extends="base_layout">
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tiles/ReSendMessagetwo.jsp" />			
+	</definition>
+	
+	<definition name="tiles/NewDirectOrder" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/NewDirectOrderForm.jsp" />			
+	</definition>
+	
+	<definition name="tiles/NewDirectOrderSubmitted" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/NewDirectOrderForm.jsp" />			
+	</definition>
+	
+	<definition name="tiles/ConfirmDirectOrder" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/ConfirmDirectOrder.jsp" />			
+	</definition>
+	
+	<definition name="tiles/ViewDirectOrder" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/ViewDirectOrder.jsp" />			
+	</definition>
+	
+	<definition name="tiles/DirectOrderNoShip" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/NewDirectOrderNoShip.jsp" />			
 	</definition>
 
 </tiles-definitions>

@@ -47,7 +47,7 @@ public class SendMessageListController {
 			) throws Exception {
 			String username = userSession.getAccount().getUsername();
 			System.out.println(username);
-			return new ModelAndView("SendMessageList", "SendMessageList", 
+			return new ModelAndView("tiles/SendMessageList", "SendMessageList", 
 					petStore.getSendMessageByUserId(username));
 		}
 
