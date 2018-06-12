@@ -17,12 +17,9 @@ public class CommentForm implements Serializable {
 	}
 
 	public CommentForm() {
-		super();
+		this.newComment = true;
 		this.comment = new Comment();
 	}
-
-
-
 
 	public Comment getComment() {
 		return comment;
@@ -34,3 +31,4 @@ public class CommentForm implements Serializable {
 	
 
 }
+

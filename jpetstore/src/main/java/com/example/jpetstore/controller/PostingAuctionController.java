@@ -1,18 +1,11 @@
 package com.example.jpetstore.controller;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.UUID;
 
-import javax.annotation.Resource;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.logging.Log;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,18 +19,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.example.jpetstore.domain.Account;
+import com.example.jpetstore.domain.AuctionItem;
 import com.example.jpetstore.service.PetStoreFacade;
 
 @Controller
 @SessionAttributes("userSession")
-@RequestMapping("/shop/postItem.do")
-public class PostingFormController {
+@RequestMapping("/shop/postAuctionItem.do")
+public class PostingAuctionController {
 
-	@Value("tiles/PostingFixedItem")
+	@Value("tiles/PostingAuctionItem")
 	private String formViewName;
 	@Value("tiles/index")
 	private String successViewName;
@@ -48,15 +40,15 @@ public class PostingFormController {
 		this.petStore = petStore;
 	}
 	
-	@ModelAttribute("postingForm")
-	public PostingForm formBackingObject(HttpServletRequest request,
+	@ModelAttribute("postingAuction")
+	public PostingAuction formBackingObject(HttpServletRequest request,
 			@Param("itemId") String itemId)
 			throws Exception {
-		if(itemId != null)
-			return new PostingForm(
-					petStore.getItem(itemId));
+		if(itemId!= null)
+			return new PostingAuction(
+					petStore.getAuctionItem(itemId));
 		else
-			return new PostingForm();
+			return new PostingAuction();
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
@@ -68,12 +60,12 @@ public class PostingFormController {
 	public String onSubmit(
 			HttpServletRequest request, HttpSession session,
 			@RequestParam("file") MultipartFile file,
-			@ModelAttribute("postingForm") PostingForm postingForm,
+			@ModelAttribute("postingAuction") PostingAuction postingAuction,
 			BindingResult result) throws Exception {
 		
 		if(result.hasErrors()) return formViewName;
 		try {
-			if(postingForm.isNewPosting()) {
+			if(postingAuction.isNewPosting()) {
 				System.out.println("insert");
 				UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
 				
@@ -94,36 +86,39 @@ public class PostingFormController {
 		        
 				Account account = petStore.getAccount(userSession.getAccount().getUsername());
 				
-				String id = petStore.setProductId(postingForm.getItem().getName());
+				String str = postingAuction.getAuctionItem().getTime();
 				
-				postingForm.getItem().setImage(saveName);
+				System.out.println(str);
 				
-				System.out.println(id);
+				postingAuction.getAuctionItem().getItem().setImage(saveName);
+				
+				String id = petStore.setProductId(postingAuction.getAuctionItem().getItem().getName());
 				
 				if(id == null) { //사용자가 입력한 종의 Product ID가 존재하지 않는 경우
 					System.out.println("없음");
-					petStore.insertNewProduct(postingForm.getItem());	
-					String newId = petStore.setProductId(postingForm.getItem().getName());
-					postingForm.getItem().setProductId(newId);
-					postingForm.getItem().setUsername(account.getUsername());
-					petStore.insertFixedItem(postingForm.getItem());
-					//petStore.insertInventory(postingForm.getItem());
+					petStore.insertNewProduct(postingAuction.getAuctionItem().getItem());	
+					String newId = petStore.setProductId(postingAuction.getAuctionItem().getItem().getName());
+					postingAuction.getAuctionItem().getItem().setProductId(newId);
+					postingAuction.getAuctionItem().getItem().setUsername(account.getUsername());
+					
+					petStore.insertAuctionItem(postingAuction.getAuctionItem().getItem());
+					postingAuction.getAuctionItem().setItemId(postingAuction.getAuctionItem().getItem().getItemId());
+					petStore.insertAuctionInfo(postingAuction.getAuctionItem());
 					
 				} else {
 					System.out.println("넣었음");
-					postingForm.getItem().setProductId(id);
-					postingForm.getItem().setUsername(account.getUsername());
-					petStore.insertFixedItem(postingForm.getItem());
-					//petStore.insertInventory(postingForm.getItem());
+					postingAuction.getAuctionItem().getItem().setProductId(id);
+					postingAuction.getAuctionItem().getItem().setUsername(account.getUsername());
+					petStore.insertAuctionItem(postingAuction.getAuctionItem().getItem());
+					postingAuction.getAuctionItem().setItemId(postingAuction.getAuctionItem().getItem().getItemId());
+					petStore.insertAuctionInfo(postingAuction.getAuctionItem());
 				}
 				
-			} else {
-				String itemId = postingForm.getItem().getItemId();
-				System.out.println(itemId);
-				
-				petStore.updateFixedItem(postingForm.getItem());
+			}else {
+				petStore.updateAuctionItem(postingAuction.getAuctionItem().getItem());
 			}
 				
+			
 		}
 		catch (DataIntegrityViolationException ex) {
 			System.out.println("오류");
@@ -133,9 +128,6 @@ public class PostingFormController {
 		 return successViewName;
 		}
 	
-	
-
-		
 	}
 		
 	

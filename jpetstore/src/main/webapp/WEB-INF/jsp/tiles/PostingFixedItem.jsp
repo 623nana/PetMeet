@@ -14,13 +14,27 @@
 	<form:form commandName="postingForm" method="post" enctype="multipart/form-data">
           <div class="form-group">
             <form:label path="item.name">Species</form:label>
-            <form:input cssClass="form-control" path="item.name" placeholder="동물의 종을 입력하세요." />
+            <c:choose>
+            	<c:when test="${!empty postingForm.item.itemId }">
+            		<form:input cssClass="form-control" path="item.name" placeholder="동물의 종을 입력하세요." readonly="true" />
+            	</c:when>
+            	<c:otherwise>
+            		<form:input cssClass="form-control" path="item.name" placeholder="동물의 종을 입력하세요." />
+            	</c:otherwise>
+            </c:choose>
           </div>
           <div class="form-group">
             <label for="category">Category</label>
-            <select class="form-control" id="item.categoryId" name="item.categoryId">
-        		<option value="DOG">DOG</option>
-        		<option value="CAT">CAT</option>
+            <c:choose>
+            	<c:when test="${!empty postingForm.item.itemId }">
+            		 <select class="form-control" id="item.categoryId" name="item.categoryId" disabled="true">
+            	</c:when>
+            	<c:otherwise>
+            		 <select class="form-control" id="item.categoryId" name="item.categoryId">
+            	</c:otherwise>
+            </c:choose>
+        		<option value="DOGS">DOG</option>
+        		<option value="CATS">CAT</option>
         		<option value="FISH">FISH</option>
         		<option value="REPTILES">REPTILES</option>
         		<option value="BIRDS">BIRDS</option>
@@ -31,7 +45,14 @@
           	<div class="form-row">
           		<div class="col-md-6">
             		<form:label path="item.price">Price</form:label>
+            		            <c:choose>
+            	<c:when test="${!empty postingForm.item.itemId }">
+            		<form:input cssClass="form-control" path="item.price" placeholder="가격을 입력하세요." readonly="true"/>
+            	</c:when>
+            	<c:otherwise>
             		<form:input cssClass="form-control" path="item.price" placeholder="가격을 입력하세요." />
+            	</c:otherwise>
+            </c:choose>
           		</div>
           		<div class="col-md-6">
           			<label for="shipWay">Ship Way</label>
@@ -53,10 +74,9 @@
 		</div>
 	<div class="form-group row">
     		<label for="content" class="col-sm-5 col-form-label">Content</label>
-      			 <textarea class="form-control" cols="50" rows="10" name="item.content" id="item.content" placeholder="내용을 입력하세요."></textarea>
+      			 <textarea class="form-control" cols="50" rows="10" name="item.content" id="item.content" placeholder="내용을 입력하세요."><c:out value="${postingForm.item.content }" /></textarea>
   		</div>
-		<input type="submit" class="btn btn-primary btn-block" name="submit">
-		<input type="button" class="btn btn-primary btn-block" name="comment" value="댓글 달기" onclick="location.href='<c:url value="/shop/registerComment.do" />'" />
+		<input type="submit" class="btn btn-primary btn-block" name="submit" value="등록">
 		</form:form>
 		</div>
 		</div>
