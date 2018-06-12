@@ -18,8 +18,17 @@ public class Item implements Serializable {
   private String name;
   private int price;
   private String content;
+  private String classify;
 
-  public String getContent() {
+  
+  
+  public String getClassify() {
+	return classify;
+}
+public void setClassify(String classify) {
+	this.classify = classify;
+}
+public String getContent() {
 	return content;
 }
 public void setContent(String content) {

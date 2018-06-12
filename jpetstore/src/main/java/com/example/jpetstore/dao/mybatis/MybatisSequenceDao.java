@@ -9,7 +9,6 @@ import com.example.jpetstore.dao.SequenceDao;
 import com.example.jpetstore.dao.mybatis.mapper.SequenceMapper;
 import com.example.jpetstore.domain.Sequence;
 
-@Repository
 public class MybatisSequenceDao implements SequenceDao {
 	@Autowired
 	protected SequenceMapper sequenceMapper;

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 import com.example.jpetstore.domain.Account;
+import com.example.jpetstore.domain.AuctionItem;
+import com.example.jpetstore.domain.BiddingInfo;
 import com.example.jpetstore.domain.Category;
 import com.example.jpetstore.domain.Comment;
 //import com.example.jpetstore.domain.Comment;
@@ -56,17 +58,28 @@ public interface PetStoreFacade {
 	void insertFixedItem(Item item);
 	
 	String setProductId(String name);
+	
+	void updateFixedItem(Item item);
+	
+	void updateAuctionItem(Item item);
 
-
+	void insertAuctionItem(Item item);
+	
+	void insertAuctionInfo(AuctionItem auctionItem);
+	
+	void insertBid(BiddingInfo biddingInfo);
+	
 	void insertOrder(Order order);
 
 	Order getOrder(int orderId);
 
 	List<Order> getOrdersByUsername(String username);
 	
-	void registerComment(Comment comment) throws DataAccessException;
+	void insertComment(Comment comment) throws DataAccessException;
 	
-	List<Comment> getCommentList(String itemId) throws DataAccessException;
+	void insertReComment(Comment comment) throws DataAccessException;
+	
+	List<Comment> getCommentByItemId(String itemId) throws DataAccessException;
 	
 	void sendMessage(Message msg) throws DataAccessException;
 	
@@ -81,7 +94,8 @@ public interface PetStoreFacade {
 	void deleteMessage(String messageId) throws DataAccessException;
 	   
 	void reSendMessage(String receiverId) throws DataAccessException;
-
+	
+	AuctionItem getAuctionItem(String itemId) throws DataAccessException;
 	
 	void insertDirectOrder(Order directOrder);
 }

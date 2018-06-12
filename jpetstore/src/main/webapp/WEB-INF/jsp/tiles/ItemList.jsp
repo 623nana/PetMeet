@@ -22,11 +22,27 @@
       <img class="img-thumbnail" src="${pageContext.request.contextPath}/images/${item.image}" width="242" height="200">
       <div class="caption">
         <h3>${item.name}</h3>
-        <font size="2"><b>${item.price} KRW</b></font><br />
+        <c:choose>
+            	<c:when test="${item.classify.equals('FIXED') }">
+            		<font size="2"><b>${item.price} KRW</b></font><br />
+            	</c:when>
+            	<c:otherwise>
+            		<font size="2"><b>경매 상품 입니다.</b></font><br />
+            	</c:otherwise>
+            </c:choose>
         <font size="2" color="#0ba360">판매자:</font><font size="2">${item.username }</font>
         <br /><br />
-        <p><a href='<c:url value="/shop/viewItem.do">
+        <p>
+        <c:choose>
+        <c:when test="${item.classify.equals('FIXED') }">
+            		<a href='<c:url value="/shop/viewItem.do">
             <c:param name="itemId" value="${item.itemId}"/></c:url>' class="btn btn-primary" role="button">구매하기</a></p>
+            	</c:when>
+            	<c:otherwise>
+            		<a href='<c:url value="/shop/viewAuctionItem.do">
+            			<c:param name="itemId" value="${item.itemId}"/></c:url>' class="btn btn-primary" role="button">구매하기</a></p>
+            	</c:otherwise>
+            	</c:choose>
       </div>
   </div>
 </div>
@@ -54,4 +70,3 @@
 </center>
 </div>
 </div>
-

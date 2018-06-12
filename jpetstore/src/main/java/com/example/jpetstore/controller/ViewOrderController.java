@@ -33,7 +33,7 @@ public class ViewOrderController {
 			) throws Exception {
 		Order order = this.petStore.getOrder(orderId);
 		if (userSession.getAccount().getUsername().equals(order.getUsername())) {
-			return new ModelAndView("ViewOrder", "order", order);
+			return new ModelAndView("tiles/ViewOrder", "order", order);
 		}
 		else {
 			return new ModelAndView("Error", "message", "You may only view your own orders.");

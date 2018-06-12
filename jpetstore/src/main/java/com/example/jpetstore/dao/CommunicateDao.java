@@ -9,7 +9,9 @@ import com.example.jpetstore.domain.Message;
 
 public interface CommunicateDao {
 	   
-	   void insertComment(Comment itemComment) throws DataAccessException;
+	   void insertComment(Comment comment) throws DataAccessException;
+	   
+	   void insertReComment(Comment comment) throws DataAccessException;
 
 	   //코멘트는 답글이 달리지 않은 것에 한해서만 삭제가 가능하도록 한다.
 	   void deleteComment(String itemId, int commentId, int commentNum) throws DataAccessException;

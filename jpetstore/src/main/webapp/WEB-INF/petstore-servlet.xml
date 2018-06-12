@@ -51,7 +51,9 @@
 	
 	<mvc:view-controller path="/shop/index.do" view-name="tiles/index"/>
 	<mvc:view-controller path="/shop/signonForm.do" view-name="tiles/SignonForm"/> 
+	<mvc:view-controller path="/shop/editPostItem.do" view-name="tiles/PostingFixedItem" />
 	<mvc:view-controller path="/shop/postItem.do" view-name="tiles/PostingFixedItem"/>
+	<mvc:view-controller path="/shop/postAuctionItem.do" view-name="tiles/PostingAuctionItem"/>
 	<mvc:view-controller path="/shop/newAccount.do" view-name="tiles/EditAccountForm"/>
 	<mvc:view-controller path="/shop/editAccount.do" view-name="tiles/EditAccountForm"/>
 	<mvc:view-controller path="/shop/signon.do" view-name="tiles/index"/>
@@ -59,6 +61,7 @@
 	<mvc:view-controller path="/shop/viewCategory.do" view-name="tiles/ViewItemList"/>
 	<mvc:view-controller path="/shop/viewCategory2.do" view-name="tiles/ViewItemList"/>
 	<mvc:view-controller path="/shop/viewItem.do" view-name="tiles/ViewItem"/>
+	<mvc:view-controller path="/shop/viewAuctionItem.do" view-name="tiles/ViewAuctionItem"/>
 
 	<mvc:view-controller path="/shop/sendMessage.do" view-name="tiles/SendMessage" />
 	<mvc:view-controller path="/shop/readMessage.do" view-name="tiles/ReadMessage" />
@@ -67,7 +70,7 @@
 	<mvc:view-controller path="/shop/sendMessageList.do" view-name="tiles/SendMessageList" />
 	<mvc:view-controller path="/shop/reSendMessage.do" view-name="tiles/ReSendMessage" />	
 	
-	<mvc:view-controller path="/shop/registerComment.do" view-name="tiles/RegisterComment" />
+	<mvc:view-controller path="/shop/registerComment.do" view-name="tiles/RegisterReComment" />
 	<mvc:view-controller path="/shop/commentList.do" view-name="tiles/CommentList" />
 	<mvc:view-controller path="/shop/readMessagetwo.do" view-name="tiles/ReadMessagetwo" />		
 	<mvc:view-controller path="/shop/reSendMessagetwo.do" view-name="tiles/ReSendMessagetwo" />
@@ -86,6 +89,7 @@
         	<mvc:mapping path="/shop/newOrder.do"/>
         	<mvc:mapping path="/shop/postItem.do"/>
         	<mvc:mapping path="/shop/messageList.do"/>
+        	<mvc:mapping path="/shop/buyTicket.do"/>
         	<bean class="com.example.jpetstore.controller.SignonInterceptor" />
     	</mvc:interceptor>
 	</mvc:interceptors>

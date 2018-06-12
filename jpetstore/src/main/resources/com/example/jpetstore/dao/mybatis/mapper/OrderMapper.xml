@@ -73,6 +73,9 @@
   </select>
 
   <insert id="insertOrder">
+ 	<selectKey keyProperty="orderId" resultType="int" order="BEFORE">
+        SELECT ordernum.nextval AS orderId FROM DUAL
+     </selectKey>
     INSERT INTO ORDERS (ORDERID, USERID, ORDERDATE, SHIPADDR1, SHIPADDR2, SHIPCITY, SHIPSTATE,
       SHIPZIP, SHIPCOUNTRY, BILLADDR1, BILLADDR2, BILLCITY, BILLSTATE, BILLZIP, BILLCOUNTRY,
       COURIER, TOTALPRICE, BILLTOFIRSTNAME, BILLTOLASTNAME, SHIPTOFIRSTNAME, SHIPTOLASTNAME,
@@ -84,8 +87,8 @@
   </insert>
 
   <insert id="insertOrderStatus">
-    INSERT INTO ORDERSTATUS (ORDERID, LINENUM, TIMESTAMP, STATUS)
-    VALUES (#{orderId,jdbcType=NUMERIC}, #{orderId,jdbcType=NUMERIC}, #{orderDate,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR})
+    INSERT INTO ORDERSTATUS (ORDERID, TIMESTAMP, STATUS)
+    VALUES (#{orderId,jdbcType=NUMERIC}, #{orderDate,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR})
   </insert>
   
   <insert id="msSqlServerInsertOrder" useGeneratedKeys="true">

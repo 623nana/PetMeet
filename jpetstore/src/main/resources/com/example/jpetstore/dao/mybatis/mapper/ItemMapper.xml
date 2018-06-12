@@ -37,9 +37,10 @@
 		SPECIES AS name,
 		GENDER,
 		CONTENT,
-		IMAGE
+		IMAGE,
+		CLASSIFY
 	FROM ITEM
-	WHERE ITEMID = #{ITEMID}   
+	WHERE ITEMID = #{ITEMID} 
    
     <!--  SELECT
       I.ITEMID,
@@ -63,6 +64,38 @@
       AND I.ITEMID = V.ITEMID
       AND I.ITEMID = #{value}-->
   </select>
+	
+<!-- 	<resultMap type="associationResultMap" id="AuctionItem">
+		<id column="ITEMID" jdbcType="VARCHAR" property="itemId" />
+		<result column="AUCTIONTIME" jdbcType="VARCHAR" property="time" />
+		<result column="BEGINPRICE" jdbcType="NUMBERIC" property="beginPrice" />
+		<result column="LIMITPRICE" jdbcType="NUMBERIC" property="limitPrice" />
+		<result column="AUCTIONSTATUS" jdbcType="VARCHAR" property="auctionStatus" />
+		<association property="item" column="itemId" javaType="Item">
+			<id property="itemId" column="ITEMID" />
+			<result property="productId" column="PRODUCTID"/>
+			<result property="username" column="USERID" />
+			<result property="categoryId" column="CATEGORY" />
+		</association>
+	</resultMap> -->
+	<select id="getAuctionItem" parameterType="String" resultType="AuctionItem">
+		SELECT
+				ITEM.ITEMID AS "item.itemId",
+				ITEM.USERID AS "item.username",
+				ITEM.PRODUCTID AS "item.productId",
+				ITEM.CATEGORY AS "item.categoryId",
+				ITEM.CONTENT AS "item.content",
+				ITEM.SHIPWAY AS "item.shipway",
+				ITEM.IMAGE AS "item.image",
+				ITEM.SPECIES AS "item.name",
+				AUCTIONITEM.AUCTIONTIME AS time,
+				AUCTIONITEM.BEGINPRICE AS beginPrice,
+				AUCTIONITEM.LIMITPRICE AS limitPrice,
+				AUCTIONITEM.CURRENTPRICE AS currentPrice,
+				AUCTIONITEM.AUCTIONSTATUS AS actionStatus
+			FROM AUCTIONITEM, ITEM
+			WHERE AUCTIONITEM.ITEMID = ITEM.ITEMID AND ITEM.ITEMID = #{itemId}  
+	</select>
 
   <select id="getInventoryQuantity" resultType="int">
     SELECT QTY AS value
@@ -86,10 +119,24 @@
   	<selectKey keyProperty="productId" resultType="String" order="BEFORE">
   		select 'PRODUCT-' || TO_CHAR(product_seq.nextval) AS productId from DUAL
   	</selectKey>
+  	
+  	
+  	
+  	
+  	
+  	
+  	
   	INSERT INTO PRODUCT
   		(PRODUCTID, CATEGORY, NAME)
   	VALUES
   		(#{productId}, #{categoryId}, #{name, jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertBid" parameterType="BiddingInfo">
+  	INSERT INTO BIDDINGINFO
+  		(EXPECTPRICE, BIDDINGTIME, USERID, ITEMID)
+  	VALUES
+  		(#{expectPrice}, #{biddingTime}, #{username}, #{itemId})
   </insert>
   
   <insert id="insertFixedItem" parameterType="com.example.jpetstore.domain.Item">
@@ -97,9 +144,13 @@
   		select 'ITEM-' || TO_CHAR(item_seq.nextval) AS itemId from DUAL
   	</selectKey>
   	INSERT INTO ITEM
-  		(ITEMID, PRODUCTID, USERID, SHIPWAY, PRICE, CATEGORY, SPECIES, CONTENT, GENDER, IMAGE)
+  		(ITEMID, PRODUCTID, USERID, SHIPWAY, PRICE, CATEGORY, SPECIES, CONTENT, GENDER, IMAGE, CLASSIFY)
   	VALUES
-  		(#{itemId}, #{productId}, #{username}, #{shipway},  #{price}, #{categoryId}, #{name}, #{content, jdbcType=VARCHAR}, #{gender}, #{image})
+  		(#{itemId}, #{productId}, #{username}, #{shipway},  #{price}, #{categoryId}, #{name}, #{content, jdbcType=VARCHAR}, #{gender}, #{image}, 'FIXED')
+  </insert>
+  
+  <insert id="insertInventory">
+  	INSERT INTO INVENTORY(ITEMID, QTY) VALUES(#{itemId}, 1)  
   </insert>
   
   <select id="getItemListByCategory" resultType="Item">
@@ -109,8 +160,43 @@
   		USERID as username,
   		PRICE,
   		CATEGORY as categoryId,
-  		IMAGE
+  		IMAGE,
+  		CLASSIFY
   	FROM ITEM
   	WHERE CATEGORY = #{categoryId}
   </select>
+  
+  <update id="updateFixedItem" parameterType="Item">
+  	UPDATE ITEM SET
+  		SHIPWAY = #{shipway},
+  		CONTENT = #{content, jdbcType=VARCHAR},
+  		GENDER = #{gender}
+  	WHERE ITEMID = #{itemId}
+  </update>
+  
+    <update id="updateAuctionItem" parameterType="Item">
+  	UPDATE ITEM SET
+  		SHIPWAY = #{shipway},
+  		CONTENT = #{content, jdbcType=VARCHAR},
+  		GENDER = #{gender}
+  	WHERE ITEMID = #{itemId}
+  </update>
+  
+    <insert id="insertAuctionItem" parameterType="Item">
+  	<selectKey keyProperty="itemId" resultType="String" order="BEFORE">
+  		select 'ITEM-' || TO_CHAR(item_seq.nextval) AS itemId from DUAL
+  	</selectKey>
+  	INSERT INTO ITEM
+  		(ITEMID, PRODUCTID, USERID, SHIPWAY, CATEGORY, SPECIES, CONTENT, GENDER, IMAGE, CLASSIFY)
+  	VALUES
+  		(#{itemId}, #{productId}, #{username}, #{shipway}, #{categoryId}, #{name}, #{content, jdbcType=VARCHAR}, #{gender}, #{image}, 'AUCTION')
+  </insert>
+  
+  <insert id="insertAuctionInfo" parameterType="AuctionItem">
+  	INSERT INTO AUCTIONITEM
+  		(ITEMID, BEGINPRICE, LIMITPRICE, AUCTIONTIME, CURRENTPRICE, AUCTIONSTATUS)
+  	VALUES
+  		(#{itemId}, #{beginPrice}, #{limitPrice}, #{time}, 0, 'OPEN' )
+  </insert> 
+  
 </mapper>

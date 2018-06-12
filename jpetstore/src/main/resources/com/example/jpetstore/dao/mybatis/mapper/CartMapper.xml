@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.jpetstore.dao.mybatis.mapper.CartMapper">
+
+  <cache />  
+	 
+		
+	<insert id="insertCartItem">
+		INSERT INTO CART (ITEMID, USERID, QTY)
+		VALUES (#{item.itemId}, #{item.username}, #{qty})	
+	</insert>
+  
+   <delete id="deleteCartItemByUsername">
+   		DELETE
+   		FROM CART
+   		WHERE USERID = #{username}
+   </delete>
+   
+  <select id="getCartItemByUsername" resultType="java.lang.String">
+		SELECT ITEMID
+		FROM CART
+ 		WHERE USERID = #{username}
+	</select>
+	
+	<select id="getQtyByItem" resultType="int">
+		SELECT QTY
+		FROM CART
+		WHERE USERID = #{username} AND ITEMID = #{itemId}	
+	</select>
+	
+	<update id="updateCartOneQty">
+		UPDATE CART
+		SET QTY = QTY + 1
+		WHERE USERID = #{username} AND ITEMID = #{itemId}
+	</update>
+	
+	<update id="updateCartQty">
+		UPDATE CART
+		SET QTY = #{qty}
+		WHERE USERID = #{item.username} AND ITEMID = #{item.itemId}
+	</update>
+	
+	<delete id="deleteCartItemByItem">
+		DELETE
+		FROM CART
+		WHERE USERID = #{username} AND ITEMID = #{itemId}
+	</delete>
+  
+</mapper>

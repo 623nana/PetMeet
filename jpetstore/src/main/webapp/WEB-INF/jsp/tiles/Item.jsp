@@ -51,16 +51,25 @@
 <P><a href='<c:url value="/shop/viewItem.do">
             <c:param name="itemId" value="${item.itemId}"/></c:url>' class="btn btn-primary" role="button">바로구매</a>
    <a href='<c:url value="/shop/addItemToCart.do">
-            <c:param name="workingItemId" value="${item.itemId}"/></c:url>' class="btn btn-primary" role="button"><i class="fa fa-cart-arrow-down"></i>&nbsp;장바구니</a>         
+            <c:param name="workingItemId" value="${item.itemId}"/></c:url>' class="btn btn-primary" role="button"><i class="fa fa-cart-arrow-down"></i>&nbsp;장바구니</a>
+   <c:if test="${item.username.equals(userSession.account.username)}">
+   <a href='<c:url value="/shop/postItem.do">
+            <c:param name="itemId" value="${item.itemId}"/></c:url>' class="btn btn-primary" role="button">수정</a></c:if>         
             </P>
 <hr>
 </div>
+
 
 <div class="col-sm-10">
 
 <p><i class="fa fa-newspaper-o" style="font-size:24px;color:#0ba360"></i><b> CONTENTS : </b></p>
 <hr>
 <div class="panel panel-default"><div class="panel-body"><c:out value="${item.content }" /></div></div>
+
+<%@include file="CommentList.jsp" %>
+	<c:if test="${!empty userSession.account  }">
+	<%@include file="CommentForm.jsp" %>
+	</c:if>
 </div>
 </div>
 </div>

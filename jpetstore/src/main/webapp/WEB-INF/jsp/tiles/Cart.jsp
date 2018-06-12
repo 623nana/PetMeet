@@ -1,9 +1,10 @@
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="container">
 <div class="row">
 <div class="col-sm-2"></div>
 <div class="col-sm-10">
-
+<br /><br /><br />
 	<h2>Shopping Cart</h2>
 	<form action='<c:url value="/shop/updateCartQuantities.do"/>' method="post">
         <table id="cart" class="table table-hover">
@@ -34,19 +35,17 @@
                   <c:out value="${cartItem.item.itemId}" />
                 </a></b></td>
               <td><c:out value="${cartItem.item.productId}" /></td>
-              <td><c:out value="${cartItem.item.attribute1}" /> 
-                <c:out value="${cartItem.item.attribute2}" /> 
-                <c:out value="${cartItem.item.attribute3}" />
-                <c:out value="${cartItem.item.attribute4}" />
-                <c:out value="${cartItem.item.attribute5}" />
-                <c:out value="${cartItem.item.product.name}" /></td>
+               
+              <td>
+                <c:out value="${cartItem.item.product.description}" /></td>
+                
               <td style="text-align:center"><c:out value="${cartItem.inStock}" /></td>
               <td style="text-align:center">
                 <input type="text" size="3"
                   name='<c:out value="${cartItem.item.itemId}"/>'
                   value='<c:out value="${cartItem.quantity}"/>' /></td>
               <td style="text-align:right"><fmt:formatNumber
-                  value="${cartItem.item.listPrice}" pattern="$#,##0.00" /></td>
+                  value="${cartItem.item.price}" pattern="$#,##0.00" /></td>
               <td style="text-align:right"><fmt:formatNumber
                   value="${cartItem.totalPrice}" pattern="$#,##0.00" /></td>
               <td><a class="btn btn-primary btn-block" href='<c:url value="/shop/removeItemFromCart.do">
@@ -82,13 +81,15 @@
             <img border="0" src="../images/button_checkout.gif" alt="" /></a>
         </div>
       </c:if>
+     <!-- 
+      
     <td style="text-align:right;width:20%;">
       <c:if test="${!empty userSession.account.username}">
         <c:if test="${userSession.account.listOption}">
           <%@ include file="IncludeMyList.jsp"%>
         </c:if>
       </c:if>
-    </td> 
+    </td>  -->
 </div>
 </div>
 </div>

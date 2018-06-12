@@ -19,6 +19,10 @@ package com.example.jpetstore.dao.mybatis.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.dao.DataAccessException;
+
+import com.example.jpetstore.domain.AuctionItem;
+import com.example.jpetstore.domain.BiddingInfo;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.Product;
 
@@ -45,6 +49,20 @@ public interface ItemMapper {
   String setProductId(String name);
   
   void insertNewProduct(Item item);
+  
+  void updateFixedItem(Item item);
+  
+  void insertAuctionItem(Item item);
+  
+  void insertAuctionInfo(AuctionItem auctionItem);
+  
+  AuctionItem getAuctionItem(String itemId);
+  
+  void updateAuctionItem(Item item);
+
+  void insertBid(BiddingInfo biddingInfo);
+
+  void insertInventory(Item item);
 
 
 }

@@ -39,11 +39,15 @@ public class MybatisOrderDao implements OrderDao {
 	    return order;
 	}
 	
-	@Transactional
-	public void insertOrder(Order order) throws DataAccessException {  
-    	order.setOrderId(sequenceDao.getNextId("ordernum"));
+	@Transactional(rollbackFor={MyException.class})		
+	public void insertOrder(Order order) throws DataAccessException, MyException {  
+    	//order.setOrderId(sequenceDao.getNextId("ordernum"));
     	orderMapper.insertOrder(order);
     	orderMapper.insertOrderStatus(order);
+    	
+    	if (order.getLineItems().size() >= 3) 
+    		throw new MyException("Too many items!");
+    	
     	for (int i = 0; i < order.getLineItems().size(); i++) {
     		LineItem lineItem = (LineItem) order.getLineItems().get(i);
     		lineItem.setOrderId(order.getOrderId());

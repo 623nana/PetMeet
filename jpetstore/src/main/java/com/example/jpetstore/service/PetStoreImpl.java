@@ -12,6 +12,8 @@ import com.example.jpetstore.dao.ItemDao;
 import com.example.jpetstore.dao.OrderDao;
 import com.example.jpetstore.dao.ProductDao;
 import com.example.jpetstore.domain.Account;
+import com.example.jpetstore.domain.AuctionItem;
+import com.example.jpetstore.domain.BiddingInfo;
 import com.example.jpetstore.domain.Category;
 import com.example.jpetstore.domain.Comment;
 import com.example.jpetstore.domain.Item;
@@ -131,12 +133,35 @@ public class PetStoreImpl implements PetStoreFacade {
 		return itemDao.getItem(itemId);
 	}
 
+	public AuctionItem getAuctionItem(String itemId) {
+		return itemDao.getAuctionItem(itemId);
+	}
+	
 	public boolean isItemInStock(String itemId) {
 		return itemDao.isItemInStock(itemId);
 	}
 
 	public void insertFixedItem(Item item) {
 		itemDao.insertFixedItem(item);
+	}
+	
+	public void updateFixedItem(Item item) {
+		itemDao.updateFixedItem(item);
+	}
+	
+	public void updateAuctionItem(Item item) {
+		itemDao.updateAuctionItem(item);
+	}
+	
+	public void insertAuctionItem(Item item) {
+		itemDao.insertAuctionItem(item);
+	}
+	
+	public void insertBid(BiddingInfo biddingInfo) {
+		itemDao.insertBid(biddingInfo);
+	}
+	public void insertAuctionInfo(AuctionItem auctionItem) {
+		itemDao.insertAuctionInfo(auctionItem);
 	}
 	
 	public String setProductId(String name) {
@@ -198,16 +223,16 @@ public class PetStoreImpl implements PetStoreFacade {
 		
 	}
 
-	@Override
-	public void registerComment(Comment comment) throws DataAccessException {
-		// TODO Auto-generated method stub
-		
+	public void insertComment(Comment comment) {
+		communicateDao.insertComment(comment);
 	}
-
-	@Override
-	public List<Comment> getCommentList(String itemId) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public void insertReComment(Comment comment) {
+		communicateDao.insertReComment(comment);
+	}
+	
+	public List<Comment> getCommentByItemId(String itemId) {
+		return communicateDao.getCommentByItemId(itemId);
 	}
 
 

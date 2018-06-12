@@ -43,6 +43,11 @@
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tiles/PostingFixedItem.jsp" />			
 	</definition>
+		
+	<definition name="tiles/PostingAuctionItem" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/PostingAuctionItem.jsp" />			
+	</definition>
 	
 	<definition name="tiles/ViewItemList" extends="base_layout">
 		<put-attribute name="body"
@@ -62,16 +67,25 @@
 	<definition name="tiles/RegisterComment" extends="base_layout">
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tiles/RegisterComment.jsp" />			
+
+		<definition name="tiles/ViewAuctionItem" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/AuctionItem.jsp" />			
+	</definition>
+	
+	<definition name="tiles/RegisterReComment" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/ReCommentForm.jsp" />			
 	</definition>
 	
 	<definition name="tiles/CommentList" extends="base_layout">
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tiles/CommentList.jsp" />
 	</definition>
-	
-	<definition name="tiles/RegisterComment" extends="base_layout">
+		
+	<definition name="tiles/SendMessage" extends="base_layout">
 		<put-attribute name="body"
-			value="/WEB-INF/jsp/tiles/RegisterComment.jsp" />			
+			value="/WEB-INF/jsp/tiles/SendMessage.jsp" />			
 	</definition>
 	
 	<definition name="tiles/CommentList" extends="base_layout">

@@ -25,9 +25,13 @@ public class Account implements Serializable {
   private String languagePreference;
   private boolean listOption;
   private boolean bannerOption;
-  private String bannerName;
+  private String bannerName;  
+  private int myticket;
 
   /* JavaBeans Properties */
+
+  public int getMyticket() { return myticket; }
+  public void setMyticket(int myticket) { this.myticket = myticket; } 
 
   public String getUsername() { return username; }
   public void setUsername(String username) { this.username = username; }

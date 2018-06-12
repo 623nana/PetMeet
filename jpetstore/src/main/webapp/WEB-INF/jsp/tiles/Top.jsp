@@ -46,7 +46,7 @@
           </a>
           <ul class="sidenav-second-level collapse" id="collapseComponents">
             <li>
-              <a href="navbar.html">판매권 구매</a>
+              <a href="<c:url value="/shop/buyTicket.do"/>">판매권 구매</a>
             </li>
             <li>
               <a href="<c:url value="/shop/postItem.do"/>">정찰 상품 등록</a>
@@ -63,7 +63,7 @@
           </a>
           <ul class="sidenav-second-level collapse" id="collapseExamplePages">
             <li>
-              <a href="login.html">가까운 병원 찾기</a>
+              <a href="<c:url value="/shop/viewHospital.do"/>">가까운 병원 찾기</a>
             </li>
             <li>
               <a href="register.html">나에게 맞는 동물 찾기</a>

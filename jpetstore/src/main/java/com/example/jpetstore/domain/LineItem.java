@@ -22,7 +22,7 @@ public class LineItem implements Serializable {
     this.lineNumber = lineNumber;
     this.quantity = cartItem.getQuantity();
     this.itemId = cartItem.getItem().getItemId();
-    //this.unitPrice = cartItem.getItem().getListPrice();
+    this.unitPrice = cartItem.getItem().getPrice();
     this.item = cartItem.getItem();
   }
 
