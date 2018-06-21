@@ -4,47 +4,51 @@
 <mapper namespace="com.example.jpetstore.dao.mybatis.mapper.CartMapper">
 
   <cache />  
-	 
-		
-	<insert id="insertCartItem">
-		INSERT INTO CART (ITEMID, USERID, QTY)
-		VALUES (#{item.itemId}, #{username}, #{qty})	
-	</insert>
+    
+      
+   <insert id="insertCartItem">
+      INSERT INTO CART (ITEMID, USERID, QTY)
+      VALUES (#{item.itemId}, #{username}, #{qty})   
+   </insert>
   
    <delete id="deleteCartItemByUsername">
-   		DELETE
-   		FROM CART
-   		WHERE USERID = #{username}
+         DELETE
+         FROM CART
+         WHERE USERID = #{username}
    </delete>
    
   <select id="getCartItemByUsername" resultType="java.lang.String">
-		SELECT ITEMID
-		FROM CART
- 		WHERE USERID = #{username}
-	</select>
-	
-	<select id="getQtyByItem" resultType="int">
-		SELECT QTY
-		FROM CART
-		WHERE USERID = #{username} AND ITEMID = #{itemId}	
-	</select>
-	
-	<update id="updateCartOneQty">
-		UPDATE CART
-		SET QTY = QTY + 1
-		WHERE USERID = #{username} AND ITEMID = #{itemId}
-	</update>
-	
-	<update id="updateCartQty">
-		UPDATE CART
-		SET QTY = #{qty}
-		WHERE USERID = #{item.username} AND ITEMID = #{item.itemId}
-	</update>
-	
-	<delete id="deleteCartItemByItem">
-		DELETE
-		FROM CART
-		WHERE USERID = #{username} AND ITEMID = #{itemId}
-	</delete>
+      SELECT ITEMID
+      FROM CART
+       WHERE USERID = #{username}
+   </select>
+   
+   <select id="getQtyByItem" resultType="int">
+      SELECT QTY
+      FROM CART
+      WHERE USERID = #{username} AND ITEMID = #{item.itemId}   
+   </select>
+   
+   <update id="updateCartOneQty">
+      UPDATE CART
+      SET QTY = QTY + 1
+      WHERE USERID = #{username} AND ITEMID = #{itemId}
+   </update>
+   
+   <update id="updateCartQty">
+      UPDATE CART
+      SET QTY = #{qty}
+      WHERE USERID = #{username} AND ITEMID = #{item.itemId}
+   </update>
+   
+   <delete id="deleteCartItemByItem">
+      DELETE
+      FROM CART
+      WHERE USERID = #{username} AND ITEMID = #{item.itemId}
+   </delete>
+   
+   <select id="getCartItem" resultType="java.lang.String">
+      SELECT ITEMID FROM CART WHERE USERID = #{username} AND ITEMID = #{itemId}
+   </select>   
   
 </mapper>
