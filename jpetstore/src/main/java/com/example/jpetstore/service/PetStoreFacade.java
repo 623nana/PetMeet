@@ -130,5 +130,10 @@ public interface PetStoreFacade {
 	void insertDirectOrder(Order directOrder);
 	
 	String getCartItem(@Param("itemId")String itemId, @Param("username")String username);
+	
+	//상품검색(species, userId)
+	List<Item> getItemListBySpecies(String species) throws DataAccessException;
+		
+	List<Item> getItemListByUserId(String userId) throws DataAccessException;
 
 }
