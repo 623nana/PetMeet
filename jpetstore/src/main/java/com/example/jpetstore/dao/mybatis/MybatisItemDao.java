@@ -93,5 +93,15 @@ public class MybatisItemDao implements ItemDao {
 	public void insertBid(BiddingInfo biddingInfo) throws DataAccessException{
 		itemMapper.insertBid(biddingInfo);
 	}
+	
+	public List<Item> getItemListBySpecies(String species)
+			throws DataAccessException {
+		return itemMapper.getItemListBySpecies(species);
+	}
+	
+	public List<Item> getItemListByUserId(String uesrId)
+			throws DataAccessException {
+		return itemMapper.getItemListByUserId(uesrId);
+	}
 
 }
