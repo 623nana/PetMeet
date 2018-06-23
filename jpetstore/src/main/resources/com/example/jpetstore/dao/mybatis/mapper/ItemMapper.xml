@@ -190,6 +190,11 @@
   		(ITEMID, BEGINPRICE, LIMITPRICE, AUCTIONTIME, CURRENTPRICE, AUCTIONSTATUS)
   	VALUES
   		(#{itemId}, #{beginPrice}, #{limitPrice}, #{time}, 0, 'OPEN' )
-  </insert> 
+  </insert>
+  
+   <delete id="deleteMyItem" parameterType="String">
+  	DELETE FROM ITEM
+  	WHERE ITEMID = #{itemId}
+  </delete> 
   
 </mapper>

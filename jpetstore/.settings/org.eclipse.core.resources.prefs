@@ -1,8 +1,10 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/example/jpetstore/controller/PostingFormController.java=UTF-8
 encoding//src/main/java/com/example/jpetstore/controller/SendMessageController.java=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/Cart.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/header.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/tiles/EditAccountForm.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/tiles/SendMessage.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/tiles/ShippingForm.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/tiles/Top.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/tiles/index.jsp=UTF-8

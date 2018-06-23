@@ -11,13 +11,15 @@
   <div class="col-sm-3"></div>
   <div class="col-sm-7">
   	<div class="panel panel-success">
-      <div class="panel-heading"><B>받은 쪽지함</B></div>
+      <div class="panel-heading"><h1><B>받은 쪽지함</B></h1></div>
       <div class="panel-body">
-      	<table>
+      	<table class="table">
+      	<thead class="thead-light">
       		<tr>
       			<th width="50%">보낸 사람</th>
       			<th width="50%">내용</th>
       		</tr>
+      		</thead>
       		<c:forEach var="message" items="${receiveMessageList}" >
       		<tr>
       			<td>

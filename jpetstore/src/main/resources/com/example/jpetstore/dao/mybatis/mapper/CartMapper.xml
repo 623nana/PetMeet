@@ -51,4 +51,10 @@
       SELECT ITEMID FROM CART WHERE USERID = #{username} AND ITEMID = #{itemId}
    </select>   
   
+   <delete id="deleteCartItemByItemId" parameterType="String">
+      DELETE
+      FROM CART
+      WHERE ITEMID = #{itemId}
+   </delete>
+  
 </mapper>

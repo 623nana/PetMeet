@@ -131,4 +131,7 @@ public interface PetStoreFacade {
 	
 	String getCartItem(@Param("itemId")String itemId, @Param("username")String username);
 
+	boolean isAccount(String username);
+	
+	void deleteMyItem(String itemId);
 }

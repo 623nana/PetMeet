@@ -18,6 +18,7 @@ import org.springframework.web.util.WebUtils;
 import com.example.jpetstore.domain.Category;
 import com.example.jpetstore.domain.Product;
 import com.example.jpetstore.service.AccountFormValidator;
+import com.example.jpetstore.service.MessageValidator;
 import com.example.jpetstore.service.PetStoreFacade;
 
 /**
@@ -29,6 +30,7 @@ import com.example.jpetstore.service.PetStoreFacade;
 @SessionAttributes("userSession")
 @RequestMapping("/shop/reSendMessagetwo.do")
 public class ReSendMessagetwoController { 
+	// 보낸 메세지에서 다시 보내는거 
 
 	@Value("tiles/ReSendMessagetwo") //PostingFixedItem
 	private String formViewName;
@@ -40,6 +42,12 @@ public class ReSendMessagetwoController {
 	private PetStoreFacade petStore;
 	public void setPetStore(PetStoreFacade petStore) {
 		this.petStore = petStore;
+	}
+	
+	@Autowired
+	private MessageValidator messageValidator;
+	public void setValidator(MessageValidator validator) {
+		this.messageValidator = validator;
 	}
 	
 //	@ModelAttribute("postingForm")
@@ -71,7 +79,6 @@ public class ReSendMessagetwoController {
 			@RequestParam("senderId") String senderId,
 			BindingResult result) throws Exception {
 		
-		if(result.hasErrors()) return formViewName;
 		System.out.println("submit클릭");
 		
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
@@ -85,6 +92,10 @@ public class ReSendMessagetwoController {
 				reSendMessage.getMessage().setUserId(userSession.getAccount().getUsername());
 				reSendMessage.getMessage().setReceiverId(senderId);
 				reSendMessage.getMessage().setSenderId(userSession.getAccount().getUsername());
+				
+				messageValidator.validate(reSendMessage, result);
+				if(result.hasErrors()) return formViewName;
+				
 				petStore.sendMessage(reSendMessage.getMessage());
 			//}
 				// 아이디 맞는지 검증해주는 코드 있어야할듯

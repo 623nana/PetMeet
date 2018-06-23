@@ -58,11 +58,14 @@ public class MybatisOrderDao implements OrderDao {
 	@Override
 	public void insertDirectOrder(Order directOrder) throws DataAccessException {
 		// TODO Auto-generated method stub
-		directOrder.setOrderId(sequenceDao.getNextId("ordernum"));
+		//directOrder.setOrderId(sequenceDao.getNextId("ordernum"));
 		orderMapper.insertOrder(directOrder);
 		orderMapper.insertOrderStatus(directOrder); //
 		
-		
-		
+    		LineItem lineItem = (LineItem) directOrder.getLineItems().get(0);
+    		lineItem.setOrderId(directOrder.getOrderId());
+    		lineItemMapper.insertLineItem(lineItem);
+    	
+	
 	}
 }

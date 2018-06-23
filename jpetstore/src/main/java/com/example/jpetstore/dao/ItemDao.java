@@ -41,5 +41,5 @@ public interface ItemDao {
 
   void insertInventory(Item item) throws DataAccessException;
 
-
+  void deleteMyItem(String itemId) throws DataAccessException;
 }

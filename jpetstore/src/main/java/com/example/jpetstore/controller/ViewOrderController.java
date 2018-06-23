@@ -39,4 +39,18 @@ public class ViewOrderController {
 			return new ModelAndView("Error", "message", "You may only view your own orders.");
 		}
 	}
+	
+	@RequestMapping("/shop/viewDirectOrder.do")
+	public ModelAndView handleRequest2(
+			@ModelAttribute("userSession") UserSession userSession,
+			@RequestParam("orderId") int orderId
+			) throws Exception {
+		Order order = this.petStore.getOrder(orderId);
+		if (userSession.getAccount().getUsername().equals(order.getUsername())) {
+			return new ModelAndView("tiles/ViewDirectOrder", "order", order);
+		}
+		else {
+			return new ModelAndView("Error", "message", "You may only view your own orders.");
+		}
+	}
 }

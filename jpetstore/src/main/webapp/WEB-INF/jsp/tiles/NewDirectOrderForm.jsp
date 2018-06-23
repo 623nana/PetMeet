@@ -38,7 +38,11 @@
     </tr>
     <tr align="center">
       <td colspan="2" >
-        <font color="green" size="4"><b>Billing Address</b></font></td>
+      <hr />
+        <font color="black" size="3"><b>Billing Address</b></font></td>
+    </tr>
+    <tr>
+    <td height="15"></td>
     </tr>
     <tr>
       <td>First name:</td>
@@ -89,10 +93,11 @@
   </div>
   </div></div></div>
   <p>
+  <br />
     <input type="image" src="../images/button_submit.gif">
   </p>
 </form:form>
 </div>
 <br />
 <br />
-<br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />

@@ -97,4 +97,6 @@ public void setName(String name) {
   public String toString() {
     return "(" + getItemId().trim() + "-" + getProductId().trim() + ")";
   }
+  
+
 }

@@ -9,7 +9,7 @@
   <div class="col-sm-7">
   	<div class="panel panel-success">
   		<br /><br /><br />
-      <div class="panel-heading"><B>쪽지함</B></div>
+      <div class="panel-heading"><h1><B>쪽지함</B></h1></div>
       <br />
       
       <input type="button" class="btn btn-primary btn-block" name="send" value="쪽지 보내기" onclick="location.href='<c:url value="/shop/sendMessage.do"/>'" />

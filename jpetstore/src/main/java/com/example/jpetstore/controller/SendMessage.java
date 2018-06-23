@@ -2,6 +2,8 @@ package com.example.jpetstore.controller;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.Message;
 

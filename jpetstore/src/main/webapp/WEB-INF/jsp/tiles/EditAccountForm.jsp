@@ -57,6 +57,8 @@
 <a href='<c:url value="/shop/listOrders.do"/>' class="btn btn-primary btn-block">My Orders</a></div>
 <div class="col-md-6">
 <a href="#" class="btn btn-primary btn-block">경매 참여 내역　</a></div>
+<div class="col-md-6">
+<a href="<c:url value="/shop/viewMyPosting.do"/>" class="btn btn-primary btn-block">내 글 보기</a></div>
  </div> 
  </div>
  <p />

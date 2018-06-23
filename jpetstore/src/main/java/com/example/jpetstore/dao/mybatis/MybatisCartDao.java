@@ -66,5 +66,10 @@ public class MybatisCartDao implements CartDao {
 		return cartMapper.getCartItem(itemId, username);
 	}
 	
+	@Override
+	public void deleteCartItemByItemId(@Param("itemId")String itemId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		cartMapper.deleteCartItemByItemId(itemId);
+	}
 
 }
