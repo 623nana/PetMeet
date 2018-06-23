@@ -66,7 +66,7 @@
               <a href="<c:url value="/shop/viewHospital.do"/>">가까운 병원 찾기</a>
             </li>
             <li>
-              <a href="register.html">나에게 맞는 동물 찾기</a>
+              <a href="<c:url value="/shop/surveyForm.do"/>">나에게 맞는 동물 찾기</a>
             </li>
           </ul>
         </li>
@@ -115,17 +115,15 @@
           </a>
         </li>
         <li class="nav-item">
-          <form class="form-inline my-2 my-lg-0 mr-lg-2">
-          	<select class="form-control" id="sel1">
-        		<option>상품명</option>
-        		<option>판매자</option>
+          <form class="form-inline my-2 my-lg-0 mr-lg-2" method="post" action="<c:url value="/shop/searchItem.do" />">
+          	<select class="form-control" id="searchOption" name="searchOption">
+        		<option value="species">상품명</option>
+        		<option value="userId">판매자</option>
       		</select>&nbsp;
             <div class="input-group">
-              <input class="form-control" type="text" placeholder="Search for...">
+              <input class="form-control" type="text" id="keyword" name="keyword" placeholder="Search for..." />
               <span class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fa fa-search"></i>
-                </button>
+                <input type="submit" class="btn btn-primary" name="submit" value="search" />
               </span>
             </div>
           </form>

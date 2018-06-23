@@ -338,6 +338,15 @@ public class PetStoreImpl implements PetStoreFacade {
 		itemDao.updateQuantity(directOrder);	    
 		orderDao.insertDirectOrder(directOrder);
 	}
+	
+	//상품 검색(species, userId)
+	public List<Item> getItemListBySpecies(String species) {
+		return itemDao.getItemListBySpecies(species);
+	}
+	
+	public List<Item> getItemListByUserId(String userId) {
+		return itemDao.getItemListByUserId(userId);
+	}
 
 	@Override
 	public boolean isAccount(String username) {

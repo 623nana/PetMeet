@@ -81,6 +81,10 @@
 	<mvc:view-controller path="/shop/directShippingForm.do" view-name="tiles/DirectShippingForm" />
 	<mvc:view-controller path="/shop/newDirectOrderNoShip.do" view-name="tiles/DirectOrderNoShip" />
 	
+	<mvc:view-controller path="/shop/searchItem.do" view-name="tiles/SearchItemList" />
+	<mvc:view-controller path="/shop/surveyForm.do" view-name="tiles/SurveyForm" />
+	<mvc:view-controller path="/shop/surveyResult.do" view-name="tiles/SurveyResult" />
+	
 	<mvc:interceptors>
 		<mvc:interceptor>
     	    <mvc:mapping path="/shop/editAccount.do"/>

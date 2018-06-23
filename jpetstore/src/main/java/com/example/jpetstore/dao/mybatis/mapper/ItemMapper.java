@@ -63,6 +63,10 @@ public interface ItemMapper {
   void insertBid(BiddingInfo biddingInfo);
 
   void insertInventory(Item item);
+  
+  List<Item> getItemListBySpecies(String species);
+  
+  List<Item> getItemListByUserId(String userId);
 
 void deleteMyItem(String itemId);
 

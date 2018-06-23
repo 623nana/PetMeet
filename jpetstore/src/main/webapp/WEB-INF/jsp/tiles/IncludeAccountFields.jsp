@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <div class="form-group">
             <div class="form-row">
         <div class="col-md-6">
@@ -29,7 +30,7 @@
   	</div>
   </div>
   <div class="form-group row">
-  	<form:label path="account.address1" cssClass="col-sm-3 col-form-label">Address1</form:label>
+  	<form:label path="account.address1" cssClass="col-sm-3 col-form-label">Address1<br>(OO구 OO동)</form:label>
   	<div class="col-sm-6">
   	<form:input path="account.address1" cssClass="form-control" />
       <form:errors path="account.address1" cssClass="error" />
@@ -43,7 +44,7 @@
       </div>
       </div>
   <div class="form-group row">
-  	<form:label path="account.city" cssClass="col-sm-3 col-form-label">CITY</form:label>
+  	<form:label path="account.city" cssClass="col-sm-3 col-form-label">CITY<br>(OO시)</form:label>
   	<div class="col-sm-6">
   	<form:input path="account.city" cssClass="form-control" />
       <form:errors path="account.city" cssClass="error" />
