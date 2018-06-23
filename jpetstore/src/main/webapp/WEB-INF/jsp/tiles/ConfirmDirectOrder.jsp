@@ -16,18 +16,20 @@
     <b>Please confirm the information below and then press continue...</b>
   </p>
   <p></p>
-  <table class="n13">
-    <tr>
-      <td align="center" colspan="2">
-        <font size="4"><b>Order</b></font><br />
-        <font size="3">
+  <div class="container">
+  <div class="row">
+    <div class="card card-register mx-auto mt-3"> 
+      <div class="card-header"><font size="4"><b>Order</b></font>
+      <br />       
+       <font size="3">
           <b><fmt:formatDate value="${directOrderForm.directOrder.orderDate}" 
             pattern="yyyy/MM/dd hh:mm:ss" /></b></font>
-      </td>
-    </tr>
+            </div>
+      <div class="card-body" >
+  <table class="n13">
     <tr>
       <td colspan="2">
-        <font color="GREEN" size="4"><b>Billing Address</b></font></td>
+        <font color="GREEN" size="4"><hr /><b>Billing Address</b><hr /></font></td>
     </tr>
     <tr>
       <td>First name:</td>
@@ -63,7 +65,7 @@
     </tr>
     <tr>
       <td colspan="2">
-        <font color="GREEN" size="4"><b>Shipping Address</b></font></td>
+        <hr /><font color="GREEN" size="4"><b>Shipping Address</b></font><hr /></td>
     </tr>
     <tr>
       <td>First name:</td>
@@ -98,12 +100,14 @@
       <td>${directOrderForm.directOrder.shipCountry}</td>
     </tr>
   </table>
+  </div></div></div></div>
   <p>
+  <br />
     <a href='<c:url value="/shop/confirmDirectOrder.do"/>'>
       <img border="0" src="../images/button_continue.gif" alt="" /></a>
   </p>
 </div>
-
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 <%@include file="/WEB-INF/jsp/footer.jsp" %>
 </body>
 </html>

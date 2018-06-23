@@ -25,6 +25,7 @@ public class LineItem implements Serializable {
     this.unitPrice = cartItem.getItem().getPrice();
     this.item = cartItem.getItem();
   }
+  
 
   /* JavaBeans Properties */
 

@@ -46,4 +46,10 @@ public class MybatisAccountDao implements AccountDao {
 	public List<String> getUsernameList() throws DataAccessException {
 		return accountMapper.getUsernameList();
 	}
+
+	@Override
+	public boolean isAccount(String username) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return accountMapper.isAccount(username);
+	}
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.jpetstore.domain.Account;
 import com.example.jpetstore.domain.AuctionItem;
@@ -69,6 +70,17 @@ public class ViewItemController {
 		}
 		
 		
+		
+	}
+	
+	@RequestMapping("/shop/deletePosting.do")
+	public ModelAndView handleRequest3(
+			@RequestParam("itemId") String itemId,
+			ModelMap model) throws Exception {
+		System.out.println("µô¸®Æ®");
+		
+		this.petStore.deleteMyItem(itemId);
+		return new ModelAndView("index", "index", null);
 		
 	}
 	

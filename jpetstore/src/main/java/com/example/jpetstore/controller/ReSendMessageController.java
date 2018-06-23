@@ -18,6 +18,7 @@ import org.springframework.web.util.WebUtils;
 import com.example.jpetstore.domain.Category;
 import com.example.jpetstore.domain.Product;
 import com.example.jpetstore.service.AccountFormValidator;
+import com.example.jpetstore.service.MessageValidator;
 import com.example.jpetstore.service.PetStoreFacade;
 
 /**
@@ -29,12 +30,18 @@ import com.example.jpetstore.service.PetStoreFacade;
 @SessionAttributes("userSession")
 @RequestMapping("/shop/reSendMessage.do")
 public class ReSendMessageController { 
+	// 받은 메세지에서 다시 보내는거
 
 	@Value("tiles/ReSendMessage") //PostingFixedItem
 	private String formViewName;
 	@Value("tiles/index")
 	private String successViewName;
 
+	@Autowired
+	private MessageValidator messageValidator;
+	public void setValidator(MessageValidator validator) {
+		this.messageValidator = validator;
+	}
 	
 	@Autowired
 	private PetStoreFacade petStore;
@@ -66,13 +73,10 @@ public class ReSendMessageController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String onSubmit(
 			HttpServletRequest request, HttpSession session,
-
 			@ModelAttribute("reSendMessage") SendMessage reSendMessage,
-			@ModelAttribute("writingMessageForm") SendMessage writingMessageForm,
 			@RequestParam("receiverId") String receiverId,
 			BindingResult result) throws Exception {
 		
-		if(result.hasErrors()) return formViewName;
 		System.out.println("submit클릭");
 		
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
@@ -86,6 +90,11 @@ public class ReSendMessageController {
 				reSendMessage.getMessage().setUserId(userSession.getAccount().getUsername());
 				reSendMessage.getMessage().setReceiverId(receiverId);
 				reSendMessage.getMessage().setSenderId(userSession.getAccount().getUsername());
+				
+				messageValidator.validate(reSendMessage, result);
+				
+				if(result.hasErrors()) return formViewName;
+				
 				petStore.sendMessage(reSendMessage.getMessage());
 			//}
 				// 아이디 맞는지 검증해주는 코드 있어야할듯

@@ -63,9 +63,6 @@ public class DirectOrderController {
 		
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
 		
-		System.out.println(shipway);
-		System.out.println(shipway.equals("1"));
-		System.out.println(shipway.equals("택배거래"));
 		// Re-read account from DB at team's request.
 			Account account = petStore.getAccount(userSession.getAccount().getUsername());
 			
@@ -109,12 +106,11 @@ public class DirectOrderController {
 	protected ModelAndView confirmOrder(
 			@ModelAttribute("directOrderForm") DirectOrderForm directOrderForm, 
 			SessionStatus status) {
-
 		petStore.insertDirectOrder(directOrderForm.getDirectOrder());
 		ModelAndView mav = new ModelAndView("tiles/ViewDirectOrder");
 		mav.addObject("order", directOrderForm.getDirectOrder());
 		mav.addObject("message", "Thank you, your order has been submitted.");
-		status.setComplete();  // remove sessionCart and orderForm from session
+		//status.setComplete();  // remove sessionCart and orderForm from session
 		return mav;
 	}
 	

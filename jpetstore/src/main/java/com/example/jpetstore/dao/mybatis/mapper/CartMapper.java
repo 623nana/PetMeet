@@ -42,4 +42,6 @@ public interface CartMapper {
    void updateCartOneQty(@Param("itemId")String itemId, @Param("username")String username);
    
    String getCartItem(@Param("itemId")String itemId, @Param("username")String username);
+   
+   void deleteCartItemByItemId(@Param("itemId") String itemId);
 }

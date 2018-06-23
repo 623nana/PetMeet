@@ -22,7 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.jpetstore.domain.Account;
 import com.example.jpetstore.domain.AuctionItem;
+import com.example.jpetstore.service.MessageValidator;
 import com.example.jpetstore.service.PetStoreFacade;
+import com.example.jpetstore.service.PostingAuctionItemValidator;
 
 @Controller
 @SessionAttributes("userSession")
@@ -35,6 +37,12 @@ public class PostingAuctionController {
 	private String successViewName;
 	@Value("tiles/PostingError")
 	private String errorViewName;
+	
+	@Autowired
+	private PostingAuctionItemValidator postingValidator;
+	public void setValidator(PostingAuctionItemValidator validator) {
+		this.postingValidator = validator;
+	}
 	
 	@Autowired
 	private PetStoreFacade petStore;
@@ -74,7 +82,10 @@ public class PostingAuctionController {
 			BindingResult result) throws Exception {
 		
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
+		
+		postingValidator.validate(postingAuction, result);
 		if(result.hasErrors()) return formViewName;
+		
 		try {
 			if(postingAuction.isNewPosting()) {
 				System.out.println("insert");
@@ -85,7 +96,7 @@ public class PostingAuctionController {
 		        String saveName = uuid.toString()+"_" + file.getOriginalFilename();
 
 		        //본인 파일 경로로 바꿔주기
-		        String savePath = "C:\\Users\\HyeonJeong\\git\\PetMeet\\jpetstore\\src\\main\\webapp\\images\\";
+		        String savePath = "C:\\Users\\dain\\git\\PetMeet\\jpetstore\\src\\main\\webapp\\images\\";
 		        
 		        FileOutputStream target = new FileOutputStream(savePath + saveName);
 		        

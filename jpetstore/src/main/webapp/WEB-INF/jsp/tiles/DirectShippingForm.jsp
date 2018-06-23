@@ -11,11 +11,13 @@
 <form:form commandName="directOrderForm" action="${targetUrl}" method="post">
   <form:errors cssClass="error" /><br><br>
 
-  <table class="n13">
-    <tr>
-      <td colspan="2">
-        <font color="GREEN" size="4"><b>Shipping Address</b></font></td>
-    </tr>
+    <div class="container">
+  <div class="row">
+    <div class="card card-register mx-auto mt-3"> 
+      <div class="card-header"><b>Shipping Address</b></div>
+      <div class="card-body" >
+      
+  <table class="table">
     <tr>
       <td>First name:</td>
       <td><form:input path="directOrder.shipToFirstName" />
@@ -57,7 +59,9 @@
         <form:errors path="directOrder.shipCountry" /></td>
     </tr>
   </table>
+  </div></div></div></div>
   <p>
+  <br />
     <input type="image" src="../images/button_submit.gif">
   </p>
 </form:form>

@@ -35,20 +35,28 @@
 <p><b><i class="fa fa-handshake-o" style="font-size:24px;color:#0ba360"></i>
  배송 방법 : </b>
  <c:if test="${auctionItem.item.shipway eq 1 }">
- 직거래만 가능한 상품입니다.
-  <select class="form-control" id="shipway" name="shipway">
-		        		<option value="1">직거래</option></select>
+ 직거래만 가능한 상품입니다.<br />
+		      <a href='<c:url value="/shop/newDirectOrderNoShip.do">
+            <c:param name="itemId" value="${item.itemId}"/>
+            <c:param name="userId" value="${item.username}"/></c:url>' class="btn btn-primary" role="button">직거래</a>
+		        		
  </c:if>
  <c:if test="${auctionItem.item.shipway eq 2}">
-택배거래만 가능한 상품입니다.
-  <select class="form-control" id="shipway" name="shipway">
-		        		<option value="2">택배거래</option></select>
+택배거래만 가능한 상품입니다.<br />
+		     <a href='<c:url value="/shop/newDirectOrderNoShip.do">
+            <c:param name="itemId" value="${item.itemId}"/>
+            <c:param name="userId" value="${item.username}"/></c:url>' class="btn btn-primary" role="button">직거래</a>
+		        		
  </c:if>
   <c:if test="${auctionItem.item.shipway eq 3 }">
-직거래와 택배거래 모두 가능한 상품입니다.
-  <select class="form-control" id="shipway" name="shipway">
-		        		<option value="1">직거래</option>
-		        		<option value="2">택배거래</option></select>
+직거래와 택배거래 모두 가능한 상품입니다.<br />
+		<a href='<c:url value="/shop/newDirectOrder.do">
+            <c:param name="itemId" value="${item.itemId}"/>
+            <c:param name="userId" value="${item.username}"/></c:url>' class="btn btn-primary" role="button">바로구매</a>
+    	<a href='<c:url value="/shop/newDirectOrderNoShip.do">
+            <c:param name="itemId" value="${item.itemId}"/>
+            <c:param name="userId" value="${item.username}"/></c:url>' class="btn btn-primary" role="button">직거래</a>
+		
  </c:if>
  <p><b><i class="fa fa-krw" style="font-size:24px;color:#0ba360"></i>
 입찰 하기 : </b></p>

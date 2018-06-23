@@ -2,6 +2,11 @@ package com.example.jpetstore.domain;
 
 import java.io.Serializable;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 @SuppressWarnings("serial")
 public class Message implements Serializable {
 

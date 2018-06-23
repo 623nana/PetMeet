@@ -27,5 +27,7 @@ public interface CartDao {
    
    String getCartItem(@Param("itemId")String itemId, @Param("username")String username) throws DataAccessException;
 
+   void deleteCartItemByItemId(String itemId) throws DataAccessException;
+
 
 }

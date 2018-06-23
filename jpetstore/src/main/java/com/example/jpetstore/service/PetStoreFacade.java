@@ -136,4 +136,7 @@ public interface PetStoreFacade {
 		
 	List<Item> getItemListByUserId(String userId) throws DataAccessException;
 
+	boolean isAccount(String username);
+	
+	void deleteMyItem(String itemId);
 }

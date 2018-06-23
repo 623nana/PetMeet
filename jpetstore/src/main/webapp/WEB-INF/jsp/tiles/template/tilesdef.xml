@@ -153,7 +153,11 @@
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tiles/NewDirectOrderNoShip.jsp" />			
 	</definition>
-	
+
+	<definition name="tiles/DirectShippingForm" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/DirectShippingForm.jsp" />			
+
 		<definition name="tiles/SurveyForm" extends="base_layout">
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tiles/SurveyForm.jsp" />

@@ -348,4 +348,21 @@ public class PetStoreImpl implements PetStoreFacade {
 		return itemDao.getItemListByUserId(userId);
 	}
 
+	@Override
+	public boolean isAccount(String username) {
+		// TODO Auto-generated method stub
+		if (accountDao.isAccount(username))
+			return true;
+		else
+			return false;
+	}
+
+	@Override
+	public void deleteMyItem(String itemId) {
+		// TODO Auto-generated method stub
+		itemDao.deleteMyItem(itemId);
+		cartDao.deleteCartItemByItemId(itemId);
+	}
+
+
 }

@@ -8,6 +8,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.example.jpetstore.dao.ItemDao;
+import com.example.jpetstore.dao.mybatis.mapper.CartMapper;
 import com.example.jpetstore.dao.mybatis.mapper.ItemMapper;
 import com.example.jpetstore.domain.Account;
 import com.example.jpetstore.domain.AuctionItem;
@@ -21,6 +22,9 @@ import com.example.jpetstore.domain.Product;
 public class MybatisItemDao implements ItemDao {
 	@Autowired
 	private ItemMapper itemMapper;
+	
+	@Autowired
+	private CartMapper cartMapper;
 	
 	public void updateQuantity(Order order) throws DataAccessException {
 		for (int i = 0; i < order.getLineItems().size(); i++) {
@@ -102,6 +106,13 @@ public class MybatisItemDao implements ItemDao {
 	public List<Item> getItemListByUserId(String uesrId)
 			throws DataAccessException {
 		return itemMapper.getItemListByUserId(uesrId);
+	}
+
+	@Override
+	public void deleteMyItem(String itemId) throws DataAccessException {
+		// TODO Auto-generated method stub
+		itemMapper.deleteMyItem(itemId);
+		cartMapper.deleteCartItemByItemId(itemId);
 	}
 
 }

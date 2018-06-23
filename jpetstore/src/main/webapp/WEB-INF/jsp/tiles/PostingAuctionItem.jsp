@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <br />
 <br />
 <br />
@@ -12,14 +13,17 @@
       <div class="card-header"><b>경매 판매글 올리기</b></div>
       <div class="card-body" >
 	<form:form commandName="postingAuction" method="post" enctype="multipart/form-data">
+	      	<form:errors cssClass="error" />
           <div class="form-group">
             <form:label path="auctionItem.item.name">Species</form:label>
             <c:choose>
             	<c:when test="${!empty postingAuction.auctionItem.item.itemId }">
             		<form:input cssClass="form-control" path="auctionItem.item.name" placeholder="동물의 종을 입력하세요." readonly="true" />
+            		<form:errors path="auctionItem.item.name" cssClass="error" />
             	</c:when>
             	<c:otherwise>
             		<form:input cssClass="form-control" path="auctionItem.item.name" placeholder="동물의 종을 입력하세요." />
+            		<form:errors path="auctionItem.item.name" cssClass="error" />
             	</c:otherwise>
             </c:choose>
           </div>
@@ -48,9 +52,11 @@
             		            <c:choose>
             	<c:when test="${!empty postingAuction.auctionItem.item.itemId }">
             		<form:input cssClass="form-control" path="auctionItem.beginPrice" placeholder="경매 시작 가격을 입력하세요." readonly="true"/>
+            		<form:errors path="auctionItem.beginPrice" cssClass="error" />
             	</c:when>
             	<c:otherwise>
             		<form:input cssClass="form-control" path="auctionItem.beginPrice" placeholder="경매 시작 가격을 입력하세요." />
+            		<form:errors path="auctionItem.beginPrice" cssClass="error" />
             	</c:otherwise>
             </c:choose>
           		</div>
@@ -59,9 +65,11 @@
             		            <c:choose>
             	<c:when test="${!empty postingAuction.auctionItem.item.itemId }">
             		<form:input cssClass="form-control" path="auctionItem.limitPrice" placeholder="경매 최고 가격을 입력하세요." readonly="true"/>
+            		<form:errors path="auctionItem.limitPrice" cssClass="error" />
             	</c:when>
             	<c:otherwise>
             		<form:input cssClass="form-control" path="auctionItem.limitPrice" placeholder="경매 최고 가격을 입력하세요." />
+            		<form:errors path="auctionItem.limitPrice" cssClass="error" />
             	</c:otherwise>
             </c:choose>
           		</div>
@@ -82,9 +90,11 @@
           		 <c:choose>
             	<c:when test="${!empty postingAuction.auctionItem.item.itemId }">
 				<form:input path="auctionItem.time" cssClass="form-control" placeholder=" yyyy-MM-dd HH:mm 형식으로 미래의 시각을 입력하세요." readonly="true"/>
+        		<form:errors path="auctionItem.time" cssClass="error" />
             	</c:when>
             	<c:otherwise>
             		<form:input path="auctionItem.time" cssClass="form-control" placeholder=" yyyy-MM-dd HH:mm 형식으로 미래의 시각을 입력하세요."/>
+					<form:errors path="auctionItem.time" cssClass="error" />      	
             	</c:otherwise>
             </c:choose>
 
@@ -102,6 +112,7 @@
 	<div class="form-group row">
     		<label for="content" class="col-sm-5 col-form-label">Content</label>
       			 <textarea class="form-control" cols="50" rows="10" name="auctionItem.item.content" id="item.content" placeholder="내용을 입력하세요."><c:out value="${postingAuction.auctionItem.item.content }" /></textarea>
+  				<form:errors path="auctionItem.item.content" cssClass="error" />
   		</div>
 		<input type="submit" class="btn btn-primary btn-block" name="submit" value="등록">
 		</form:form>

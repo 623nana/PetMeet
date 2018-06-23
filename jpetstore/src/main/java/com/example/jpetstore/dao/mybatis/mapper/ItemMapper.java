@@ -68,5 +68,7 @@ public interface ItemMapper {
   
   List<Item> getItemListByUserId(String userId);
 
+void deleteMyItem(String itemId);
+
 
 }

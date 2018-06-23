@@ -45,5 +45,5 @@ public interface ItemDao {
   
   List<Item> getItemListByUserId(String userId) throws DataAccessException;
 
-
+  void deleteMyItem(String itemId) throws DataAccessException;
 }

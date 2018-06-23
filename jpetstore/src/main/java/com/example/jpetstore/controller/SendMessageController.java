@@ -3,12 +3,16 @@ package com.example.jpetstore.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +22,8 @@ import org.springframework.web.util.WebUtils;
 import com.example.jpetstore.domain.Category;
 import com.example.jpetstore.domain.Product;
 import com.example.jpetstore.service.AccountFormValidator;
+import com.example.jpetstore.service.MessageValidator;
+import com.example.jpetstore.service.OrderValidator;
 import com.example.jpetstore.service.PetStoreFacade;
 
 /**
@@ -34,12 +40,20 @@ public class SendMessageController {
 	private String formViewName;
 	@Value("tiles/index")
 	private String successViewName;
+
+	@Autowired
+	private MessageValidator messageValidator;
+	public void setValidator(MessageValidator validator) {
+		this.messageValidator = validator;
+	}
 	
 	@Autowired
 	private PetStoreFacade petStore;
 	public void setPetStore(PetStoreFacade petStore) {
 		this.petStore = petStore;
 	}
+	
+	
 	
 //	@ModelAttribute("postingForm")
 //	public PostingForm createPostingForm() {
@@ -63,16 +77,12 @@ public class SendMessageController {
 	public String onSubmit(
 			HttpServletRequest request, HttpSession session,
 			@ModelAttribute("sendMessage") SendMessage sendMessage,
-			@ModelAttribute("writingMessageForm") SendMessage writingMessageForm,
 			BindingResult result) throws Exception {
-		
-		if(result.hasErrors()) return formViewName;
-//		System.out.println("submit�겢由�");
+
 		
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
 		
 		try {
-			//if(sendMessage.isNewMessage()) {
 
 				System.out.println("insert");
 
@@ -80,9 +90,12 @@ public class SendMessageController {
 				sendMessage.getMessage().setUserId(userSession.getAccount().getUsername());
 				sendMessage.getMessage().setReceiverId(sendMessage.getMessage().getReceiverId());
 				sendMessage.getMessage().setSenderId(userSession.getAccount().getUsername());
+				
+				messageValidator.validate(sendMessage, result);
+//				new MessageValidator().validate(sendMessage, result);
+				if(result.hasErrors()) return formViewName;
+				
 				petStore.sendMessage(sendMessage.getMessage());
-			//}
-				// �븘�씠�뵒 留욌뒗吏� 寃�利앺빐二쇰뒗 肄붾뱶 �엳�뼱�빞�븷�벏
 				
 
 				 return successViewName;
@@ -93,10 +106,20 @@ public class SendMessageController {
 		}
 		
 		 //return successViewName;
-		}
+	}
+//	@InitBinder("SendMessage")
+//	protected void initBinder(WebDataBinder binder) {
+//		binder.setValidator(new MessageValidator());
+//	}
+
+//	@InitBinder
+//	protected void initBinder(WebDataBinder binder) {
+//		binder.setValidator(new MessageValidator());
+//	}
+
 	
 
 		
-	}
+}
 		
 	
