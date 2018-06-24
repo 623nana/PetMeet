@@ -34,24 +34,29 @@
  배송 방법 : </b>
  <c:if test="${item.shipway eq 1 }">
  직거래만 가능한 상품입니다.<br />
+ <c:if test="${item.status.equals('OPEN') }">
 	<a href='<c:url value="/shop/newDirectOrderNoShip.do">
             <c:param name="itemId" value="${item.itemId}"/>
             <c:param name="userId" value="${item.username}"/></c:url>' class="btn btn-primary" role="button">직거래</a>
+            </c:if>
    </c:if>
  <c:if test="${item.shipway eq 2}">
 택배거래만 가능한 상품입니다.<br />
+<c:if test="${item.status.equals('OPEN') }">
 	<a href='<c:url value="/shop/newDirectOrder.do">
             <c:param name="itemId" value="${item.itemId}"/>
             <c:param name="userId" value="${item.username}"/></c:url>' class="btn btn-primary" role="button">바로구매</a>
+            </c:if>
  </c:if>
   <c:if test="${item.shipway eq 3 }">
-직거래와 택배거래 모두 가능한 상품입니다.<br />
+<c:if test="${item.status.equals('OPEN') }">
 	<a href='<c:url value="/shop/newDirectOrder.do">
             <c:param name="itemId" value="${item.itemId}"/>
             <c:param name="userId" value="${item.username}"/></c:url>' class="btn btn-primary" role="button">바로구매</a>
     	<a href='<c:url value="/shop/newDirectOrderNoShip.do">
             <c:param name="itemId" value="${item.itemId}"/>
             <c:param name="userId" value="${item.username}"/></c:url>' class="btn btn-primary" role="button">직거래</a>
+            </c:if>
  </c:if>
 <P>
 
