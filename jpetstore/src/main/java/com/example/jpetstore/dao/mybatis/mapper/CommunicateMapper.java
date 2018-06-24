@@ -2,6 +2,7 @@ package com.example.jpetstore.dao.mybatis.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
 import com.example.jpetstore.domain.Comment;
@@ -15,9 +16,11 @@ public interface CommunicateMapper {
 	   void insertReComment(Comment comment) throws DataAccessException;
 
 	   //코멘트는 답글이 달리지 않은 것에 한해서만 삭제가 가능하도록 한다.
-	   void deleteComment(String itemId, int commentId, int commentNum);
+	   void deleteComment(@Param("commentId")int commentId, @Param("commentNum")int commentNum) throws DataAccessException;
 
-	   void updateComment(String itemId, int commentId, int commentNum) throws DataAccessException;
+	   void updateComment(Comment comment) throws DataAccessException;
+	   
+	   Comment getComment(@Param("commentId")int commentId, @Param("commentNum")int commentNum, @Param("itemId")String itemId) throws DataAccessException;
 	   
 	   List<Comment> getCommentByItemId(String itemId) throws DataAccessException;
 

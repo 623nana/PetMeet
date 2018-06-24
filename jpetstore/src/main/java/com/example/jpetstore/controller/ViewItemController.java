@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.jpetstore.domain.Account;
 import com.example.jpetstore.domain.AuctionItem;
+import com.example.jpetstore.domain.BiddingInfo;
 import com.example.jpetstore.domain.Comment;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.service.PetStoreFacade;
@@ -49,7 +50,6 @@ public class ViewItemController {
 		System.out.println("아이템보기");
 		
 		Item item = this.petStore.getItem(itemId);
-		if(item.getClassify().equals("FIXED")) {
 			List<Comment> comment = this.petStore.getCommentByItemId(itemId);
 			CommentForm commentForm = new CommentForm();
 			model.put("item", item);
@@ -57,17 +57,6 @@ public class ViewItemController {
 			model.put("commentForm", commentForm);
 			return successViewName;
 			
-		}else {
-			AuctionItem auctionItem = this.petStore.getAuctionItem(itemId);
-			List<Comment> comment = this.petStore.getCommentByItemId(itemId);
-			CommentForm commentForm = new CommentForm();
-			model.put("auctionItem", auctionItem);
-			model.put("comment", comment);
-			model.put("commentForm", commentForm);
-			
-			return successViewAuction;
-		}
-		
 		
 		
 	}
@@ -78,28 +67,27 @@ public class ViewItemController {
 			ModelMap model) throws Exception {
 		System.out.println("아이템보기");
 		
-		Item item = this.petStore.getItem(itemId);
-		if(item.getClassify().equals("FIXED")) {
-			List<Comment> comment = this.petStore.getCommentByItemId(itemId);
-			CommentForm commentForm = new CommentForm();
-			model.put("item", item);
-			model.put("comment", comment);
-			model.put("commentForm", commentForm);
-			return successViewName;
-			
-		}else {
+			System.out.println("옥션아이템!");
 			AuctionItem auctionItem = this.petStore.getAuctionItem(itemId);
+			List<BiddingInfo> bidList = this.petStore.getBidListByItem(itemId);
 			List<Comment> comment = this.petStore.getCommentByItemId(itemId);
 			CommentForm commentForm = new CommentForm();
+			BiddingInfo bidInfo = new BiddingInfo();
+			System.out.println(itemId);
+			//BiddingInfo biddingInfo = petStore.getSuccessBidder(itemId);
+			
+			//System.out.println(biddingInfo.getExpectPrice());
 			model.put("auctionItem", auctionItem);
 			model.put("comment", comment);
 			model.put("commentForm", commentForm);
-			
+			model.put("bidInfo", bidInfo);
+			model.put("bidList", bidList);
+			//model.put("biddingInfo", biddingInfo);
 			return successViewAuction;
 		}
 		
 		
 		
-	}
+	
 
 }

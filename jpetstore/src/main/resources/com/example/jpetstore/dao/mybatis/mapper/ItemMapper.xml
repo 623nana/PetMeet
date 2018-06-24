@@ -4,6 +4,46 @@
 <mapper namespace="com.example.jpetstore.dao.mybatis.mapper.ItemMapper">
   <cache />
 
+  <insert id="insertNewEvent" parameterType="AuctionItem">
+  	INSERT INTO AUCTIONITEM
+  		(ITEMID, BEGINPRICE, LIMITPRICE, AUCTIONTIME, CURRENTPRICE, AUCTIONSTATUS)
+  	VALUES
+  		(#{itemId}, #{beginPrice}, #{limitPrice}, #{time}, 0, 'OPEN' )
+  </insert> 
+  
+  <update id="closeEvent" parameterType="Date">
+  	<![CDATA[
+  		UPDATE AUCTIONITEM SET STATUS='CLOSE'
+  		WHERE AUCTIONTIME <= #{curTime}
+  	]]>
+  </update>
+  
+  <update id="updateCurrentMaxPrice">
+  	UPDATE AUCTIONITEM SET CURRENTPRICE = #{expectPrice}
+  	WHERE ITEMID = #{itemId}
+  </update>
+
+<update id="updateItemPrice" parameterType="BiddingInfo">
+	UPDATE ITEM SET PRICE = #{expectPrice}
+	WHERE ITEMID = #{itemId}
+</update>
+
+	<select id="getSuccessBidder" resultType="BiddingInfo">
+		SELECT EXPECTPRICE, BIDDINGTIME, ITEMID, USERNAME
+		FROM (SELECT EXPECTPRICE, BIDDINGTIME, ITEMID, USERID AS USERNAME FROM BIDDINGINFO ORDER BY EXPECTPRICE DESC)
+		WHERE ITEMID = #{itemId} AND ROWNUM = 1
+	</select>
+	
+	<insert id="insertSuccessBidder" parameterType="BiddingInfo">
+		INSERT INTO SUCCESSBID (SUCCESSBIDDER, BIDDEDPRICE, ITEMID)
+		VALUES
+			(#{username}, #{expectPrice}, #{itemId})
+	</insert>
+
+	<select id="getBidListByItem" resultType="BiddingInfo">
+		SELECT EXPECTPRICE, BIDDINGTIME, USERID AS username FROM BIDDINGINFO WHERE ITEMID = #{itemId} ORDER BY EXPECTPRICE DESC
+	</select>
+
   <select id="getItemListByProduct" resultType="Item">
     SELECT
       I.ITEMID,
@@ -38,7 +78,8 @@
 		GENDER,
 		CONTENT,
 		IMAGE,
-		CLASSIFY
+		CLASSIFY,
+		STATUS
 	FROM ITEM
 	WHERE ITEMID = #{ITEMID} 
    
@@ -88,11 +129,12 @@
 				ITEM.SHIPWAY AS "item.shipway",
 				ITEM.IMAGE AS "item.image",
 				ITEM.SPECIES AS "item.name",
+				ITEM.STATUS AS "item.status",
 				AUCTIONITEM.AUCTIONTIME AS time,
 				AUCTIONITEM.BEGINPRICE AS beginPrice,
 				AUCTIONITEM.LIMITPRICE AS limitPrice,
 				AUCTIONITEM.CURRENTPRICE AS currentPrice,
-				AUCTIONITEM.AUCTIONSTATUS AS actionStatus
+				AUCTIONITEM.AUCTIONSTATUS AS auctionStatus
 			FROM AUCTIONITEM, ITEM
 			WHERE AUCTIONITEM.ITEMID = ITEM.ITEMID AND ITEM.ITEMID = #{itemId}  
 	</select>
@@ -114,6 +156,12 @@
   	FROM PRODUCT
   	WHERE NAME = #{species, jdbcType=VARCHAR}
   </select>
+  
+  <update id="updateCloseTime">
+  	UPDATE AUCTIONITEM
+  	SET AUCTIONTIME = #{auctionTime}
+  	WHERE ITEMID = #{itemId}
+  </update>
   
   <insert id="insertNewProduct" parameterType="com.example.jpetstore.domain.Item">
   	<selectKey keyProperty="productId" resultType="String" order="BEFORE">
@@ -137,9 +185,9 @@
   		select 'ITEM-' || TO_CHAR(item_seq.nextval) AS itemId from DUAL
   	</selectKey>
   	INSERT INTO ITEM
-  		(ITEMID, PRODUCTID, USERID, SHIPWAY, PRICE, CATEGORY, SPECIES, CONTENT, GENDER, IMAGE, CLASSIFY)
+  		(ITEMID, PRODUCTID, USERID, STATUS, SHIPWAY, PRICE, CATEGORY, SPECIES, CONTENT, GENDER, IMAGE, CLASSIFY)
   	VALUES
-  		(#{itemId}, #{productId}, #{username}, #{shipway},  #{price}, #{categoryId}, #{name}, #{content, jdbcType=VARCHAR}, #{gender}, #{image}, 'FIXED')
+  		(#{itemId}, #{productId}, #{username}, 'OPEN', #{shipway},  #{price}, #{categoryId}, #{name}, #{content, jdbcType=VARCHAR}, #{gender}, #{image}, 'FIXED')
   </insert>
   
   <insert id="insertInventory">
@@ -154,9 +202,20 @@
   		PRICE,
   		CATEGORY as categoryId,
   		IMAGE,
-  		CLASSIFY
+  		CLASSIFY,
+  		STATUS
   	FROM ITEM
   	WHERE CATEGORY = #{categoryId}
+  </select>
+  
+  <select id="getTopAuction" resultType="HotItem">
+  	<![CDATA[SELECT ITEMID, BIDDER
+  		FROM (select COUNT(USERID) AS BIDDER, AUCTIONITEM.ITEMID AS ITEMID , AUCTIONITEM.AUCTIONSTATUS AS AUCTIONSTATUS 
+  			FROM BIDDINGINFO, AUCTIONITEM WHERE BIDDINGINFO.ITEMID = AUCTIONITEM.ITEMID AND AUCTIONSTATUS='OPEN'
+    		GROUP BY AUCTIONITEM.ITEMID, AUCTIONITEM.AUCTIONSTATUS
+    		ORDER BY BIDDER DESC) 
+  		WHERE ROWNUM <=3 
+  	  	]]>
   </select>
   
   <update id="updateFixedItem" parameterType="Item">
@@ -165,6 +224,12 @@
   		CONTENT = #{content, jdbcType=VARCHAR},
   		GENDER = #{gender}
   	WHERE ITEMID = #{itemId}
+  </update>
+  
+  <update id="updateStatus">
+  	UPDATE ITEM SET
+  		STATUS = 'CLOSE'
+  	WHERE ITEMID = #{value}
   </update>
   
     <update id="updateAuctionItem" parameterType="Item">
@@ -180,9 +245,9 @@
   		select 'ITEM-' || TO_CHAR(item_seq.nextval) AS itemId from DUAL
   	</selectKey>
   	INSERT INTO ITEM
-  		(ITEMID, PRODUCTID, USERID, SHIPWAY, CATEGORY, SPECIES, CONTENT, GENDER, IMAGE, CLASSIFY)
+  		(ITEMID, PRODUCTID, USERID, STATUS, SHIPWAY, CATEGORY, SPECIES, CONTENT, GENDER, IMAGE, CLASSIFY)
   	VALUES
-  		(#{itemId}, #{productId}, #{username}, #{shipway}, #{categoryId}, #{name}, #{content, jdbcType=VARCHAR}, #{gender}, #{image}, 'AUCTION')
+  		(#{itemId}, #{productId}, #{username}, 'OPEN', #{shipway}, #{categoryId}, #{name}, #{content, jdbcType=VARCHAR}, #{gender}, #{image}, 'AUCTION')
   </insert>
   
   <insert id="insertAuctionInfo" parameterType="AuctionItem">

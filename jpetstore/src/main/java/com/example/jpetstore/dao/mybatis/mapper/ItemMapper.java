@@ -16,13 +16,17 @@
 
 package com.example.jpetstore.dao.mybatis.mapper;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
 import com.example.jpetstore.domain.AuctionItem;
 import com.example.jpetstore.domain.BiddingInfo;
+import com.example.jpetstore.domain.HotItem;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.Product;
 
@@ -39,6 +43,22 @@ public interface ItemMapper {
   List<Item> getItemListByProduct(String productId);
 
   List<Item> getItemListByCategory(String categoryId);
+  
+  List<BiddingInfo> getBidListByItem(String itemId);
+  
+  void updateItemPrice(BiddingInfo biddingInfo);
+  
+  void updateStatus(String itemId);
+  
+  void updateCloseTime(@Param("auctionTime")String auctionTime, @Param("itemId")String itemId);
+  
+  List<HotItem> getTopAuction();
+  
+  void updateCurrentMaxPrice(BiddingInfo biddingInfo);
+  
+  void insertSuccessBidder(BiddingInfo biddingInfo);
+  
+  BiddingInfo getSuccessBidder(String itemId);
   
   Item getItem(String itemId);
   
@@ -63,6 +83,9 @@ public interface ItemMapper {
   void insertBid(BiddingInfo biddingInfo);
 
   void insertInventory(Item item);
+  
+  void insertNewEvent(AuctionItem auctionItem);
+  void closeEvent(Date curTime);
 
 
 }

@@ -1,11 +1,15 @@
 package com.example.jpetstore.dao;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
 import com.example.jpetstore.domain.AuctionItem;
 import com.example.jpetstore.domain.BiddingInfo;
+import com.example.jpetstore.domain.HotItem;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.Order;
 
@@ -19,6 +23,16 @@ public interface ItemDao {
 
   List<Item> getItemListByCategory(String categoryId) throws DataAccessException;
   
+  List<BiddingInfo> getBidListByItem(String itemId) throws DataAccessException;
+  
+  void updateCurrentMaxPrice(BiddingInfo biddingInfo) throws DataAccessException;
+  
+  BiddingInfo getSuccessBidder(String itemId) throws DataAccessException;
+  
+  void updateItemPrice(BiddingInfo biddingInfo) throws DataAccessException;
+  
+  void insertSuccessBidder(BiddingInfo biddingInfo) throws DataAccessException;
+  
   Item getItem(String itemId) throws DataAccessException;
   
   void insertFixedItem(Item item) throws DataAccessException;
@@ -28,6 +42,12 @@ public interface ItemDao {
   void insertNewProduct(Item item) throws DataAccessException;
   
   void updateFixedItem(Item item) throws DataAccessException;
+  
+  void updateStatus(String itemId) throws DataAccessException;
+  
+  void updateCloseTime(@Param("auctionTime")String auctionTime, @Param("itemId")String itemId) throws DataAccessException;
+  
+  List<HotItem> getTopAuction() throws DataAccessException;
   
   void insertAuctionItem(Item item) throws DataAccessException;
   
@@ -41,5 +61,10 @@ public interface ItemDao {
 
   void insertInventory(Item item) throws DataAccessException;
 
-
+  void insertNewEvent(AuctionItem auctionItem);
+  
+  void closeEvent(Date curTime);
+  
+  
+  
 }

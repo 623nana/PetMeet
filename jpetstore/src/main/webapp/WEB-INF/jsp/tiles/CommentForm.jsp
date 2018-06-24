@@ -5,7 +5,16 @@
     
 <br />
 <br />
-
+<script>
+function comment(){
+	var comment = document.getElementById('comment.itemComment');
+	if(comment.value == ""){
+		alert('내용을 입력하세요!');
+		return false;
+	}
+	commentForm.submit();
+}
+</script>
 <form:form commandName="commentForm" method="post">
 <table class="table table-bordered">
 	<tr bgcolor="#0ba360">
@@ -32,13 +41,18 @@
 	<tr align="right">
 		<td>
 
-			<input type="submit" class="btn btn-success" name="submit" value="등록">
+			
+			<button class="btn btn-primary" type="button" onclick="comment()">
+                 	등록
+                </button>
 
 			<input type="reset" class="btn btn-success" name="reset" value="취소" />
 
 		</td>
 	</tr>
 </table>
+<br />
+<br />
 <br />
 <br />
 <br />

@@ -1,5 +1,6 @@
 package com.example.jpetstore.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -10,6 +11,7 @@ import com.example.jpetstore.domain.AuctionItem;
 import com.example.jpetstore.domain.BiddingInfo;
 import com.example.jpetstore.domain.Category;
 import com.example.jpetstore.domain.Comment;
+import com.example.jpetstore.domain.HotItem;
 //import com.example.jpetstore.domain.Comment;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.Order;
@@ -25,6 +27,10 @@ import com.example.jpetstore.domain.Message;
  */
 public interface PetStoreFacade {
 
+	void testScheduler(Date closingTime, String itemId);
+	
+	//void testScheduler(Date closingTime, AuctionItem auctionItem);
+	
 	Account getAccount(String username);
 
 	Account getAccount(String username, String password);
@@ -71,6 +77,22 @@ public interface PetStoreFacade {
 	
 	void insertBid(BiddingInfo biddingInfo);
 	
+	void updateCurrentMaxPrice(BiddingInfo biddingInfo);
+	
+	void updateStatus(String itemId);
+	
+	void updateCloseTime(@Param("auctionTime")String auctionTime, @Param("itemId")String itemId);
+	
+	List<HotItem> getTopAuction();
+	
+	BiddingInfo getSuccessBidder(String itemId) throws DataAccessException;
+	
+	 void updateItemPrice(BiddingInfo biddingInfo);
+	
+	 void insertSuccessBidder(BiddingInfo biddingInfo);
+	
+	List<BiddingInfo> getBidListByItem(String itemId);
+	
 	void insertOrder(Order order);
 
 	Order getOrder(int orderId);
@@ -80,6 +102,12 @@ public interface PetStoreFacade {
 	void insertComment(Comment comment) throws DataAccessException;
 	
 	void insertReComment(Comment comment) throws DataAccessException;
+	
+	void deleteComment(@Param("commentId")int commentId, @Param("commentNum")int commentNum) throws DataAccessException;
+	
+	void updateComment(Comment comment) throws DataAccessException;
+	
+	Comment getComment(@Param("commentId")int commentId, @Param("commentNum")int commentNum, @Param("itemId")String itemId) throws DataAccessException;
 	
 	List<Comment> getCommentByItemId(String itemId) throws DataAccessException;
 	

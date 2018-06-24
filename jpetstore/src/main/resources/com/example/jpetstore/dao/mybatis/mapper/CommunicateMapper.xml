@@ -16,6 +16,29 @@
   	WHERE ITEMID = #{value} ORDER BY COMMENTID ASC, COMMENTNUM ASC
   </select>
   
+
+  
+  <delete id="deleteComment">
+  	DELETE FROM ITEMCOMMENT
+  		WHERE COMMENTID = #{commentId} AND COMMENTNUM = #{commentNum}
+  </delete>
+  
+  <update id="updateComment" parameterType="Comment">
+  	UPDATE ITEMCOMMENT SET ITEMCOMMENT = #{itemComment}
+  		WHERE COMMENTID = #{commentId} AND COMMENTNUM = #{commentNum}
+  </update>
+  
+    <select id="getComment" resultType="Comment">
+  	SELECT
+  		ITEMCOMMENT,
+  		COMMENTER AS commenterName,
+  		COMMENTID,
+  		COMMENTNUM,
+  		ITEMID
+  	FROM ITEMCOMMENT
+  	WHERE ITEMID = #{itemId} AND COMMENTID = #{commentId} AND COMMENTNUM = #{commentNum}
+  </select>
+  
   <insert id="insertComment" parameterType="com.example.jpetstore.domain.Comment">
     <selectKey keyProperty="commentId" resultType="int" order="BEFORE">
   		select comm_seq.nextval AS commentId from DUAL
@@ -34,16 +57,7 @@
   			(#{itemComment}, #{commenterName}, #{commentId}, #{commentNum}, #{itemId})
   </insert>
   
-  <update id="updateComment" parameterType="com.example.jpetstore.domain.Comment">
-  	UPDATE ITEMCOMMENT
-  	SET ITEMCOMMENT = #{comment}
-  	WHERE ITEMID = #{itemId} AND COMMENTID = #{commentId} AND COMMENTNUM = #{commentNum}
-  </update>
-  
-  <delete id="deleteComment" parameterType="com.example.jpetstore.domain.Comment">
-  	DELETE FROM ITEMCOMMENT
-  	WHERE ITEMID = #{itemId} AND COMMENTID = #{commentId} AND COMMENTNUM = #{commentNum}
-  </delete>
+
 
     
   <select id="getMessageList" resultType="Message" parameterType="String">

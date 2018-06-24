@@ -25,9 +25,21 @@
         <c:choose>
             	<c:when test="${item.classify.equals('FIXED') }">
             		<font size="2"><b>${item.price} KRW</b></font><br />
+            		<c:if test="${item.status.equals('OPEN') }">
+            			<font size="2"><b>분양이 진행중입니다.</b></font><br />
+            		</c:if>
+            		<c:if test="${item.status.equals('CLOSE') }">
+            			<font size="2"><b>분양이 종료되었습니다.</b></font><br />
+            		</c:if>
             	</c:when>
             	<c:otherwise>
             		<font size="2"><b>경매 상품 입니다.</b></font><br />
+            		<c:if test="${item.status.equals('OPEN') }">
+            			<font size="2"><b>경매가 진행중입니다.</b></font><br />
+            		</c:if>
+            		<c:if test="${item.status.equals('CLOSE') }">
+            			<font size="2"><b>경매가 종료되었습니다.</b></font><br />
+            		</c:if>
             	</c:otherwise>
             </c:choose>
         <font size="2" color="#0ba360">판매자:</font><font size="2">${item.username }</font>

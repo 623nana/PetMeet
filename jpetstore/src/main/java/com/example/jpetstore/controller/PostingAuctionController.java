@@ -1,6 +1,7 @@
 package com.example.jpetstore.controller;
 
 import java.io.FileOutputStream;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
@@ -70,11 +72,18 @@ public class PostingAuctionController {
 	public String onSubmit(
 			HttpServletRequest request, HttpSession session,
 			@RequestParam("file") MultipartFile file,
+			@RequestParam("auctionItem.time")
+			@DateTimeFormat(pattern="yyyy-MM-dd HH:mm") Date closeTime,
 			@ModelAttribute("postingAuction") PostingAuction postingAuction,
 			BindingResult result) throws Exception {
 		
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
+		
+		System.out.println(closeTime);
+		Date closeBid = closeTime;
+
 		if(result.hasErrors()) return formViewName;
+		
 		try {
 			if(postingAuction.isNewPosting()) {
 				System.out.println("insert");
@@ -114,6 +123,8 @@ public class PostingAuctionController {
 					petStore.insertAuctionItem(postingAuction.getAuctionItem().getItem());
 					postingAuction.getAuctionItem().setItemId(postingAuction.getAuctionItem().getItem().getItemId());
 					petStore.insertAuctionInfo(postingAuction.getAuctionItem());
+					petStore.insertInventory(postingAuction.getAuctionItem().getItem());
+					petStore.testScheduler(closeBid, postingAuction.getAuctionItem().getItemId());
 					
 				} else {
 					System.out.println("³Ö¾úÀ½");
@@ -122,6 +133,9 @@ public class PostingAuctionController {
 					petStore.insertAuctionItem(postingAuction.getAuctionItem().getItem());
 					postingAuction.getAuctionItem().setItemId(postingAuction.getAuctionItem().getItem().getItemId());
 					petStore.insertAuctionInfo(postingAuction.getAuctionItem());
+					petStore.insertInventory(postingAuction.getAuctionItem().getItem());
+					System.out.println(postingAuction.getAuctionItem().getItemId());
+					petStore.testScheduler(closeBid, postingAuction.getAuctionItem().getItemId());
 				}
 				
 			}else {
