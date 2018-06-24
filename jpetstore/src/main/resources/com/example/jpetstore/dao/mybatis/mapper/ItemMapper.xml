@@ -18,6 +18,32 @@
   	]]>
   </update>
   
+    <select id="getMyPosting" resultType="Item">
+     SELECT
+       ITEMID,
+		PRODUCTID,
+		USERID AS username,
+		SHIPWAY,
+		PRICE,
+		CATEGORY AS categoryId,
+		SPECIES AS name,
+		GENDER,
+		CONTENT,
+		IMAGE,
+		CLASSIFY,
+		STATUS
+     FROM ITEM
+     WHERE USERID = #{username}
+  </select>
+  
+  <select id="getMyBidding" resultType="BiddingInfo">
+  	SELECT DISTINCT MAX(BIDDINGINFO.EXPECTPRICE) OVER(PARTITION BY BIDDINGINFO.ITEMID) AS maxExpectPrice,
+  	 BIDDINGINFO.ITEMID as itemId,
+  	 AUCTIONITEM.AUCTIONSTATUS AS "auctionItem.auctionStatus"
+  	FROM BIDDINGINFO, AUCTIONITEM
+  	WHERE BIDDINGINFO.ITEMID = AUCTIONITEM.ITEMID AND BIDDINGINFO.USERID = #{username}
+  </select>
+  
   <update id="updateCurrentMaxPrice">
   	UPDATE AUCTIONITEM SET CURRENTPRICE = #{expectPrice}
   	WHERE ITEMID = #{itemId}
@@ -265,11 +291,17 @@
   <select id="getItemListBySpecies" resultType="Item">
   	SELECT
   		ITEMID,
-  		SPECIES as name,
-  		USERID as username,
-  		PRICE,
-  		CATEGORY as categoryId,
-  		IMAGE
+		PRODUCTID,
+		USERID AS username,
+		SHIPWAY,
+		PRICE,
+		CATEGORY AS categoryId,
+		SPECIES AS name,
+		GENDER,
+		CONTENT,
+		IMAGE,
+		CLASSIFY,
+		STATUS
   	FROM ITEM
   	WHERE SPECIES LIKE '%' ||  #{name} || '%'
   </select>
@@ -277,14 +309,22 @@
   <select id="getItemListByUserId" resultType="Item">
   	SELECT
   		ITEMID,
-  		SPECIES as name,
-  		USERID as username,
-  		PRICE,
-  		CATEGORY as categoryId,
-  		IMAGE
+		PRODUCTID,
+		USERID AS username,
+		SHIPWAY,
+		PRICE,
+		CATEGORY AS categoryId,
+		SPECIES AS name,
+		GENDER,
+		CONTENT,
+		IMAGE,
+		CLASSIFY,
+		STATUS
   	FROM ITEM
   	WHERE USERID LIKE '%' || #{username} || '%'
   </select>
+  
+  
   
   
 </mapper>

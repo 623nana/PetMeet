@@ -158,5 +158,15 @@ public class MybatisItemDao implements ItemDao {
 		cartMapper.deleteCartItemByItemId(itemId);
 
 	}
+	
+	public List<Item> getMyPosting(String userId)
+			throws DataAccessException {
+		return itemMapper.getMyPosting(userId);
+	}
+	
+	public List<BiddingInfo> getMyBidding(String username)
+			throws DataAccessException {
+		return itemMapper.getMyBidding(username);
+	}
 
 }

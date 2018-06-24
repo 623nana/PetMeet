@@ -91,6 +91,9 @@
 	<mvc:view-controller path="/shop/surveyForm.do" view-name="tiles/SurveyForm" />
 	<mvc:view-controller path="/shop/surveyResult.do" view-name="tiles/SurveyResult" />
 	
+	<mvc:view-controller path="/shop/viewMyPosting.do" view-name="tiles/ViewMyPosting" />
+	<mvc:view-controller path="/shop/viewMyBidding.do" view-name="tiles/ViewMyBidding" />
+	
 	<mvc:interceptors>
 		<mvc:interceptor>
     	    <mvc:mapping path="/shop/editAccount.do"/>

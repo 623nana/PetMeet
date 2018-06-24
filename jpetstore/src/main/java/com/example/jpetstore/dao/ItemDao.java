@@ -70,5 +70,10 @@ public interface ItemDao {
   void closeEvent(Date curTime);
   
   void deleteMyItem(String itemId) throws DataAccessException;
+  
+  List<Item> getMyPosting(String userId) throws DataAccessException;
+  
+  List<BiddingInfo> getMyBidding(String username) throws DataAccessException;
+
 
 }

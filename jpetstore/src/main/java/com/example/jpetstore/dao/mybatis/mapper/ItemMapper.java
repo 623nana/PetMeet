@@ -92,7 +92,11 @@ public interface ItemMapper {
   
   List<Item> getItemListByUserId(String userId);
 
-void deleteMyItem(String itemId);
+  void deleteMyItem(String itemId);
+  
+  List<Item> getMyPosting(String userId);
+  
+  List<BiddingInfo> getMyBidding(String username);
 
 
 

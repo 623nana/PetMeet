@@ -5,10 +5,26 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class BiddingInfo implements Serializable {
 	
+	private AuctionItem auctionItem;
 	private int expectPrice;
 	private String itemId;
 	private String username;
 	private String biddingTime;
+	private int maxExpectPrice;
+
+	
+	public AuctionItem getAuctionItem() {
+		return auctionItem;
+	}
+	public void setAuctionItem(AuctionItem auctionItem) {
+		this.auctionItem = auctionItem;
+	}
+	public int getMaxExpectPrice() {
+		return maxExpectPrice;
+	}
+	public void setMaxExpectPrice(int maxExpectPrice) {
+		this.maxExpectPrice = maxExpectPrice;
+	}
 	
 	public int getExpectPrice() {
 		return expectPrice;

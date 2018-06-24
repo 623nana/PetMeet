@@ -177,5 +177,15 @@
 		<put-attribute name="body"
 			value="/WEB-INF/jsp/tiles/SearchItemList.jsp" />
 	</definition>
+	
+	<definition name="tiles/ViewMyPosting" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/ViewMyPosting.jsp" />
+	</definition>
+	
+	<definition name="tiles/ViewMyBidding" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/ViewMyBidding.jsp" />
+	</definition>
 
 </tiles-definitions>
