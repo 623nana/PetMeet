@@ -139,6 +139,7 @@ public class MybatisItemDao implements ItemDao {
 	
 	public List<HotItem> getTopAuction(){
 		return itemMapper.getTopAuction();
+	}
 
 	public List<Item> getItemListBySpecies(String species)
 			throws DataAccessException {
@@ -148,6 +149,7 @@ public class MybatisItemDao implements ItemDao {
 	public List<Item> getItemListByUserId(String uesrId)
 			throws DataAccessException {
 		return itemMapper.getItemListByUserId(uesrId);
+	}
 
 	@Override
 	public void deleteMyItem(String itemId) throws DataAccessException {
