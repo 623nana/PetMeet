@@ -164,6 +164,17 @@ public class OrderController {
 		
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
 		petStore.deleteCartItemByUsername(userSession.getAccount().getUsername());
+		
+		for(int i = 0; i < orderForm.getOrder().getLineItems().size(); i++) {
+			String itemid = orderForm.getOrder().getLineItems().get(i).getItemId();
+			boolean isInStock = petStore.isItemInStock(itemid);
+			System.out.println(isInStock);
+		
+			if(!isInStock) {
+				petStore.updateStatus(itemid);
+			}
+		}
+		
 		return mav;
 	}
 		
