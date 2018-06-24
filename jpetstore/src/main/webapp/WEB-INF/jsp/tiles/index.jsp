@@ -118,18 +118,28 @@ img {vertical-align: middle;}
 <div class="slideshow-container">
 
 <div class="mySlides fade">
-  <img src="${pageContext.request.contextPath}/slide1.png" style="width:100%">
-  <div class="text"><a href="#" class="slide-btn">분양하러가기</a></div>
+  <img src="${pageContext.request.contextPath}/slide_dog.png" style="width:100%">
+  <div class="text"><a href="<c:url value="/shop/viewCategory.do?categoryId=DOGS"/>" class="slide-btn">분양하러가기</a></div>
 </div>
 
 <div class="mySlides fade">
-  <img src="${pageContext.request.contextPath}/slide2.png" style="width:100%">
-  <div class="text"><a href="#" class="slide-btn">분양하러가기</a></div>
+  <img src="${pageContext.request.contextPath}/slide_cat.png" style="width:100%">
+  <div class="text"><a href="<c:url value="/shop/viewCategory.do?categoryId=CATS"/>" class="slide-btn">분양하러가기</a></div>
 </div>
 
 <div class="mySlides fade">
-  <img src="${pageContext.request.contextPath}/dog2.png" style="width:100%">
-  <div class="text"><a href="#" class="slide-btn">분양하러가기</a></div>
+  <img src="${pageContext.request.contextPath}/slide_fish.png" style="width:100%">
+  <div class="text"><a href="<c:url value="/shop/viewCategory.do?categoryId=FISH"/>" class="slide-btn">분양하러가기</a></div>
+</div>
+
+<div class="mySlides fade">
+  <img src="${pageContext.request.contextPath}/slide_reptile.png" style="width:100%">
+  <div class="text"><a href="<c:url value="/shop/viewCategory.do?categoryId=REPTILE"/>" class="slide-btn">분양하러가기</a></div>
+</div>
+
+<div class="mySlides fade">
+  <img src="${pageContext.request.contextPath}/slide_bird.png" style="width:100%">
+  <div class="text"><a href="<c:url value="/shop/viewCategory.do?categoryId=BIRD"/>" class="slide-btn">분양하러가기</a></div>
 </div>
 
 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -141,8 +151,11 @@ img {vertical-align: middle;}
 <div style="text-align:center">
   <span class="dot" onclick="currentSlide(1)"></span> 
   <span class="dot" onclick="currentSlide(2)"></span> 
-  <span class="dot" onclick="currentSlide(3)"></span> 
+  <span class="dot" onclick="currentSlide(3)"></span>
+  <span class="dot" onclick="currentSlide(4)"></span>
+  <span class="dot" onclick="currentSlide(5)"></span>
 </div>
+
 <div style="margin-left:350px">
 <p><i class="fa fa-fire" style="font-size:24px;color:#ff0000"></i><b> 핫한 경매상품 </b></p>
 </div>
