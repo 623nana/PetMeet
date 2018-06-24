@@ -118,17 +118,17 @@ img {vertical-align: middle;}
 <div class="slideshow-container">
 
 <div class="mySlides fade">
-  <img src="../slide1.png" style="width:100%">
+  <img src="${pageContext.request.contextPath}/slide1.png" style="width:100%">
   <div class="text"><a href="#" class="slide-btn">분양하러가기</a></div>
 </div>
 
 <div class="mySlides fade">
-  <img src="../slide2.png" style="width:100%">
+  <img src="${pageContext.request.contextPath}/slide2.png" style="width:100%">
   <div class="text"><a href="#" class="slide-btn">분양하러가기</a></div>
 </div>
 
 <div class="mySlides fade">
-  <img src="../slide3.png" style="width:100%">
+  <img src="${pageContext.request.contextPath}/dog2.png" style="width:100%">
   <div class="text"><a href="#" class="slide-btn">분양하러가기</a></div>
 </div>
 
@@ -143,6 +143,39 @@ img {vertical-align: middle;}
   <span class="dot" onclick="currentSlide(2)"></span> 
   <span class="dot" onclick="currentSlide(3)"></span> 
 </div>
+<div style="margin-left:350px">
+<p><i class="fa fa-fire" style="font-size:24px;color:#ff0000"></i><b> 핫한 경매상품 </b></p>
+</div>
+<div class="row">
+  <div class="col-sm-2"></div>
+<c:forEach var="hotItem" items="${item}">
+<div class="col-xs-6 col-md-3">
+    <div class="thumbnail">
+      <img class="img-thumbnail" src="${pageContext.request.contextPath}/images/${hotItem.image}" width="242" height="200">
+      <div class="caption">
+        <h3>${hotItem.name}</h3>
+                  <font size="2"><b>경매 상품 입니다.</b></font><br />
+                  <c:if test="${hotItem.status.equals('OPEN') }">
+                     <font size="2"><b>경매가 진행중입니다.</b></font><br />
+                  </c:if>
+                  <c:if test="${hotItem.status.equals('CLOSE') }">
+                     <font size="2"><b>경매가 종료되었습니다.</b></font><br />
+                  </c:if>
+        <font size="2" color="#0ba360">판매자:</font><font size="2">${hotItem.username }</font>
+        <br /><br />
+        <p>
+
+                  <a href='<c:url value="/shop/viewAuctionItem.do">
+                     <c:param name="itemId" value="${hotItem.itemId}"/></c:url>' class="btn btn-primary" role="button">구매하기</a></p>
+      </div>
+  </div>
+</div>
+      </c:forEach>
+<br />
+</div>
+
+
+
 <script>
 var slideIndex = 1;
 showSlides(slideIndex);

@@ -54,8 +54,13 @@
             <c:param name="userId" value="${item.username}"/></c:url>' class="btn btn-primary" role="button">직거래</a>
  </c:if>
 <P>
- <a href='<c:url value="/shop/addItemToCart.do">
-            <c:param name="workingItemId" value="${item.itemId}"/></c:url>' class="btn btn-primary" role="button"><i class="fa fa-cart-arrow-down"></i>&nbsp;장바구니</a>
+
+	<c:if test="${!item.username.equals(userSession.account.username) && item.status.equals('OPEN')}">
+	<a href='<c:url value="/shop/newDirectOrder.do">
+            <c:param name="itemId" value="${item.itemId}"/><c:param name="userId" value="${item.username}"/></c:url>' class="btn btn-primary" role="button">바로구매</a>
+   <a href='<c:url value="/shop/addItemToCart.do">
+            <c:param name="workingItemId" value="${item.itemId}"/></c:url>' class="btn btn-primary" role="button"><i class="fa fa-cart-arrow-down"></i>&nbsp;장바구니</a></c:if>
+
    <c:if test="${item.username.equals(userSession.account.username)}">
    <a href='<c:url value="/shop/postItem.do">
             <c:param name="itemId" value="${item.itemId}"/></c:url>' class="btn btn-primary" role="button">수정</a>
@@ -64,6 +69,10 @@
             </c:if>
 </P>
 <hr>
+<c:if test="${item.status.equals('CLOSE') }">
+<p><b><i class="fa fa-paw" style="font-size:24px;color:#0ba360"></i>
+분양이 완료된 동물입니다.</b>
+</c:if>
 </div>
 
 

@@ -2,6 +2,7 @@ package com.example.jpetstore.dao.mybatis;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,15 +37,19 @@ public class MybatisCommunicateDao implements CommunicateDao {
 	}
 
 	@Override
-	public void deleteComment(String itemId, int commentId, int commentNum) throws DataAccessException {
-		// TODO Auto-generated method stub
+	public void deleteComment(@Param("commentId")int commentId, @Param("commentNum")int commentNum) throws DataAccessException {
+		communicateMapper.deleteComment(commentId, commentNum);
 		
 	}
 
 	@Override
-	public void updateComment(String itemId, int commentId, int commentNum) throws DataAccessException {
-		// TODO Auto-generated method stub
+	public void updateComment(Comment comment) throws DataAccessException {
+		communicateMapper.updateComment(comment);
 		
+	}
+	
+	public Comment getComment(@Param("commentId")int commentId, @Param("commentNum")int commentNum, @Param("itemId")String itemId) throws DataAccessException{
+		return communicateMapper.getComment(commentId, commentNum, itemId);
 	}
 
 	@Override

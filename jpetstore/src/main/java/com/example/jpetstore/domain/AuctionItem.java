@@ -2,7 +2,6 @@ package com.example.jpetstore.domain;
 
 import java.io.Serializable;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 @SuppressWarnings("serial")
 public class AuctionItem implements Serializable {
@@ -12,7 +11,7 @@ public class AuctionItem implements Serializable {
 	private int beginPrice;
 	private int limitPrice;
 	private int currentPrice;
-	private int auctionStatus;
+	private String auctionStatus;
 	private int auctionTime;
 	private String time;
 	
@@ -52,10 +51,10 @@ public class AuctionItem implements Serializable {
 	public void setCurrentPrice(int currentPrice) {
 		this.currentPrice = currentPrice;
 	}
-	public int getAuctionStatus() {
+	public String getAuctionStatus() {
 		return auctionStatus;
 	}
-	public void setAuctionStatus(int auctionStatus) {
+	public void setAuctionStatus(String auctionStatus) {
 		this.auctionStatus = auctionStatus;
 	}
 	public int getAuctionTime() {

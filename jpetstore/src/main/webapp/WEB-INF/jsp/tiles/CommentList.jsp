@@ -28,11 +28,29 @@
 						<td>
 						<font color="#0ba360"><i class="fa fa-user" style="font-size:24px"></i> <c:out value="${Comment.commenterName}" /></font>
 				</c:if>
+				<c:if test="${ Comment.commenterName ne userSession.account.username}">
 						<a href='<c:url value="/shop/registerComment.do">
             				<c:param name="commentId" value="${Comment.commentId}"/>
             				<c:param name="itemId" value="${Comment.itemId}"/>
-            			</c:url>' class="btn btn-primary" role="button">답글</a></td>
+            			</c:url>' class="btn btn-primary" role="button">답글</a>
+				
+				</c:if>
+				<c:if test="${Comment.commenterName eq userSession.account.username }">
+						<a href='<c:url value="/shop/deleteComment.do">
+            				<c:param name="commentId" value="${Comment.commentId}"/>
+            				<c:param name="commentNum" value="${Comment.commentNum}"/>
+            				<c:param name="itemId" value="${Comment.itemId}"/>
+            			</c:url>' class="btn btn-primary" role="button">삭제</a>
+            			<a href='<c:url value="/shop/updateComment.do">
+            				<c:param name="commentId" value="${Comment.commentId}"/>
+            				<c:param name="commentNum" value="${Comment.commentNum}"/>
+            				<c:param name="itemId" value="${Comment.itemId}"/>
+            			</c:url>' class="btn btn-primary" role="button">수정</a>
+            			
+            			</c:if>
+            			</td>
 				</tr>
+			
 				<tr>
 					<td>
 						<c:out value="${Comment.itemComment }" />
@@ -42,3 +60,6 @@
 		</c:otherwise>
 	</c:choose>
 </table>
+<br />
+<br />
+<br />

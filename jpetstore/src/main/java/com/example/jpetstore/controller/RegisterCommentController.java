@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.jpetstore.domain.Account;
 import com.example.jpetstore.domain.AuctionItem;
+import com.example.jpetstore.domain.BiddingInfo;
 import com.example.jpetstore.domain.Comment;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.service.PetStoreFacade;
@@ -43,16 +44,16 @@ public class RegisterCommentController {
 	@ModelAttribute("reCommentForm")
 	public ReCommentForm formBackingObject(HttpServletRequest request) 
 			throws Exception {
-
 		return new ReCommentForm();
 	}
+	
 	@RequestMapping(value="/shop/registerComment.do", method = RequestMethod.GET)
 	public String showForm() {
 		return formViewName;
 	}
 	
 	
-	@RequestMapping(value= "/shop/registerComment.do", method = RequestMethod.POST)
+	@RequestMapping(value= {"/shop/registerComment.do", "/shop/deleteComment.do"}, method = RequestMethod.POST)
 	public String onSubmit(HttpServletRequest request, HttpSession session,
 			@ModelAttribute("reCommentForm") ReCommentForm reCommentForm,
 			@ModelAttribute("commentForm") CommentForm commentForm,
@@ -79,6 +80,8 @@ public class RegisterCommentController {
 					successViewName = "tiles/ViewItem";
 				} else if(item.getClassify().equals("AUCTION")) {
 					AuctionItem auctionItem = this.petStore.getAuctionItem(itemId);
+					List<BiddingInfo> bidList = this.petStore.getBidListByItem(itemId);
+					model.put("bidList", bidList);
 					model.put("auctionItem", auctionItem);
 					successViewName = "tiles/ViewAuctionItem";
 				}
@@ -109,6 +112,8 @@ public class RegisterCommentController {
 					
 					System.out.println("¿Á¼Ç ¸®´ñ±Û");
 					AuctionItem auctionItem = this.petStore.getAuctionItem(itemId);
+					List<BiddingInfo> bidList = this.petStore.getBidListByItem(itemId);
+					model.put("bidList", bidList);
 					model.put("auctionItem", auctionItem);
 					successViewName = "tiles/ViewAuctionItem";
 				}
@@ -157,7 +162,9 @@ public class RegisterCommentController {
 				} else if(item.getClassify().equals("AUCTION")) {
 					System.out.println("¿Á¼Ç ¿ø´ñ±Û");
 					AuctionItem auctionItem = this.petStore.getAuctionItem(itemId);
+					List<BiddingInfo> bidList = this.petStore.getBidListByItem(itemId);
 					model.put("auctionItem", auctionItem);
+					model.put("bidList", bidList);
 					model.addAttribute("commentId", commentForm.getComment().getCommentId());
 					successViewName = "tiles/ViewAuctionItem";
 				}

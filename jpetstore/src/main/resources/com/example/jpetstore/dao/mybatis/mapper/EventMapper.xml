@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.jpetstore.dao.mybatis.mapper.EventMapper">
+  <cache />
+  <insert id="insertNewEvent" parameterType="hashmap">
+  	INSERT INTO EVENTS (ID, CLOSING_TIME, STATUS)
+  	VALUES (#{curTime}, #{closingTime}, 'OPEN')
+  </insert>
+  
+  <update id="closeEvent" parameterType="Date">
+    <![CDATA[
+     UPDATE EVENTS SET STATUS = 'CLOSE'
+     WHERE CLOSING_TIME <= #{curTime}
+    ]]>
+  </update>
+  
+    <update id="closeAuction" parameterType="Date">
+    <![CDATA[
+     UPDATE AUCTIONITEM SET AUCTIONSTATUS = 'CLOSE'
+     WHERE AUCTIONTIME <= #{curTime}
+    ]]>
+  </update>
+</mapper>

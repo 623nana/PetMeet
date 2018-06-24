@@ -1,6 +1,7 @@
 package com.example.jpetstore.controller;
 
 import java.io.FileOutputStream;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
@@ -78,24 +80,31 @@ public class PostingAuctionController {
 	public String onSubmit(
 			HttpServletRequest request, HttpSession session,
 			@RequestParam("file") MultipartFile file,
+			@RequestParam("auctionItem.time")
+			@DateTimeFormat(pattern="yyyy-MM-dd HH:mm") Date closeTime,
 			@ModelAttribute("postingAuction") PostingAuction postingAuction,
 			BindingResult result) throws Exception {
 		
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
 		
+		System.out.println(closeTime);
+		Date closeBid = closeTime;
+
+
 		postingValidator.validate(postingAuction, result);
+
 		if(result.hasErrors()) return formViewName;
 		
 		try {
 			if(postingAuction.isNewPosting()) {
 				System.out.println("insert");
 				
-				//ÆÄÀÏ¸í Áßº¹ ¿À·ù¸¦ ¾ø¾Ö±â À§ÇÑ
+				//íŒŒì¼ëª… ì¤‘ë³µ ì˜¤ë¥˜ë¥¼ ì—†ì• ê¸° ìœ„í•œ
 				UUID uuid = UUID.randomUUID();
 				
 		        String saveName = uuid.toString()+"_" + file.getOriginalFilename();
 
-		        //º»ÀÎ ÆÄÀÏ °æ·Î·Î ¹Ù²ãÁÖ±â
+		        //ë³¸ì¸ íŒŒì¼ ê²½ë¡œë¡œ ë°”ê¿”ì£¼ê¸°
 		        String savePath = "C:\\Users\\dain\\git\\PetMeet\\jpetstore\\src\\main\\webapp\\images\\";
 		        
 		        FileOutputStream target = new FileOutputStream(savePath + saveName);
@@ -115,8 +124,8 @@ public class PostingAuctionController {
 				
 				String id = petStore.setProductId(postingAuction.getAuctionItem().getItem().getName());
 				
-				if(id == null) { //»ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ Á¾ÀÇ Product ID°¡ Á¸ÀçÇÏÁö ¾Ê´Â °æ¿ì
-					System.out.println("¾øÀ½");
+				if(id == null) { //ì‚¬ìš©ìê°€ ì…ë ¥í•œ ì¢…ì˜ Product IDê°€ ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ê²½ìš°
+					System.out.println("ì—†ìŒ");
 					petStore.insertNewProduct(postingAuction.getAuctionItem().getItem());	
 					String newId = petStore.setProductId(postingAuction.getAuctionItem().getItem().getName());
 					postingAuction.getAuctionItem().getItem().setProductId(newId);
@@ -125,14 +134,19 @@ public class PostingAuctionController {
 					petStore.insertAuctionItem(postingAuction.getAuctionItem().getItem());
 					postingAuction.getAuctionItem().setItemId(postingAuction.getAuctionItem().getItem().getItemId());
 					petStore.insertAuctionInfo(postingAuction.getAuctionItem());
+					petStore.insertInventory(postingAuction.getAuctionItem().getItem());
+					petStore.testScheduler(closeBid, postingAuction.getAuctionItem().getItemId());
 					
 				} else {
-					System.out.println("³Ö¾úÀ½");
+					System.out.println("ë„£ì—ˆìŒ");
 					postingAuction.getAuctionItem().getItem().setProductId(id);
 					postingAuction.getAuctionItem().getItem().setUsername(account.getUsername());
 					petStore.insertAuctionItem(postingAuction.getAuctionItem().getItem());
 					postingAuction.getAuctionItem().setItemId(postingAuction.getAuctionItem().getItem().getItemId());
 					petStore.insertAuctionInfo(postingAuction.getAuctionItem());
+					petStore.insertInventory(postingAuction.getAuctionItem().getItem());
+					System.out.println(postingAuction.getAuctionItem().getItemId());
+					petStore.testScheduler(closeBid, postingAuction.getAuctionItem().getItemId());
 				}
 				
 			}else {
@@ -142,7 +156,7 @@ public class PostingAuctionController {
 			
 		}
 		catch (DataIntegrityViolationException ex) {
-			System.out.println("¿À·ù");
+			System.out.println("ì˜¤ë¥˜");
 			result.rejectValue("item.image", "IMAGE_ERROR");
 			return formViewName;
 			}

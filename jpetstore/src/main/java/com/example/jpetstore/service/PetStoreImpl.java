@@ -1,16 +1,22 @@
 package com.example.jpetstore.service;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.example.jpetstore.controller.UserSession;
 import com.example.jpetstore.dao.AccountDao;
 import com.example.jpetstore.dao.CartDao;
 import com.example.jpetstore.dao.CategoryDao;
 import com.example.jpetstore.dao.CommunicateDao;
+import com.example.jpetstore.dao.EventDao;
 import com.example.jpetstore.dao.ItemDao;
 import com.example.jpetstore.dao.OrderDao;
 import com.example.jpetstore.dao.ProductDao;
@@ -21,6 +27,7 @@ import com.example.jpetstore.domain.AuctionItem;
 import com.example.jpetstore.domain.BiddingInfo;
 import com.example.jpetstore.domain.Category;
 import com.example.jpetstore.domain.Comment;
+import com.example.jpetstore.domain.HotItem;
 import com.example.jpetstore.domain.Item;
 import com.example.jpetstore.domain.Message;
 import com.example.jpetstore.domain.Order;
@@ -82,11 +89,60 @@ public class PetStoreImpl implements PetStoreFacade {
 	private TicketDao ticketDao;
 	@Autowired
 	private CartDao cartDao;
+	
+	@Autowired
+	private EventDao eventDao;
 
 	//-------------------------------------------------------------------------
 	// Operation methods, implementing the PetStoreFacade interface
 	//-------------------------------------------------------------------------
 
+	@Autowired		// applicationContext.xml¿¡ Á¤ÀÇµÈ scheduler °´Ã¼¸¦ ÁÖÀÔ ¹ÞÀ½
+	private ThreadPoolTaskScheduler scheduler;
+	
+public void testScheduler(Date closingTime, String itemId) {
+		
+		Runnable updateTableRunner = new Runnable() {	
+			// anonymous class Á¤ÀÇ
+			@Override
+			public void run() {   // ½ºÄÉÁì·¯¿¡ ÀÇÇØ ¹Ì·¡ÀÇ Æ¯Á¤ ½ÃÁ¡¿¡ ½ÇÇàµÉ ÀÛ¾÷À» Á¤ÀÇ				
+				Date curTime = new Date();
+				// ½ÇÇà ½ÃÁ¡ÀÇ ½Ã°¢À» Àü´ÞÇÏ¿© ±× ½Ã°¢ ÀÌÀüÀÇ closing time °ªÀ» °®´Â eventÀÇ »óÅÂ¸¦ º¯°æ 
+				//eventDao.closeEvent(curTime);	// EVENTS Å×ÀÌºíÀÇ ·¹ÄÚµå °»½Å	
+				eventDao.closeAuction(curTime);
+				
+				
+				System.out.println("¿Á¼Ç" + itemId);
+				
+				BiddingInfo bidInfo = itemDao.getSuccessBidder(itemId);
+				
+				//System.out.println(bidInfo.getUsername());
+				Item item = itemDao.getItem(itemId);
+				
+				if(bidInfo != null) {
+					itemDao.updateItemPrice(bidInfo);
+					cartDao.insertCartItem(item, 1, bidInfo.getUsername());
+					itemDao.insertSuccessBidder(bidInfo);
+					System.out.println("updateTableRunner is executed at " + curTime);
+				}
+				
+				itemDao.updateStatus(itemId);
+				System.out.println("Âü¿©ÀÚ°¡ ¾ø½À´Ï´Ù!");
+				
+			}
+		};
+		
+		HashMap<String, Date> hashMap = new HashMap<String, Date>();
+		hashMap.put("curTime", new Date());			// ÇöÀç ½Ã°¢: PK °ªÀ¸·Î »ç¿ë
+		hashMap.put("closingTime", closingTime);	// ¹Ì·¡ÀÇ Á¾·á ½Ã°¢
+		eventDao.insertNewEvent(hashMap);	// EVENTS Å×ÀÌºí¿¡ ·¹ÄÚµå »ðÀÔ
+
+		// ½ºÄÉÁÙ »ý¼º: closingTime¿¡ updateTableRunner.run() ¸Þ¼Òµå ½ÇÇà
+		scheduler.schedule(updateTableRunner, closingTime);  
+		
+		System.out.println("updateTableRunner has been scheduled to execute at " + closingTime);
+	}
+	
 	public Account getAccount(String username) {
 		return accountDao.getAccount(username);
 	}
@@ -167,11 +223,39 @@ public class PetStoreImpl implements PetStoreFacade {
 		itemDao.insertAuctionItem(item);
 	}
 	
+	public void updateStatus(String itemId) {
+		itemDao.updateStatus(itemId);
+	}
+	
+	public void updateCloseTime(@Param("auctionTime")String auctionTime, @Param("itemId")String itemId) {
+		itemDao.updateCloseTime(auctionTime, itemId);
+	}
+	
 	public void insertBid(BiddingInfo biddingInfo) {
 		itemDao.insertBid(biddingInfo);
 	}
+	
+	public void insertSuccessBidder(BiddingInfo biddingInfo) {
+		itemDao.insertSuccessBidder(biddingInfo);
+	}
+	
+	public void updateCurrentMaxPrice(BiddingInfo biddingInfo) {
+		itemDao.updateCurrentMaxPrice(biddingInfo);
+	}
+	
+	public void updateItemPrice(BiddingInfo biddingInfo) {
+		itemDao.updateItemPrice(biddingInfo);
+	}
+	public BiddingInfo getSuccessBidder(String itemId) {
+		return itemDao.getSuccessBidder(itemId);
+	}	
+	
 	public void insertAuctionInfo(AuctionItem auctionItem) {
 		itemDao.insertAuctionInfo(auctionItem);
+	}
+	
+	public List<BiddingInfo> getBidListByItem(String itemId){
+		return itemDao.getBidListByItem(itemId);
 	}
 	
 	public String setProductId(String name) {
@@ -244,6 +328,18 @@ public class PetStoreImpl implements PetStoreFacade {
 	
 	public void insertReComment(Comment comment) {
 		communicateDao.insertReComment(comment);
+	}
+	
+	public void deleteComment(@Param("commentId")int commentId, @Param("commentNum")int commentNum) {
+		communicateDao.deleteComment(commentId, commentNum);
+	}
+	
+	public void updateComment(Comment comment) {
+		communicateDao.updateComment(comment);
+	}
+	
+	public Comment getComment(@Param("commentId")int commentId, @Param("commentNum")int commentNum, @Param("itemId")String itemId) {
+		return communicateDao.getComment(commentId, commentNum, itemId);
 	}
 	
 	public List<Comment> getCommentByItemId(String itemId) {
@@ -339,7 +435,12 @@ public class PetStoreImpl implements PetStoreFacade {
 		orderDao.insertDirectOrder(directOrder);
 	}
 	
-	//��ǰ �˻�(species, userId)
+
+	public List<HotItem> getTopAuction() {
+		return itemDao.getTopAuction();
+	}
+
+	//»óÇ° °Ë»ö(species, userId)
 	public List<Item> getItemListBySpecies(String species) {
 		return itemDao.getItemListBySpecies(species);
 	}
@@ -363,6 +464,5 @@ public class PetStoreImpl implements PetStoreFacade {
 		itemDao.deleteMyItem(itemId);
 		cartDao.deleteCartItemByItemId(itemId);
 	}
-
 
 }

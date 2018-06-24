@@ -5,19 +5,19 @@
   -->
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" 	
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-       	http://www.springframework.org/schema/beans/spring-beans.xsd
-       	http://www.springframework.org/schema/context
-       	http://www.springframework.org/schema/context/spring-context.xsd
-       	http://www.springframework.org/schema/mvc 				
-		http://www.springframework.org/schema/mvc/spring-mvc.xsd"> 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"> 
 
 	<context:component-scan base-package="com.example.jpetstore.controller" />
 
 	<mvc:annotation-driven/>		<!-- create RequestMappingHandlerMapping -->
+	<mvc:default-servlet-handler/>
 	
 	<!-- ========================= TILES VIEW DEFINITIONS ========================= -->
     <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
@@ -48,8 +48,13 @@
    			<value>10000000</value>
   		</property>
  	</bean>
+
+	
+	<mvc:view-controller path="/shop/index" view-name="tiles/index"/>
+
  	
 	<mvc:view-controller path="/shop/index.do" view-name="tiles/index"/>
+
 	<mvc:view-controller path="/shop/signonForm.do" view-name="tiles/SignonForm"/> 
 	<mvc:view-controller path="/shop/editPostItem.do" view-name="tiles/PostingFixedItem" />
 	<mvc:view-controller path="/shop/postItem.do" view-name="tiles/PostingFixedItem"/>
@@ -71,6 +76,7 @@
 	<mvc:view-controller path="/shop/reSendMessage.do" view-name="tiles/ReSendMessage" />	
 	
 	<mvc:view-controller path="/shop/registerComment.do" view-name="tiles/RegisterReComment" />
+	<mvc:view-controller path="/shop/updateComment.do" view-name="tiles/UpdateComment" />
 	<mvc:view-controller path="/shop/commentList.do" view-name="tiles/CommentList" />
 	<mvc:view-controller path="/shop/readMessagetwo.do" view-name="tiles/ReadMessagetwo" />		
 	<mvc:view-controller path="/shop/reSendMessagetwo.do" view-name="tiles/ReSendMessagetwo" />

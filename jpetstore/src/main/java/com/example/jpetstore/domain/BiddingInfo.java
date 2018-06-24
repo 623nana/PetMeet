@@ -9,6 +9,7 @@ public class BiddingInfo implements Serializable {
 	private String itemId;
 	private String username;
 	private String biddingTime;
+	
 	public int getExpectPrice() {
 		return expectPrice;
 	}
