@@ -97,22 +97,22 @@ public class PetStoreImpl implements PetStoreFacade {
 	// Operation methods, implementing the PetStoreFacade interface
 	//-------------------------------------------------------------------------
 
-	@Autowired		// applicationContext.xml¿¡ Á¤ÀÇµÈ scheduler °´Ã¼¸¦ ÁÖÀÔ ¹ŞÀ½
+	@Autowired		// applicationContext.xmlÂ¿Â¡ ÃÂ¤Ã€Ã‡ÂµÃˆ scheduler Â°Â´ÃƒÂ¼Â¸Â¦ ÃÃ–Ã€Ã” Â¹ÃÃ€Â½
 	private ThreadPoolTaskScheduler scheduler;
 	
 public void testScheduler(Date closingTime, String itemId) {
 		
 		Runnable updateTableRunner = new Runnable() {	
-			// anonymous class Á¤ÀÇ
+			// anonymous class ÃÂ¤Ã€Ã‡
 			@Override
-			public void run() {   // ½ºÄÉÁì·¯¿¡ ÀÇÇØ ¹Ì·¡ÀÇ Æ¯Á¤ ½ÃÁ¡¿¡ ½ÇÇàµÉ ÀÛ¾÷À» Á¤ÀÇ				
+			public void run() {   // Â½ÂºÃ„Ã‰ÃÃ¬Â·Â¯Â¿Â¡ Ã€Ã‡Ã‡Ã˜ Â¹ÃŒÂ·Â¡Ã€Ã‡ Ã†Â¯ÃÂ¤ Â½ÃƒÃÂ¡Â¿Â¡ Â½Ã‡Ã‡Ã ÂµÃ‰ Ã€Ã›Â¾Ã·Ã€Â» ÃÂ¤Ã€Ã‡				
 				Date curTime = new Date();
-				// ½ÇÇà ½ÃÁ¡ÀÇ ½Ã°¢À» Àü´ŞÇÏ¿© ±× ½Ã°¢ ÀÌÀüÀÇ closing time °ªÀ» °®´Â eventÀÇ »óÅÂ¸¦ º¯°æ 
-				//eventDao.closeEvent(curTime);	// EVENTS Å×ÀÌºíÀÇ ·¹ÄÚµå °»½Å	
+				// Â½Ã‡Ã‡Ã  Â½ÃƒÃÂ¡Ã€Ã‡ Â½ÃƒÂ°Â¢Ã€Â» Ã€Ã¼Â´ÃÃ‡ÃÂ¿Â© Â±Ã— Â½ÃƒÂ°Â¢ Ã€ÃŒÃ€Ã¼Ã€Ã‡ closing time Â°ÂªÃ€Â» Â°Â®Â´Ã‚ eventÃ€Ã‡ Â»Ã³Ã…Ã‚Â¸Â¦ ÂºÂ¯Â°Ã¦ 
+				//eventDao.closeEvent(curTime);	// EVENTS Ã…Ã—Ã€ÃŒÂºÃ­Ã€Ã‡ Â·Â¹Ã„ÃšÂµÃ¥ Â°Â»Â½Ã…	
 				eventDao.closeAuction(curTime);
 				
 				
-				System.out.println("¿Á¼Ç" + itemId);
+				System.out.println("Â¿ÃÂ¼Ã‡" + itemId);
 				
 				BiddingInfo bidInfo = itemDao.getSuccessBidder(itemId);
 				
@@ -127,17 +127,17 @@ public void testScheduler(Date closingTime, String itemId) {
 				}
 				
 				itemDao.updateStatus(itemId);
-				System.out.println("Âü¿©ÀÚ°¡ ¾ø½À´Ï´Ù!");
+				System.out.println("Ã‚Ã¼Â¿Â©Ã€ÃšÂ°Â¡ Â¾Ã¸Â½Ã€Â´ÃÂ´Ã™!");
 				
 			}
 		};
 		
 		HashMap<String, Date> hashMap = new HashMap<String, Date>();
-		hashMap.put("curTime", new Date());			// ÇöÀç ½Ã°¢: PK °ªÀ¸·Î »ç¿ë
-		hashMap.put("closingTime", closingTime);	// ¹Ì·¡ÀÇ Á¾·á ½Ã°¢
-		eventDao.insertNewEvent(hashMap);	// EVENTS Å×ÀÌºí¿¡ ·¹ÄÚµå »ğÀÔ
+		hashMap.put("curTime", new Date());			// Ã‡Ã¶Ã€Ã§ Â½ÃƒÂ°Â¢: PK Â°ÂªÃ€Â¸Â·Ã Â»Ã§Â¿Ã«
+		hashMap.put("closingTime", closingTime);	// Â¹ÃŒÂ·Â¡Ã€Ã‡ ÃÂ¾Â·Ã¡ Â½ÃƒÂ°Â¢
+		eventDao.insertNewEvent(hashMap);	// EVENTS Ã…Ã—Ã€ÃŒÂºÃ­Â¿Â¡ Â·Â¹Ã„ÃšÂµÃ¥ Â»Ã°Ã€Ã”
 
-		// ½ºÄÉÁÙ »ı¼º: closingTime¿¡ updateTableRunner.run() ¸Ş¼Òµå ½ÇÇà
+		// Â½ÂºÃ„Ã‰ÃÃ™ Â»Ã½Â¼Âº: closingTimeÂ¿Â¡ updateTableRunner.run() Â¸ÃÂ¼Ã’ÂµÃ¥ Â½Ã‡Ã‡Ã 
 		scheduler.schedule(updateTableRunner, closingTime);  
 		
 		System.out.println("updateTableRunner has been scheduled to execute at " + closingTime);
@@ -435,8 +435,34 @@ public void testScheduler(Date closingTime, String itemId) {
 		orderDao.insertDirectOrder(directOrder);
 	}
 	
+
 	public List<HotItem> getTopAuction() {
 		return itemDao.getTopAuction();
+	}
+
+	//Â»Ã³Ã‡Â° Â°Ã‹Â»Ã¶(species, userId)
+	public List<Item> getItemListBySpecies(String species) {
+		return itemDao.getItemListBySpecies(species);
+	}
+	
+	public List<Item> getItemListByUserId(String userId) {
+		return itemDao.getItemListByUserId(userId);
+	}
+
+	@Override
+	public boolean isAccount(String username) {
+		// TODO Auto-generated method stub
+		if (accountDao.isAccount(username))
+			return true;
+		else
+			return false;
+	}
+
+	@Override
+	public void deleteMyItem(String itemId) {
+		// TODO Auto-generated method stub
+		itemDao.deleteMyItem(itemId);
+		cartDao.deleteCartItemByItemId(itemId);
 	}
 
 }

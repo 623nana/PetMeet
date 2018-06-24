@@ -48,9 +48,13 @@
    			<value>10000000</value>
   		</property>
  	</bean>
-	
+
 	
 	<mvc:view-controller path="/shop/index" view-name="tiles/index"/>
+
+ 	
+	<mvc:view-controller path="/shop/index.do" view-name="tiles/index"/>
+
 	<mvc:view-controller path="/shop/signonForm.do" view-name="tiles/SignonForm"/> 
 	<mvc:view-controller path="/shop/editPostItem.do" view-name="tiles/PostingFixedItem" />
 	<mvc:view-controller path="/shop/postItem.do" view-name="tiles/PostingFixedItem"/>
@@ -83,6 +87,10 @@
 	<mvc:view-controller path="/shop/directShippingForm.do" view-name="tiles/DirectShippingForm" />
 	<mvc:view-controller path="/shop/newDirectOrderNoShip.do" view-name="tiles/DirectOrderNoShip" />
 	
+	<mvc:view-controller path="/shop/searchItem.do" view-name="tiles/SearchItemList" />
+	<mvc:view-controller path="/shop/surveyForm.do" view-name="tiles/SurveyForm" />
+	<mvc:view-controller path="/shop/surveyResult.do" view-name="tiles/SurveyResult" />
+	
 	<mvc:interceptors>
 		<mvc:interceptor>
     	    <mvc:mapping path="/shop/editAccount.do"/>
@@ -95,4 +103,14 @@
         	<bean class="com.example.jpetstore.controller.SignonInterceptor" />
     	</mvc:interceptor>
 	</mvc:interceptors>
+	
+	<bean class="org.springframework.context.support.ResourceBundleMessageSource" id="messageSource">
+		<property name="basenames">
+		<list>
+		<value>messages.validation_account_form</value>
+		<value>messages.validation_order</value>
+		<value>messages.validation_message</value>
+		<value>messages.validation_posting_form</value>
+		</list></property>
+		</bean>
 </beans>

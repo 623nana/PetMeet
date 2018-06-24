@@ -33,31 +33,41 @@
 <p><b><i class="fa fa-handshake-o" style="font-size:24px;color:#0ba360"></i>
  배송 방법 : </b>
  <c:if test="${item.shipway eq 1 }">
- 직거래만 가능한 상품입니다.
-  <select class="form-control" id="shipway" name="shipway">
-		        		<option value="1">직거래</option></select>
- </c:if>
+ 직거래만 가능한 상품입니다.<br />
+	<a href='<c:url value="/shop/newDirectOrderNoShip.do">
+            <c:param name="itemId" value="${item.itemId}"/>
+            <c:param name="userId" value="${item.username}"/></c:url>' class="btn btn-primary" role="button">직거래</a>
+   </c:if>
  <c:if test="${item.shipway eq 2}">
-택배거래만 가능한 상품입니다.
-  <select class="form-control" id="shipway" name="shipway">
-		        		<option value="2">택배거래</option></select>
+택배거래만 가능한 상품입니다.<br />
+	<a href='<c:url value="/shop/newDirectOrder.do">
+            <c:param name="itemId" value="${item.itemId}"/>
+            <c:param name="userId" value="${item.username}"/></c:url>' class="btn btn-primary" role="button">바로구매</a>
  </c:if>
   <c:if test="${item.shipway eq 3 }">
-직거래와 택배거래 모두 가능한 상품입니다.
-  <select class="form-control" id="shipway" name="shipway">
-		        		<option value="1">직거래</option>
-		        		<option value="2">택배거래</option></select>
+직거래와 택배거래 모두 가능한 상품입니다.<br />
+	<a href='<c:url value="/shop/newDirectOrder.do">
+            <c:param name="itemId" value="${item.itemId}"/>
+            <c:param name="userId" value="${item.username}"/></c:url>' class="btn btn-primary" role="button">바로구매</a>
+    	<a href='<c:url value="/shop/newDirectOrderNoShip.do">
+            <c:param name="itemId" value="${item.itemId}"/>
+            <c:param name="userId" value="${item.username}"/></c:url>' class="btn btn-primary" role="button">직거래</a>
  </c:if>
 <P>
+
 	<c:if test="${!item.username.equals(userSession.account.username) && item.status.equals('OPEN')}">
 	<a href='<c:url value="/shop/newDirectOrder.do">
             <c:param name="itemId" value="${item.itemId}"/><c:param name="userId" value="${item.username}"/></c:url>' class="btn btn-primary" role="button">바로구매</a>
    <a href='<c:url value="/shop/addItemToCart.do">
             <c:param name="workingItemId" value="${item.itemId}"/></c:url>' class="btn btn-primary" role="button"><i class="fa fa-cart-arrow-down"></i>&nbsp;장바구니</a></c:if>
+
    <c:if test="${item.username.equals(userSession.account.username)}">
    <a href='<c:url value="/shop/postItem.do">
-            <c:param name="itemId" value="${item.itemId}"/></c:url>' class="btn btn-primary" role="button">수정</a></c:if>         
-            </P>
+            <c:param name="itemId" value="${item.itemId}"/></c:url>' class="btn btn-primary" role="button">수정</a>
+   <a href='<c:url value="/shop/deletePosting.do">
+            <c:param name="itemId" value="${item.itemId}"/></c:url>' class="btn btn-primary" role="button">삭제</a>
+            </c:if>
+</P>
 <hr>
 <c:if test="${item.status.equals('CLOSE') }">
 <p><b><i class="fa fa-paw" style="font-size:24px;color:#0ba360"></i>

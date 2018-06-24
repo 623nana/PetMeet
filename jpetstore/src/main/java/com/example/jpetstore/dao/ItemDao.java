@@ -60,11 +60,15 @@ public interface ItemDao {
   void insertBid(BiddingInfo biddingInfo) throws DataAccessException;
 
   void insertInventory(Item item) throws DataAccessException;
+  
+  List<Item> getItemListBySpecies(String species) throws DataAccessException;
+  
+  List<Item> getItemListByUserId(String userId) throws DataAccessException;
 
   void insertNewEvent(AuctionItem auctionItem);
   
   void closeEvent(Date curTime);
   
-  
-  
+  void deleteMyItem(String itemId) throws DataAccessException;
+
 }

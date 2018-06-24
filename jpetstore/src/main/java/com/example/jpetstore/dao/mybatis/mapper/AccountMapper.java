@@ -43,5 +43,7 @@ public interface AccountMapper {
   void updateProfile(Account account);
 
   void updateSignon(Account account);
+  
+  boolean isAccount(String username);
 
 }

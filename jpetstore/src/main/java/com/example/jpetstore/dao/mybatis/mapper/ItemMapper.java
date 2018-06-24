@@ -85,7 +85,15 @@ public interface ItemMapper {
   void insertInventory(Item item);
   
   void insertNewEvent(AuctionItem auctionItem);
+  
   void closeEvent(Date curTime);
+
+  List<Item> getItemListBySpecies(String species);
+  
+  List<Item> getItemListByUserId(String userId);
+
+void deleteMyItem(String itemId);
+
 
 
 }

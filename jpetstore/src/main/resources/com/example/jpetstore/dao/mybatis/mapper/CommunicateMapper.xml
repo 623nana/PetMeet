@@ -69,6 +69,7 @@
       MESSAGEID
     FROM MESSAGE
     WHERE RECEIVERID = #{userId}
+    ORDER BY MESSAGEID
   </select>
   
   
@@ -81,6 +82,7 @@
       MESSAGEID
     FROM MESSAGE
     WHERE SENDERID = #{userId}
+    ORDER BY MESSAGEID
   </select>
   
   
@@ -108,7 +110,7 @@
   
   <insert id="sendMessage" parameterType="com.example.jpetstore.domain.Message">
   	<selectKey keyProperty="messageId" resultType="String" order="BEFORE">
-  		select 'message' || TO_CHAR(msg_seq.nextval) AS messageId from DUAL
+  		select msg_seq.nextval AS messageId from DUAL
   	</selectKey>
     INSERT INTO MESSAGE (USERID, RECEIVERID, MESSAGE, SENDERID, MESSAGEID)
     VALUES(#{userId}, #{receiverId}, #{message}, #{senderId}, #{messageId})

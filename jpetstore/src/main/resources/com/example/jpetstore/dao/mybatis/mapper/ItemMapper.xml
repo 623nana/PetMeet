@@ -255,6 +255,36 @@
   		(ITEMID, BEGINPRICE, LIMITPRICE, AUCTIONTIME, CURRENTPRICE, AUCTIONSTATUS)
   	VALUES
   		(#{itemId}, #{beginPrice}, #{limitPrice}, #{time}, 0, 'OPEN' )
-  </insert> 
+  </insert>
+  
+   <delete id="deleteMyItem" parameterType="String">
+  	DELETE FROM ITEM
+  	WHERE ITEMID = #{itemId}
+  </delete> 
+  
+  <select id="getItemListBySpecies" resultType="Item">
+  	SELECT
+  		ITEMID,
+  		SPECIES as name,
+  		USERID as username,
+  		PRICE,
+  		CATEGORY as categoryId,
+  		IMAGE
+  	FROM ITEM
+  	WHERE SPECIES LIKE '%' ||  #{name} || '%'
+  </select>
+  
+  <select id="getItemListByUserId" resultType="Item">
+  	SELECT
+  		ITEMID,
+  		SPECIES as name,
+  		USERID as username,
+  		PRICE,
+  		CATEGORY as categoryId,
+  		IMAGE
+  	FROM ITEM
+  	WHERE USERID LIKE '%' || #{username} || '%'
+  </select>
+  
   
 </mapper>

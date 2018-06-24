@@ -61,10 +61,9 @@
 
     </tbody>
   </table>
-  
+  </div>
   <p>
     <input type="submit" class="btn btn-primary btn-block" name="submit" value="continue">
   </p>
     </form:form>
     </div></div>
-</div>

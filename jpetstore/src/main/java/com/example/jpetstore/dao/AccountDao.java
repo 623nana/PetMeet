@@ -16,4 +16,5 @@ public interface AccountDao {
 
   List<String> getUsernameList() throws DataAccessException;
 
+  boolean isAccount(String username) throws DataAccessException;
 }

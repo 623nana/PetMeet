@@ -11,9 +11,9 @@
   <div class="col-sm-3"></div>
   <div class="col-sm-7">
   	<div class="panel panel-success">
-      <div class="panel-heading"><B>보낸 쪽지 자세히 보기</B></div>
+      <div class="panel-heading"><h1><B>보낸 쪽지 자세히 보기</B></h1></div>
       <div class="panel-body">
-      	<table>
+      	<table class="table">
       		<tr>
       			<th>받는 사람</th>
       			<td><c:out value="${readMessagetwo.receiverId}" /></td>

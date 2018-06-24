@@ -193,6 +193,9 @@ public class Order implements Serializable {
 	    courier = "UPS";
 	    locale = "CA";
 	    status = "P";
+	    
+	    this.item = item;
+	    addLineItem(item);
 
 	  }
 
@@ -242,6 +245,13 @@ public class Order implements Serializable {
 
   public void addLineItem(LineItem lineItem) {
     lineItems.add(lineItem);
+  }
+  
+  public void addLineItem(Item item) {
+	  CartItem cartItem = new CartItem();
+	  cartItem.setItem(item);
+	  LineItem lineItem = new LineItem(lineItems.size() + 1, cartItem);
+	  lineItems.add(lineItem);
   }
 public Item getItem() {
 	return item;

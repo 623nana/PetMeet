@@ -159,4 +159,23 @@
 			value="/WEB-INF/jsp/tiles/NewDirectOrderNoShip.jsp" />			
 	</definition>
 
+	<definition name="tiles/DirectShippingForm" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/DirectShippingForm.jsp" />			
+
+		<definition name="tiles/SurveyForm" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/SurveyForm.jsp" />
+	</definition>
+	
+	<definition name="tiles/SurveyResult" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/SurveyResult.jsp" />
+	</definition>
+	
+	<definition name="tiles/SearchItemList" extends="base_layout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/tiles/SearchItemList.jsp" />
+	</definition>
+
 </tiles-definitions>

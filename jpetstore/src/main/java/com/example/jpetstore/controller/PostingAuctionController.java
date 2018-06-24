@@ -24,7 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.jpetstore.domain.Account;
 import com.example.jpetstore.domain.AuctionItem;
+import com.example.jpetstore.service.MessageValidator;
 import com.example.jpetstore.service.PetStoreFacade;
+import com.example.jpetstore.service.PostingAuctionItemValidator;
 
 @Controller
 @SessionAttributes("userSession")
@@ -37,6 +39,12 @@ public class PostingAuctionController {
 	private String successViewName;
 	@Value("tiles/PostingError")
 	private String errorViewName;
+	
+	@Autowired
+	private PostingAuctionItemValidator postingValidator;
+	public void setValidator(PostingAuctionItemValidator validator) {
+		this.postingValidator = validator;
+	}
 	
 	@Autowired
 	private PetStoreFacade petStore;
@@ -82,19 +90,22 @@ public class PostingAuctionController {
 		System.out.println(closeTime);
 		Date closeBid = closeTime;
 
+
+		postingValidator.validate(postingAuction, result);
+
 		if(result.hasErrors()) return formViewName;
 		
 		try {
 			if(postingAuction.isNewPosting()) {
 				System.out.println("insert");
 				
-				//ÆÄÀÏ¸í Áßº¹ ¿À·ù¸¦ ¾ø¾Ö±â À§ÇÑ
+				//íŒŒì¼ëª… ì¤‘ë³µ ì˜¤ë¥˜ë¥¼ ì—†ì• ê¸° ìœ„í•œ
 				UUID uuid = UUID.randomUUID();
 				
 		        String saveName = uuid.toString()+"_" + file.getOriginalFilename();
 
-		        //º»ÀÎ ÆÄÀÏ °æ·Î·Î ¹Ù²ãÁÖ±â
-		        String savePath = "C:\\Users\\HyeonJeong\\git\\PetMeet\\jpetstore\\src\\main\\webapp\\images\\";
+		        //ë³¸ì¸ íŒŒì¼ ê²½ë¡œë¡œ ë°”ê¿”ì£¼ê¸°
+		        String savePath = "C:\\Users\\dain\\git\\PetMeet\\jpetstore\\src\\main\\webapp\\images\\";
 		        
 		        FileOutputStream target = new FileOutputStream(savePath + saveName);
 		        
@@ -113,8 +124,8 @@ public class PostingAuctionController {
 				
 				String id = petStore.setProductId(postingAuction.getAuctionItem().getItem().getName());
 				
-				if(id == null) { //»ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ Á¾ÀÇ Product ID°¡ Á¸ÀçÇÏÁö ¾Ê´Â °æ¿ì
-					System.out.println("¾øÀ½");
+				if(id == null) { //ì‚¬ìš©ìê°€ ì…ë ¥í•œ ì¢…ì˜ Product IDê°€ ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ê²½ìš°
+					System.out.println("ì—†ìŒ");
 					petStore.insertNewProduct(postingAuction.getAuctionItem().getItem());	
 					String newId = petStore.setProductId(postingAuction.getAuctionItem().getItem().getName());
 					postingAuction.getAuctionItem().getItem().setProductId(newId);
@@ -127,7 +138,7 @@ public class PostingAuctionController {
 					petStore.testScheduler(closeBid, postingAuction.getAuctionItem().getItemId());
 					
 				} else {
-					System.out.println("³Ö¾úÀ½");
+					System.out.println("ë„£ì—ˆìŒ");
 					postingAuction.getAuctionItem().getItem().setProductId(id);
 					postingAuction.getAuctionItem().getItem().setUsername(account.getUsername());
 					petStore.insertAuctionItem(postingAuction.getAuctionItem().getItem());
@@ -145,7 +156,7 @@ public class PostingAuctionController {
 			
 		}
 		catch (DataIntegrityViolationException ex) {
-			System.out.println("¿À·ù");
+			System.out.println("ì˜¤ë¥˜");
 			result.rejectValue("item.image", "IMAGE_ERROR");
 			return formViewName;
 			}
